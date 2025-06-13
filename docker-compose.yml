@@ -11,8 +11,8 @@ services:
       # Volume nomeado para persistir os dados do MongoDB
       - mongodb_data:/data/db
       # Monta o script para criar o usuário da aplicação no MongoDB
-      # Este script é executado apenas na primeira inicialização do contêiner MongoDB
-      - ./backend/init-mongo-app-user.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      # AGORA CORRIGIDO: O caminho deve ser relativo ao diretório do docker-compose.yml
+      - ./init-mongo-app-user.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
     environment:
       # Variáveis usadas pelo Docker para configurar o usuário root interno do MongoDB
       # e pelo init-mongo-app-user.js para criar o usuário da aplicação.
@@ -31,9 +31,9 @@ services:
     ports:
       - "5000:5000"
     environment:
-      # URI de conexão com o MongoDB, usando o nome do serviço 'mongodb' e as credenciais
-      # definidas no script init-mongo-app-user.js. O authSource=admin é crucial.
-      MONGO_URI: mongodb://admin:admin@mongodb:27017/mydatabase?authSource=admin
+      # URI de conexão com o MongoDB, usando o nome do serviço 'mongodb' e as credenciais.
+      # AGORA CORRIGIDO: Removido '?authSource=admin' para que a autenticação ocorra no 'mydatabase'.
+      MONGO_URI: mongodb://admin:admin@mongodb:27017/mydatabase
       TENABLE_SECRET_KEY: ${TENABLE_SECRET_KEY} # Variáveis de ambiente lidas do arquivo .env do host
       TENABLE_ACCESS_KEY: ${TENABLE_ACCESS_KEY} # Variáveis de ambiente lidas do arquivo .env do host
       FLASK_DEBUG: 1 # Ativa o modo debug do Flask (bom para desenvolvimento)
@@ -47,7 +47,6 @@ services:
       - ./shared_data:/app/shared_data
       # Mapeia o arquivo de configuração do backend
       - ./backend/config.json:/app/config.json
-      # REMOVIDO: - /app/node_modules (o backend é Python, não usa módulos Node.js)
     restart: unless-stopped
 
   frontend:

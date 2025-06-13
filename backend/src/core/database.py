@@ -1,3 +1,4 @@
+import os
 from pymongo import MongoClient
 from typing import Any, Dict, List
 from bson.objectid import ObjectId
@@ -6,7 +7,9 @@ class Database:
     def __init__(self, db_name: str = "mydatabase"):
         # ATENÇÃO: Alterado de "mongodb://localhost:27017/" para "mongodb://mongodb:27017/"
         # 'mongodb' é o nome do serviço MongoDB no docker-compose.yml
-        self.client = MongoClient("mongodb://mongodb:27017/") 
+        MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/mydatabase")
+
+        self.client = MongoClient(MONGO_URI) 
         self.db = self.client[db_name]
 
     def insert_one(self, collection_name: str, data: Dict[str, Any]):
