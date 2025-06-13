@@ -1,0 +1,81 @@
+# Python
+############
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+# virtualenv
+venv/
+venv.bak/
+/htmlcov/
+.coverage
+.tox/
+.hypothesis/
+.pytest_cache/
+# distutils
+.installed.cfg
+*.egg-info/
+.eggs/
+# cython
+*.html
+*.c
+
+# Flask
+############
+instance/
+.flaskenv
+
+# MongoDB
+############
+# Pasta de dados do MongoDB (se não for gerenciada por Docker volumes persistentes)
+# Se você está usando Docker volumes nomeados como 'mongodb_data',
+# não é estritamente necessário ignorar /data/db aqui, mas é uma boa prática
+# para evitar confusão se você rodar o MongoDB diretamente no host.
+/data/db/
+
+# Node.js (Frontend - React/Vite)
+############
+node_modules/
+dist/
+build/
+.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.next/ # Next.js specific (if applicable)
+
+# Logs
+############
+*.log
+logs/
+*.txt # Se você tiver logs em .txt
+
+# Arquivos de Sistema / Temporários
+############
+.DS_Store
+.vscode/ # Configurações do VS Code (opcional, pode ser útil versionar se for compartilhado)
+*.swp
+*~
+.idea/ # Arquivos do PyCharm/IntelliJ (opcional)
+
+# Diretórios Gerados / Saídas
+############
+# IGNORA A PASTA 'json_exports'
+json_exports/
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.bak
+*.tmp
+
+# Relatórios gerados (se forem salvos em disco)
+############
+reports/
+output/
