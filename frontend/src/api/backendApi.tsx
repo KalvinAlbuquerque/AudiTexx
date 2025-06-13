@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_REACT_APP_API_URL;
+const API_BASE_URL = 'http://localhost:5000'; 
 
 if (!API_URL) {
     console.error('VITE_REACT_APP_API_URL não está definido nas variáveis de ambiente.');
@@ -20,6 +21,12 @@ export interface Lista {
     nomeLista: string;
     relatorioGerado?: boolean;
 }
+
+export interface TenableApiKeys {
+    TENABLE_ACCESS_KEY: string;
+    TENABLE_SECRET_KEY: string;
+}
+
 
 export interface ScanData {
     config_id?: string; // Propriedade de WAS Scan
@@ -216,12 +223,17 @@ export const vulnerabilitiesApi = {
 
 // Nova exportação para Tenable API Keys
 export const tenableApiKeysApi = {
-    getTenableApiKeys: async (): Promise<{ TENABLE_ACCESS_KEY: string; TENABLE_SECRET_KEY: string }> => {
-        const response = await api.get('/api-keys/tenable');
+    getTenableApiKeys: async (): Promise<TenableApiKeys> => {
+        const response = await axios.get(`${API_BASE_URL}/api-keys/tenable`);
         return response.data;
     },
-    updateTenableApiKeys: async (accessKey: string, secretKey: string): Promise<{ message: string }> => {
-        const response = await api.post('/api-keys/tenable', { TENABLE_ACCESS_KEY: accessKey, TENABLE_SECRET_KEY: secretKey });
+
+    updateTenableApiKeys: async (accessKey: string, secretKey: string) => {
+        // CORREÇÃO: Enviando as chaves como snake_case ('access_key', 'secret_key')
+        const response = await axios.post(`${API_BASE_URL}/api-keys/tenable`, {
+            access_key: accessKey,
+            secret_key: secretKey,
+        });
         return response.data;
     },
 };

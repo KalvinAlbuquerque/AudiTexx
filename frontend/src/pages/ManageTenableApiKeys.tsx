@@ -18,7 +18,8 @@ function ManageTenableApiKeys() {
     const fetchApiKeys = async () => {
         setLoading(true);
         try {
-            const keys: TenableApiKeys = await tenableApiKeysApi.getApiKeys();
+            // CORREÇÃO: Nome da função corrigido para getTenableApiKeys
+            const keys: TenableApiKeys = await tenableApiKeysApi.getTenableApiKeys();
             setAccessKey(keys.TENABLE_ACCESS_KEY || '');
             setSecretKey(keys.TENABLE_SECRET_KEY || '');
             if (!keys.TENABLE_ACCESS_KEY || !keys.TENABLE_SECRET_KEY) {
@@ -34,26 +35,15 @@ function ManageTenableApiKeys() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
-
-        if (!accessKey.trim() || !secretKey.trim()) {
-            toast.warn('Ambos os campos de chave da API são obrigatórios.');
-            setLoading(false);
-            return;
-        }
-
+        setLoading(true); // Desabilita o formulário durante o envio
         try {
-            const keysToUpdate: TenableApiKeys = {
-                TENABLE_ACCESS_KEY: accessKey.trim(),
-                TENABLE_SECRET_KEY: secretKey.trim(),
-            };
-            const response = await tenableApiKeysApi.updateApiKeys(keysToUpdate);
-            toast.success(response.message);
-        } catch (error: any) {
+            await tenableApiKeysApi.updateTenableApiKeys(accessKey, secretKey);
+            toast.success('Chaves da API do Tenable atualizadas com sucesso!');
+        } catch (error) {
             console.error('Erro ao atualizar chaves da API Tenable:', error);
-            toast.error(error.response?.data?.error || 'Erro ao atualizar chaves da API Tenable.');
+            toast.error('Erro ao tentar atualizar as chaves da API.');
         } finally {
-            setLoading(false);
+            setLoading(false); // Habilita o formulário novamente
         }
     };
 
