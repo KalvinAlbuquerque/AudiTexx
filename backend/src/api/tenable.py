@@ -73,23 +73,19 @@ class TenableApi:
         """Método auxiliar para fazer requisições de forma robusta."""
         if not self.client:
             logging.error("Cliente Tenable não inicializado. Verifique as chaves da API.")
-            # Retorna um dicionário de erro para o frontend poder tratar
             return {"error": "API keys not configured"}
 
         try:
             response = self.client.request(method, endpoint, **kwargs)
             response.raise_for_status()
             
-            # Se a resposta estiver vazia (ex: status 204), retorna um JSON de sucesso
             if not response.content:
                 return {"status": "success", "message": "Operation completed with no content."}
 
-            # Tenta decodificar como JSON, que é o mais comum
             return response.json()
             
         except httpx.HTTPStatusError as e:
             logging.error(f"Erro de status HTTP para {e.request.url}: {e.response.status_code} - {e.response.text}")
-            # Retorna o erro da API para o frontend, se possível
             try:
                 return e.response.json()
             except Exception:
@@ -110,11 +106,9 @@ class TenableApi:
 
         logging.info(f"Buscando scans na pasta '{folder_name}' para o usuário '{user_name}'")
 
-        # Prepara headers para personificação
         headers_impersonate = self.client.headers.copy()
         headers_impersonate['X-Impersonate'] = f"username={user_name}"
         
-        # Endpoint e payload da sua lógica
         url = "/was/v2/configs/search"
         payload = {
             "field": "folder_name",
@@ -123,13 +117,11 @@ class TenableApi:
         }
         params = {"limit": 200}
 
-        # Realiza a busca
         scans = self._make_request("POST", url, headers=headers_impersonate, json=payload, params=params)
         
-        # Adiciona tratamento de paginação se necessário (opcional, mas recomendado para robustez)
         if scans and isinstance(scans, dict) and scans.get("pagination", {}).get("total", 0) > 200:
             logging.info("Múltiplas páginas de scans encontradas, buscando todas...")
-            # (A lógica de paginação da sua implementação original pode ser adicionada aqui se necessário)
+            # A lógica de paginação pode ser adicionada aqui se necessário.
             pass
 
         return scans if isinstance(scans, dict) else {"error": "Invalid response from Tenable API", "data": scans}
@@ -163,7 +155,7 @@ class TenableApi:
             for scan in response["scans"]:
                 if scan.get("name") == scan_name:
                     logging.info(f"Scan de VM '{scan_name}' encontrado.")
-                    return scan # Retorna o dicionário do scan encontrado
+                    return scan 
         
         logging.warning(f"Scan de VM com nome '{scan_name}' não foi encontrado.")
         return {"error": "Scan not found", "name": scan_name}
@@ -184,11 +176,19 @@ class TenableApi:
         # Endpoint direto para vulnerabilidades (mais eficiente que gerar relatório)
         return self._make_request("GET", f"/was/v2/scans/{scan_id}/vulnerabilities")
 
-    def download_vmscans_csv(self, scan_id: int):
-        """Baixa os resultados de um scan de VM em formato CSV."""
-        logging.info(f"Iniciando exportação CSV para o scan de VM ID: {scan_id}")
-        
+    def download_vmscans_csv(self, scan_id: int, history_id: int = None):
+        """
+        Baixa os resultados de um scan de VM em formato CSV.
+        Se history_id for fornecido, baixa essa execução específica.
+        """
         export_payload = {"format": "csv", "chapters": "vuln_by_host"}
+        
+        if history_id:
+            export_payload["history_id"] = history_id
+            logging.info(f"Iniciando exportação CSV para o histórico {history_id} do scan de VM ID: {scan_id}")
+        else:
+            logging.info(f"Iniciando exportação CSV para a última execução do scan de VM ID: {scan_id}")
+
         export_request = self._make_request("POST", f"/scans/{scan_id}/export", json=export_payload)
         
         if not isinstance(export_request, dict) or "export_uuid" not in export_request:
@@ -198,11 +198,14 @@ class TenableApi:
         export_uuid = export_request["export_uuid"]
         logging.info(f"Exportação iniciada com UUID: {export_uuid}")
 
-        for i in range(15): # Tenta por até 150 segundos
+        for i in range(15): 
             status_response = self._make_request("GET", f"/scans/{scan_id}/export/{export_uuid}/status")
             if isinstance(status_response, dict) and status_response.get("status") == "ready":
                 logging.info("Exportação pronta. Baixando o arquivo...")
-                return self._make_request("GET", f"/scans/{scan_id}/export/{export_uuid}/download")
+                # Para download de CSV, o conteúdo é texto, não JSON
+                download_response = self.client.request("GET", f"/scans/{scan_id}/export/{export_uuid}/download")
+                download_response.raise_for_status()
+                return download_response.text
             
             logging.info(f"Aguardando a exportação ficar pronta... (tentativa {i+1}/15)")
             time.sleep(10)

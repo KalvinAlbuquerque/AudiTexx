@@ -27,14 +27,14 @@ echo ""
 
 # Constrói as imagens e sobe os contêineres em modo detached
 echo -e "${YELLOW}Construindo as imagens e subindo os contêineres...${NC}"
-docker-compose up -d --build
+docker compose up -d --build
 
 # Verifica se os contêineres foram iniciados com sucesso
 if [ $? -eq 0 ]; then
   echo -e "${GREEN}Aplicação iniciada com sucesso!${NC}"
   echo ""
   echo -e "${BLUE}Status dos contêineres:${NC}"
-  docker-compose ps
+  docker compose ps
   echo ""
   echo -e "${GREEN}Sua aplicação frontend deve estar disponível em: http://localhost:3000${NC}"
   echo -e "${GREEN}Seu backend deve estar disponível em: http://localhost:5000${NC}"

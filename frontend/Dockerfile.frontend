@@ -1,26 +1,34 @@
 # frontend/Dockerfile.frontend
 
-# Usa uma imagem base Node.js oficial (para desenvolvimento)
+# Usa uma imagem base Node.js oficial (alpine é leve)
 FROM node:20-alpine
 
 # Define o diretório de trabalho dentro do contêiner
 WORKDIR /app
 
-# Copia os arquivos package.json e package-lock.json
-# Isso permite que o Docker use o cache para a etapa de instalação de dependências
-COPY package*.json ./
+# Copia os arquivos de manifesto de pacotes para o diretório de trabalho.
+COPY package.json package-lock.json ./
 
-# Instala as dependências do Node.js
-# 'npm ci' é mais determinístico do que 'npm install' em ambientes de CI/CD
-RUN npm ci
+# Instala as dependências da aplicação.
+# Também instala 'su-exec', que é uma alternativa leve e segura ao 'sudo',
+# essencial para gerenciar permissões em contêineres Alpine.
+RUN npm ci && apk add --no-cache su-exec
 
-# O restante do código da aplicação (pasta 'src')
-# NÃO precisa ser copiado aqui com 'COPY . .', pois ele será montado
-# via volume pelo docker-compose.yml, permitindo hot-reloading.
+# Copia o restante do código-fonte da aplicação para o contêiner.
+# Embora o docker-compose vá montar o código do host, esta etapa garante
+# que a imagem possa ser executada de forma independente, se necessário.
+COPY . .
 
-# Expõe a porta que o servidor de desenvolvimento do Vite vai rodar
+# Expõe a porta que o servidor de desenvolvimento do Vite vai usar.
 EXPOSE 3000
 
-# Comando para iniciar o servidor de desenvolvimento do Vite
-# O '--host 0.0.0.0' permite que o servidor seja acessível de fora do contêiner
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+# [A SOLUÇÃO DEFINITIVA]
+# Este comando é o ponto central da correção e é executado toda vez que o contêiner inicia.
+# Ele é executado como 'root' (o usuário padrão ao iniciar).
+# 1. `chown -R node:node .`: Esta parte altera o dono de TUDO no diretório
+#    de trabalho atual (`/app`) para o usuário `node`. Isso inclui a pasta `node_modules`
+#    que foi montada pelo Docker, corrigindo o problema de permissão em tempo de execução.
+# 2. `su-exec node npm run dev`: Após corrigir as permissões, este comando
+#    executa o servidor Vite, mas o faz de forma segura como o usuário `node`,
+#    em vez de 'root'.
+CMD ["sh", "-c", "chown -R node:node . && su-exec node npm run dev"]

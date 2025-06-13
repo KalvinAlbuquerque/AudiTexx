@@ -138,8 +138,7 @@ def vm_downloadscans():
         target_dir = os.path.join(config.caminho_shared_jsons, str(list_id))
         os.makedirs(target_dir, exist_ok=True)
         
-        csv_content = tenable_api.download_vmscans_csv(scan_id)
-
+        csv_content = tenable_api.download_vmscans_csv(scan_id=scan_id, history_id=history_id)
         if csv_content and not (isinstance(csv_content, dict) and 'error' in csv_content):
             file_path = os.path.join(target_dir, f"vm_scan_{scan_id}.csv")
             with open(file_path, "w", encoding="utf-8") as f:
