@@ -14,7 +14,7 @@ from bson.objectid import ObjectId
 # Importa a classe Config
 from ..core.config import Config
 # Importa a TenableApi do novo local
-from ..api.tenable import TenableApi
+from ..api.tenable import tenable_api 
 # Importa o Database
 from ..core.database import Database
 
@@ -27,7 +27,6 @@ from ..report_generation.plot_generator import gerar_Grafico_Quantitativo_Vulner
 
 # Inicializa a configuração e a API Tenable
 config = Config("config.json")
-tenable_api = TenableApi()
 
 # CORREÇÃO: Renomear listas_bp para lists_bp para corresponder à importação em main.py
 lists_bp = Blueprint('listas', __name__, url_prefix='/lists') 
