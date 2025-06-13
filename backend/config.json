@@ -1,0 +1,7 @@
+{
+    "caminho_shared_relatorios" : "/app/shared_data/generated_reports",
+    "caminho_shared_jsons" : "/app/shared_data/json_exports",
+    "caminho_report_templates_base" : "/app/shared_data/report_templates/base_report",
+    "caminho_report_templates_descriptions" : "/app/shared_data/report_templates/descriptions"
+}
+

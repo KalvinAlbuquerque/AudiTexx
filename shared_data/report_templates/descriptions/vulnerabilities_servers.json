@@ -1,0 +1,290 @@
+[
+    {
+        "Categoria": "Falta de Proteção Adequada",
+        "Subcategoria": "Configuração Incorreta de Protocolos e Segurança",
+        "Vulnerabilidade": "Ausência de WAF (Web Application Firewall)",
+        "Descrição": "Sem um WAF, as aplicações web estão vulneráveis a uma ampla gama de ataques, incluindo SQL Injection, Cross-Site Scripting (XSS) e outras ameaças baseadas na web. A falta de proteção pode resultar em comprometimentos de segurança significativos, afetando a confidencialidade, integridade e disponibilidade das informações.",
+        "Solução": "A lista completa das aplicações que possuem esta vulnerabilidade pode ser encontrada no Anexo B. É crucial implementar um WAF para proteger as aplicações web contra ataques comuns e garantir a segurança das informações.",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades associadas a versões obsoletas",
+        "Subcategoria": "Softwares Desatualizados",
+        "Vulnerabilidade": "Atualizações de Segurança para Internet Explorer (Setembro de 2017)",
+        "Descrição": "A instalação do Internet Explorer no host remoto está desatualizada e carece de atualizações de segurança. Como resultado, o navegador está vulnerável a várias falhas de segurança, incluindo: Vulnerabilidade de Divulgação de Informações (CVE-2017-8529)[cite: 8], Vulnerabilidade de Execução Remota de Código (CVE-2017-8750, CVE-2017-8747, CVE-2017-8749, CVE-2017-8741, CVE-2017-8748)[cite: 9, 12, 13, 14], Vulnerabilidade de Falsificação (Spoofing) (CVE-2017-8733) [cite: 10, 11] e Vulnerabilidade de Divulgação de Informações devido a Verificação Imprópria do Domínio Pai (CVE-2017-8736)[cite: 15].",
+        "Solução": "Devido à grande quantidade de vulnerabilidades de segurança no Internet Explorer, a recomendação é remover o Internet Explorer o mais rápido possível[cite: 16]. O Internet Explorer não recebe mais atualizações e não é mais considerado seguro[cite: 17]. Em seu lugar, recomenda-se utilizar navegadores mais modernos e seguros, como o Microsoft Edge, que recebe atualizações regulares de segurança[cite: 18]. Caso não seja possível remover o Internet Explorer imediatamente, a melhor prática é restringir o seu uso e monitorar ativamente possíveis riscos de segurança[cite: 19].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades associadas a versões obsoletas",
+        "Subcategoria": "Softwares Desatualizados",
+        "Vulnerabilidade": "KB4025339: Windows 10 Version 1607 and Windows Server 2016 July 2017 Cumulative Update",
+        "Descrição": "O host Windows remoto está sem a atualização de segurança KB4025339 e, portanto, é afetado por múltiplas vulnerabilidades. Uma vulnerabilidade de divulgação de informações (CVE-2017-0170) existe no Windows Performance Monitor Console devido ao parsing inadequado de entrada XML. Um atacante remoto e não autenticado pode explorar isso para divulgar arquivos arbitrários. Uma vulnerabilidade de execução remota de código (CVE-2017-8463) existe no Windows Explorer devido ao manuseio inadequado de arquivos executáveis e compartilhamentos durante operações de renomeação. Um atacante remoto e não autenticado pode explorar isso para executar código arbitrário no contexto do usuário atual.",
+        "Solução": "Aplicar a atualização de segurança KB4025339 e consultar o artigo da KB para informações adicionais.",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades associadas a versões obsoletas",
+        "Subcategoria": "Softwares Desatualizados",
+        "Vulnerabilidade": "Apache 2.4.x < 2.4.60 Multiple Vulnerabilities",
+        "Descrição": "A versão do Apache HTTP Server instalada no host remoto é anterior à 2.4.60, tornando-a vulnerável a diversas falhas de segurança destacadas no aviso de versão 2.4.60-advisory[cite: 20]. Essas vulnerabilidades afetam funcionalidades como processamento de solicitações HTTP/2, módulos de proxy, manipulação de URLs e autenticação[cite: 21]. As falhas atribuídas incluem CVE-2024-36387[cite: 23], CVE-2024-38472[cite: 24], CVE-2024-38473[cite: 25], CVE-2024-38474[cite: 26], CVE-2024-38475[cite: 27], CVE-2024-38476[cite: 28], CVE-2024-38477[cite: 29], e CVE-2024-39573[cite: 30]. O impacto dessas vulnerabilidades pode ser degradação de desempenho[cite: 31], vazamento de informações sensíveis[cite: 32], execução de código arbitrário [cite: 33] e exposição de recursos internos[cite: 34].",
+        "Solução": "A solução para mitigar essas vulnerabilidades é realizar a atualização do Apache HTTP Server para a versão 2.4.60 ou superior[cite: 35]. Essa atualização corrige as falhas de segurança identificadas, garantindo maior proteção contra os vetores de ataque mencionados[cite: 36]. Recomendamos que todas as instâncias vulneráveis do Apache sejam atualizadas imediatamente para evitar possíveis explorações e garantir a integridade da infraestrutura[cite: 37]. Embora diversas vulnerabilidades tenham sido identificadas em versões anteriores, este relatório apresenta apenas a vulnerabilidade mais crítica como solução recomendada[cite: 22]. A atualização para a versão 2.4.60 aborda essas falhas, proporcionando maior segurança e estabilidade[cite: 39].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades associadas a versões obsoletas",
+        "Subcategoria": "Softwares Desatualizados",
+        "Vulnerabilidade": "PHP 7.0.x < 7.0.31 Use After Free Arbitrary Code Execution in EXIF",
+        "Descrição": "A versão do PHP em execução no servidor web remoto é anterior à 7.0.31, tornando-a vulnerável a uma falha de execução de código arbitrário devido ao uso após liberação (Use-After-Free) na funcionalidade EXIF[cite: 40]. Essa vulnerabilidade pode permitir que atacantes executem código arbitrário no servidor remoto ao explorar essa falha na manipulação de metadados EXIF de imagens[cite: 41]. A exploração dessa vulnerabilidade pode levar a um comprometimento total do servidor, afetando a confidencialidade, integridade e disponibilidade do sistema[cite: 42, 43].",
+        "Solução": "A solução para mitigar essa vulnerabilidade é realizar a atualização do PHP para a versão 7.0.31 ou superior[cite: 44]. Essa atualização corrige a falha de uso após liberação e protege o servidor contra a execução de código arbitrário[cite: 45]. Recomendamos que todas as instâncias vulneráveis de PHP sejam atualizadas imediatamente para evitar possíveis explorações e garantir a integridade do sistema[cite: 46]. Esta vulnerabilidade afeta as versões do PHP 7.0.x anteriores à 7.0.31[cite: 47]. A atualização para a versão 7.0.31 ou superior aborda essa falha e oferece uma solução para evitar a exploração de código arbitrário[cite: 48].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades associadas a versões obsoletas",
+        "Subcategoria": "Softwares Desatualizados",
+        "Vulnerabilidade": "GitLab 0.0 < 15.5.9 / 15.6 < 15.6.6 / 15.7 < 15.7.5 (CVE-2022-41903)",
+        "Descrição": "A versão do GitLab instalada no host remoto é afetada por uma vulnerabilidade relacionada ao sistema de controle de versão distribuído Git[cite: 49]. Ao processar os operadores de preenchimento, ocorre um estouro de inteiro na função pretty.c::format_and_pad_commit(), onde um size_t é armazenado de forma inadequada como um int, e em seguida somado como um deslocamento a uma memcpy()[cite: 52]. Esse estouro de inteiro pode resultar em gravações arbitrárias na memória heap, o que pode levar à execução de código arbitrário[cite: 55]. O problema foi corrigido nas versões publicadas em 17 de janeiro de 2023, retrocedendo até a versão v2.30.7[cite: 56]. A exploração dessa vulnerabilidade pode permitir que um atacante execute código arbitrário na máquina do servidor, comprometendo sua segurança[cite: 57]. Isso pode levar a um controle total do sistema afetado, resultando em perda de integridade, confidencialidade e disponibilidade[cite: 58].",
+        "Solução": "A solução para mitigar essa vulnerabilidade é realizar a atualização do GitLab para as versões 15.5.9, 15.6.6, 15.7.5 ou superiores[cite: 59]. Essas versões corrigem o estouro de inteiro e protegem contra a execução de código arbitrário[cite: 60]. Recomendamos que todas as instâncias vulneráveis do GitLab sejam atualizadas imediatamente[cite: 61]. Caso a atualização não seja possível, usuários devem desabilitar o git archive em repositórios não confiáveis executando o comando git config --global daemon.uploadArch false[cite: 64].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades associadas a versões obsoletas",
+        "Subcategoria": "Softwares Desatualizados",
+        "Vulnerabilidade": "Google Chrome < 128.0.6613.84 Múltiplas Vulnerabilidades",
+        "Descrição": "A versão do Google Chrome instalada no host remoto é anterior à versão 128.0.6613.84 e, portanto, está afetada por múltiplas vulnerabilidades[cite: 65]. As vulnerabilidades incluem 'Use after free' em Senhas (CVE-2024-7964) [cite: 66] e Autofill (CVE-2024-7968)[cite: 70], implementação inadequada em V8 (CVE-2024-7965[cite: 67], CVE-2024-7972 [cite: 72]), acesso à memória fora dos limites no Skia (CVE-2024-7966)[cite: 68], estouro de buffer no heap em Fontes (CVE-2024-7967) [cite: 69] e PDFium (CVE-2024-7973)[cite: 73], confusão de tipo em V8 (CVE-2024-7971)[cite: 71], validação de dados insuficiente na API do V8 (CVE-2024-7974) [cite: 74] e no Instalador do Chrome no Windows (CVE-2024-7977, CVE-2024-7979, CVE-2024-7980)[cite: 77], e implementação inadequada em permissões (CVE-2024-7975)[cite: 75], FedCM (CVE-2024-7976)[cite: 76], Views (CVE-2024-7981)[cite: 78], instalação de WebApps no Windows (CVE-2024-8033) [cite: 79] e Custom Tabs no Android (CVE-2024-8034)[cite: 80], Extensões no Windows (CVE-2024-8035)[cite: 81]. Essas vulnerabilidades podem resultar em execução de código arbitrário, comprometimento de dados e controle total sobre o sistema afetado[cite: 82].",
+        "Solução": "A recomendação mais segura é remover o Google Chrome imediatamente, caso seja viável[cite: 83]. Se a remoção não for possível, a alternativa é atualizar o Google Chrome para a versão 128.0.6613.84 ou posterior, que corrige as vulnerabilidades mencionadas[cite: 84]. Se nenhuma dessas opções for viável, considerar a substituição por outro navegador mais seguro, como o Microsoft Edge, que é mantido com atualizações regulares para mitigar vulnerabilidades[cite: 85]. O Nessus não testou estas questões diretamente, mas baseou-se na versão auto-relatada da aplicação para identificação da vulnerabilidade[cite: 86].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades associadas a versões obsoletas",
+        "Subcategoria": "Softwares Desatualizados",
+        "Vulnerabilidade": "Apache Tomcat 9.0.0.M1 < 9.0.98 multiple vulnerabilities",
+        "Descrição": "A versão do Apache Tomcat instalada no host remoto é anterior à 9.0.98 e, portanto, é afetada por múltiplas vulnerabilidades[cite: 112]. As vulnerabilidades incluem Condição de Corrida TOCTOU em Compilação JSP (CVE-2024-50379)[cite: 113], Mitigação Incompleta para CVE-2024-50379 (CVE-2024-56337) [cite: 114, 115] e Consumo Não Controlado de Recursos (CVE-2024-54677)[cite: 116].",
+        "Solução": "Atualize para a versão 9.0.98 ou posterior do Apache Tomcat para mitigar essas vulnerabilidades[cite: 117].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades associadas a versões obsoletas",
+        "Subcategoria": "Softwares Desatualizados",
+        "Vulnerabilidade": "Apache 2.4.x < 2.4.60 Multiple Vulnerabilities",
+        "Descrição": "A versão do Apache HTTP Server instalada no host remoto é anterior à 2.4.60 e, portanto, é afetada por múltiplas vulnerabilidades[cite: 118]. As vulnerabilidades incluem Null Pointer Dereference em WebSocket sobre HTTP/2 (CVE-2024-36387)[cite: 119], SSRF e vazamento de hashes NTLM no Windows (CVE-2024-38472)[cite: 120], problema de codificação em mod_proxy (CVE-2024-38473)[cite: 121], e substituição indevida em mod_rewrite (CVE-2024-38474)[cite: 122].",
+        "Solução": "Atualize para a versão 2.4.60 ou posterior do Apache HTTP Server para mitigar essas vulnerabilidades[cite: 123].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades associadas a versões obsoletas",
+        "Subcategoria": "Softwares Desatualizados",
+        "Vulnerabilidade": "PHP 8.2.x < 8.2.26 Multiple Vulnerabilities",
+        "Descrição": "A versão do PHP instalada no host remoto é anterior à 8.2.26, estando, portanto, sujeita a múltiplas vulnerabilidades[cite: 124]. Essas falhas podem afetar a integridade e a segurança do ambiente, permitindo a execução de código malicioso ou comprometendo o funcionamento adequado do sistema[cite: 125].",
+        "Solução": "Recomenda-se a atualização para a versão 8.2.26 ou posterior do PHP para corrigir as vulnerabilidades identificadas e garantir a proteção contra possíveis exploits[cite: 126].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades associadas a versões obsoletas",
+        "Subcategoria": "Softwares Desatualizados",
+        "Vulnerabilidade": "Apache Tomcat 9.0.0.M1 < 9.0.90 - Improper Handling of Exceptional Conditions (CVE-2024-34750)",
+        "Descrição": "A versão do Apache Tomcat instalada no host remoto é anterior à 9.0.90 e, portanto, está afetada por uma vulnerabilidade de 'Manuseio Improprio de Condições Excepcionais' e 'Consumo de Recurso Descontrolado' no Apache Tomcat[cite: 127]. Essa vulnerabilidade afeta as versões do Apache Tomcat desde a 11.0.0-M1 até a 11.0.0-M20, de 10.1.0-M1 até 10.1.24, e de 9.0.0-M1 até 9.0.89[cite: 130].",
+        "Solução": "Recomenda-se atualizar para a versão 11.0.0-M21, 10.1.25 ou 9.0.90 do Apache Tomcat, que corrigem o problema[cite: 131]. A atualização deve ser realizada para evitar o consumo excessivo de recursos e o risco de deixar conexões abertas indevidamente[cite: 132].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas à Versões não suportadas",
+        "Subcategoria": "Protocolos e Cifras Depreciadas",
+        "Vulnerabilidade": "TLS Version 1.0 Protocol Detection",
+        "Descrição": "O serviço remoto está aceitando conexões criptografadas usando TLS 1.0[cite: 144]. Embora o TLS 1.0 tenha sido uma melhoria significativa em relação ao SSL, ele ainda possui várias falhas de design criptográfico[cite: 145]. Versões mais recentes do TLS, como 1.2 e 1.3, foram projetadas para resolver essas falhas de maneira mais robusta e devem ser utilizadas sempre que possível[cite: 146]. A utilização do TLS 1.0 pode expor a comunicação a falhas de design criptográfico[cite: 147], incompatibilidade com navegadores modernos [cite: 148] e não conformidade com regulamentos de segurança como o PCI DSS[cite: 149].",
+        "Solução": "A solução para mitigar essa vulnerabilidade é habilitar o suporte para TLS 1.2 e 1.3 e desabilitar completamente o TLS 1.0[cite: 150].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas à Versões não suportadas",
+        "Subcategoria": "Protocolos e Cifras Depreciadas",
+        "Vulnerabilidade": "SSL Medium Strength Cipher Suites Supported (SWEET32)",
+        "Descrição": "O host remoto suporta o uso de cifras SSL com força de criptografia média[cite: 151]. Cifras de força média incluem aquelas que utilizam comprimentos de chave de pelo menos 64 bits e menos de 112 bits ou aquelas que utilizam o conjunto de cifras 3DES (Triple Data Encryption Standard)[cite: 152]. A vulnerabilidade conhecida como SWEET32 explora fraquezas em cifras baseadas em 3DES devido ao seu tamanho de bloco reduzido (64 bits)[cite: 153]. Essa característica facilita ataques que dependem da repetição de blocos de criptografia (birthday attacks), especialmente em ambientes onde um grande volume de dados é transmitido pela mesma sessão criptografada[cite: 154]. A criptografia de força média é significativamente mais fácil de ser comprometida, especialmente quando o atacante está na mesma rede física do alvo[cite: 155]. O suporte a cifras de força média pode resultar em ataques de descriptografia[cite: 156], comprometimento da privacidade [cite: 157] e não conformidade regulatória[cite: 158].",
+        "Solução": "A solução recomendada é reconfigurar a aplicação afetada para evitar o uso de cifras de força média[cite: 159]. Isso inclui desativar o suporte ao 3DES e garantir que apenas cifras fortes, que utilizem comprimentos de chave modernos e modos de criptografia robustos, sejam habilitadas[cite: 160]. A substituição de cifras de força média por alternativas mais seguras melhora a resistência contra ataques criptográficos e garante a conformidade com os padrões de segurança cibernética mais recentes[cite: 161].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades relacionadas à Cifras Não suportadas",
+        "Subcategoria": "Protocolos e Cifras Depreciadas",
+        "Vulnerabilidade": "TLS Version 1.1 Deprecated Protocol",
+        "Descrição": "O serviço remoto analisado aceita conexões criptografadas utilizando o protocolo TLS 1.1[cite: 87]. Este protocolo está obsoleto e não oferece suporte para conjuntos de cifras atuais e recomendados[cite: 88]. Cifras que utilizam encriptação antes da computação MAC, bem como modos de autenticação como GCM (Galois/Counter Mode), não podem ser utilizados com o TLS 1.1[cite: 89]. Desde 31 de março de 2020, endpoints que não oferecem suporte ao TLS 1.2 ou superior não funcionam adequadamente com os principais navegadores da web e fornecedores de tecnologia[cite: 90]. O uso contínuo do TLS 1.1 representa um risco à segurança e à compatibilidade[cite: 91]. O suporte ao TLS 1.1 pode levar a comprometimento da segurança[cite: 92], incompatibilidade com navegadores modernos [cite: 93] e não conformidade regulatória, como PCI DSS[cite: 94].",
+        "Solução": "A solução recomendada é habilitar o suporte para TLS 1.2 e/ou TLS 1.3 e desativar o suporte para o TLS 1.1[cite: 95]. Isso garante o uso de protocolos modernos que oferecem maior segurança, compatibilidade e conformidade com os padrões do setor[cite: 96]. Recomendamos que todas as configurações e sistemas sejam revisados para implementar essas alterações o mais breve possível[cite: 97]. A atualização para protocolos mais modernos não apenas mitiga vulnerabilidades associadas ao TLS 1.1, mas também melhora o desempenho das conexões e a experiência geral do usuário[cite: 98].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades relacionadas à Cifras Não suportadas",
+        "Subcategoria": "Protocolos e Cifras Depreciadas",
+        "Vulnerabilidade": "SSL RC4 Cipher Suites Supported (Bar Mitzvah)",
+        "Descrição": "O host remoto suporta o uso do algoritmo de cifra RC4 em uma ou mais suítes criptográficas[cite: 181]. O RC4 possui falhas conhecidas na geração de seu fluxo de bytes pseudoaleatório, introduzindo diversos vieses que reduzem sua aleatoriedade[cite: 182]. Se um mesmo texto em claro for criptografado repetidamente (por exemplo, cookies HTTP) e um atacante conseguir capturar um grande número de textos cifrados (dezenas de milhões), há a possibilidade de inferir o conteúdo original da comunicação[cite: 183]. Isso compromete a confidencialidade dos dados transmitidos.",
+        "Solução": "Recomenda-se reconfigurar a aplicação afetada para evitar o uso de cifras RC4[cite: 184]. Sempre que possível, utilize TLS 1.2 com suítes criptográficas baseadas em AES-GCM, garantindo compatibilidade com navegadores e servidores web suportados[cite: 185]. Essa atualização melhora a segurança das comunicações e mitiga os riscos associados ao uso de cifras obsoletas[cite: 186].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades relacionadas à Cifras Não suportadas",
+        "Subcategoria": "Protocolos e Cifras Depreciadas",
+        "Vulnerabilidade": "SSL Certificate Signed Using Weak Hashing Algorithm",
+        "Descrição": "O serviço remoto utiliza uma cadeia de certificados SSL assinada com um algoritmo de hashing criptográfico fraco (por exemplo, MD2, MD4, MD5 ou SHA1)[cite: 187]. Esses algoritmos de assinatura são conhecidos por serem vulneráveis a ataques de colisão[cite: 188]. Um atacante pode explorar essa falha para gerar outro certificado com a mesma assinatura digital, permitindo que o atacante se passe pelo serviço afetado[cite: 189]. O plugin relata todas as cadeias de certificados SSL assinadas com SHA-1 e que expiram após 1º de janeiro de 2017 como vulneráveis, em conformidade com o processo gradual do Google para descontinuar o algoritmo de hashing SHA-1[cite: 190]. Os certificados na cadeia contidos no banco de dados CA do Nessus (known_CA.inc) foram ignorados[cite: 191].",
+        "Solução": "Entre em contato com a Autoridade Certificadora (CA) para que o certificado SSL seja reemitido utilizando um algoritmo de assinatura mais seguro, como SHA-256[cite: 192]. Além disso, é recomendado o uso do protocolo TLS (Transport Layer Security) para garantir uma comunicação segura e protegida[cite: 193].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades relacionadas à Cifras Não suportadas",
+        "Subcategoria": "Protocolos e Cifras Depreciadas",
+        "Vulnerabilidade": "SSL Version 2 and 3 Protocol Detection",
+        "Descrição": "O serviço remoto aceita conexões criptografadas usando SSL 2.0 e/ou SSL 3.0[cite: 99]. Estas versões de SSL apresentam várias falhas criptográficas, incluindo esquema de preenchimento inseguro com cifragem CBC[cite: 100], renegociação e retomada de sessão inseguras[cite: 101], e ataques de downgrade, como o ataque POODLE[cite: 102].",
+        "Solução": "Para mitigar essas vulnerabilidades, recomenda-se desabilitar completamente os protocolos SSL 2.0 e 3.0[cite: 103]. Consulte a documentação da aplicação para instruções específicas de como desabilitar esses protocolos[cite: 104]. Em substituição, utilize TLS 1.2 (ou versões superiores) com conjuntos de cifras aprovados[cite: 105]. O NIST determinou que o SSL 3.0 não é mais aceitável para comunicações seguras[cite: 106]. Desde a data de aplicação definida pelo PCI DSS v3.1, qualquer versão do SSL não atende à definição de 'criptografia forte' do PCI SSC[cite: 107].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas à Versões não suportadas",
+        "Subcategoria": "Sistemas e Aplicações Fora de Suporte",
+        "Vulnerabilidade": "PHP Versão Não Suportada",
+        "Descrição": "De acordo com a versão instalada, a instalação do PHP no host remoto não é mais suportada[cite: 162]. A falta de suporte implica que nenhum novo patch de segurança será liberado pelo fornecedor[cite: 163]. Como resultado, a instalação pode conter vulnerabilidades de segurança não corrigidas[cite: 164]. O uso de uma versão do PHP não suportada aumenta significativamente o risco de exploração de vulnerabilidades, pois não haverá atualizações ou correções de segurança para essa versão[cite: 165].",
+        "Solução": "Recomenda-se atualizar para uma versão do PHP atualmente suportada[cite: 166]. As versões mais recentes e estáveis do PHP são PHP 8.1.x [cite: 167] e PHP 8.2.x[cite: 168]. Estas versões são mantidas ativamente e recebem atualizações regulares, incluindo correções de segurança[cite: 169]. Para garantir a segurança do ambiente, é essencial realizar a atualização para uma dessas versões, uma vez que versões mais antigas do PHP não são mais mantidas e podem apresentar falhas críticas[cite: 170].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas à Versões não suportadas",
+        "Subcategoria": "Sistemas e Aplicações Fora de Suporte",
+        "Vulnerabilidade": "Unsupported Windows OS (remote)",
+        "Descrição": "A versão remota do Microsoft Windows está sem um service pack ou não é mais suportada[cite: 171]. Como resultado, é provável que contenha vulnerabilidades de segurança.",
+        "Solução": "Recomenda-se a atualização para um sistema operacional suportado com atualizações de segurança ativas[cite: 172]. As versões estáveis e seguras atualmente recomendadas incluem Windows 10 (versão 22H2)[cite: 173], Windows 11 (versão mais recente) [cite: 174] e Windows Server 2019 ou Windows Server 2022[cite: 175].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas à Versões não suportadas",
+        "Subcategoria": "Sistemas e Aplicações Fora de Suporte",
+        "Vulnerabilidade": "Oracle Database Unsupported Version Detection",
+        "Descrição": "De acordo com sua versão, a instalação do Oracle Database no host remoto não é mais suportada[cite: 176]. A falta de suporte implica que nenhum novo patch de segurança será lançado pelo fornecedor[cite: 177]. Como resultado, é provável que contenha vulnerabilidades de segurança.",
+        "Solução": "Recomenda-se a atualização para uma versão do Oracle Database que ainda receba suporte e atualizações de segurança[cite: 178]. As versões estáveis e seguras atualmente recomendadas incluem Oracle Database 19c e Oracle Database 21c[cite: 179]. Para garantir a segurança e conformidade, recomenda-se planejar a migração para uma versão suportada o mais rápido possível[cite: 180].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas à Versões não suportadas",
+        "Subcategoria": "Sistemas e Aplicações Fora de Suporte",
+        "Vulnerabilidade": "Microsoft SQL Server Unsupported Version Detection (remote check)",
+        "Descrição": "De acordo com o número da versão autoidentificada, a instalação do Microsoft SQL Server no host remoto não é mais suportada pelo fornecedor[cite: 194]. A falta de suporte implica que não serão lançados novos patches de segurança para o produto, tornando-o suscetível a vulnerabilidades conhecidas e futuras[cite: 195].",
+        "Solução": "Atualize para uma versão do Microsoft SQL Server que seja atualmente suportada[cite: 196]. As versões mais recentes e seguras incluem SQL Server 2022 [cite: 197] e SQL Server 2019[cite: 198]. Para obter uma comparação detalhada entre essas versões e determinar a melhor opção para suas necessidades, consulte a documentação oficial da Microsoft[cite: 199]. Além disso, verifique os caminhos de atualização suportados para garantir uma transição suave para a versão escolhida[cite: 200]. Manter o SQL Server atualizado é essencial para garantir a segurança, o desempenho e a compatibilidade contínua com outras tecnologias[cite: 201].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas ao Acesso Remoto",
+        "Subcategoria": "Acesso Remoto Sem Autenticação Segura",
+        "Vulnerabilidade": "Microsoft RDP RCE (CVE-2019-0708) (BlueKeep)",
+        "Descrição": "O host remoto é afetado por uma vulnerabilidade de execução remota de código (RCE) no Protocolo de Área de Trabalho Remota (RDP)[cite: 202]. Um atacante remoto e não autenticado pode explorar essa falha por meio de uma série de requisições especialmente criadas, permitindo a execução arbitrária de código[cite: 203].",
+        "Solução": "A Microsoft lançou patches de segurança para as versões do Windows 2000, XP, 2003, Vista e 2008. Recomenda-se a aplicação imediata dos patches disponíveis ou a atualização para versões mais recentes e seguras do Windows, a fim de mitigar os riscos associados a essa vulnerabilidade crítica.",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas ao Acesso Remoto",
+        "Subcategoria": "Acesso Remoto Sem Autenticação Segura",
+        "Vulnerabilidade": "MS09-001: Microsoft Windows SMB Vulnerabilities Remote Code Execution (958687)",
+        "Descrição": "O host remoto é afetado por uma vulnerabilidade de corrupção de memória no protocolo SMB (Server Message Block), que pode permitir que um atacante execute código arbitrário ou cause uma negação de serviço (DoS) no sistema remoto[cite: 204]. A exploração dessa falha pode resultar no controle completo do sistema afetado ou na interrupção de seu funcionamento normal[cite: 205].",
+        "Solução": "A Microsoft lançou patches de segurança para as versões do Windows 2000, XP, 2003, Vista e 2008. Recomenda-se a aplicação imediata dos patches disponíveis ou a atualização para versões mais recentes e seguras do Windows, a fim de mitigar os riscos associados a essa vulnerabilidade crítica[cite: 206].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas ao Acesso Remoto",
+        "Subcategoria": "Acesso Remoto Sem Autenticação Segura",
+        "Vulnerabilidade": "SMB NULL Session Authentication",
+        "Descrição": "O host remoto está executando o protocolo SMB (Server Message Block)[cite: 207]. É possível realizar o login nos pipes do navegador ou spoolss utilizando uma sessão NULL (ou seja, sem nome de usuário ou senha)[cite: 208]. Dependendo da configuração do sistema, um atacante remoto e não autenticado pode explorar essa falha para obter informações sobre o host remoto, potencialmente comprometendo a segurança da rede[cite: 209].",
+        "Solução": "Recomenda-se entrar em contato com o fornecedor do produto para obter soluções recomendadas para desabilitar sessões NULL no SMB[cite: 210]. Além disso, é importante revisar a configuração do protocolo SMB, garantindo que sessões não autenticadas sejam restringidas ou desativadas para aumentar a segurança do sistema[cite: 211].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas ao Acesso Remoto",
+        "Subcategoria": "Acesso Remoto Sem Autenticação Segura",
+        "Vulnerabilidade": "Microsoft Windows SMBv1 Multiple Vulnerabilities",
+        "Descrição": "O host remoto está executando o protocolo Microsoft Server Message Block 1.0 (SMBv1), que está vulnerável a múltiplas falhas de segurança[cite: 212]. Essas vulnerabilidades incluem divulgação de informações (CVE-2017-0267, CVE-2017-0268, CVE-2017-0270, CVE-2017-0271, CVE-2017-0274, CVE-2017-0275, CVE-2017-0276)[cite: 213, 214], negação de serviço (CVE-2017-0269, CVE-2017-0273, CVE-2017-0280)[cite: 215, 216], e execução remota de código (CVE-2017-0272, CVE-2017-0277, CVE-2017-0278, CVE-2017-0279)[cite: 217, 218]. Dependendo da configuração da política de segurança do host, o plugin pode não conseguir determinar corretamente se o host está vulnerável, especialmente em versões mais recentes do Windows (Windows 8.1, 10, 2012, 2012 R2, e 2016), caso pipes nomeados e compartilhamentos sejam acessíveis remotamente e anonimamente[cite: 219].",
+        "Solução": "Aplique a atualização de segurança aplicável para a sua versão do Windows: Windows Server 2008: KB4018466; Windows Server 2008 R2: KB4019264; Windows Server 2012: KB4019216; Windows 8.1 / RT 8.1: KB4019215; Windows Server 2012 R2: KB4019215; Windows 10: KB4019474; Windows 10 Versão 1511: KB4019473; Windows 10 Versão 1607: KB4019472; Windows 10 Versão 1703: KB4016871; Windows Server 2016: KB4019472[cite: 220].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas ao Acesso Remoto",
+        "Subcategoria": "Acesso Remoto Sem Autenticação Segura",
+        "Vulnerabilidade": "Microsoft Windows EFSRPC NTLM Reflection Elevation of Privilege (PetitPotam) (Remote)",
+        "Descrição": "O host remoto é afetado por uma vulnerabilidade de elevação de privilégio via reflexão NTLM conhecida como 'PetitPotam'[cite: 221]. Um atacante remoto e não autenticado pode explorar essa falha, enviando uma requisição EFSRPC especialmente criada, fazendo com que o host afetado se conecte a um servidor malicioso[cite: 222]. O atacante pode então utilizar um ataque de retransmissão NTLM para se passar pelo host de destino e autenticar contra serviços remotos[cite: 223]. Um cenário de ataque descrito no KB5005413 utiliza essa exploração para iniciar uma sessão NTLM com a conta de máquina de um controlador de domínio[cite: 224]. Essa sessão é então retransmitida para um host de Active Directory Certificate Services (AD CS) para obter um certificado[cite: 225]. Esse certificado pode ser usado para movimentação lateral dentro do ambiente de domínio.",
+        "Solução": "Aplique as atualizações fornecidas pelo fornecedor[cite: 226]. Opcionalmente, consulte o KB5005413 da Microsoft para obter orientações de mitigação[cite: 227]. Também podem ser implementados filtros RPC para bloquear o acesso remoto aos UUIDs da interface necessários para a exploração dessa vulnerabilidade.",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas ao Acesso Remoto",
+        "Subcategoria": "Acesso Remoto Sem Autenticação Segura",
+        "Vulnerabilidade": "Remote Desktop Protocol Server Man-in-the-Middle Weakness",
+        "Descrição": "A versão do servidor de Protocolo de Área de Trabalho Remota (RDP) instalada no host remoto é vulnerável a ataques do tipo Man-in-the-Middle (MiTM)[cite: 228]. O cliente RDP não valida corretamente a identidade do servidor ao estabelecer a criptografia[cite: 229], permitindo que um atacante intercepte o tráfego e capture informações sensíveis, incluindo credenciais de autenticação[cite: 230]. A vulnerabilidade ocorre porque o servidor RDP armazena uma chave privada RSA hardcoded e publicamente conhecida, permitindo que um invasor em uma posição privilegiada na rede a utilize para realizar o ataque[cite: 231].",
+        "Solução": "Configurar o serviço para forçar o uso de SSL como camada de transporte, se suportado[cite: 232]. Em sistemas operacionais Microsoft Windows, ativar a opção 'Allow connections only from computers running Remote Desktop with Network Level Authentication' para exigir autenticação em nível de rede (NLA)[cite: 233]. Essas medidas reforçam a segurança do RDP e mitigam o risco de ataques MiTM[cite: 234].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas ao Acesso Remoto",
+        "Subcategoria": "Acesso Remoto Sem Autenticação Segura",
+        "Vulnerabilidade": "SMB Signing Not Required",
+        "Descrição": "A configuração do servidor SMB remoto não exige assinatura de mensagens (SMB Signing)[cite: 235]. Isso permite que um atacante remoto e não autenticado realize ataques do tipo Man-in-the-Middle (MitM) contra o servidor SMB, interceptando e potencialmente modificando o tráfego de rede entre clientes e servidores[cite: 236]. A ausência da exigência de assinatura SMB compromete a integridade e autenticidade das comunicações, aumentando os riscos de exploração[cite: 237].",
+        "Solução": "Recomenda-se ativar a exigência de assinatura SMB na configuração do servidor[cite: 238]. Em servidores Windows, essa configuração está disponível na política de segurança local: 'Microsoft network server: Digitally sign communications (always)'[cite: 239]. Em servidores Samba, a opção correspondente é 'server signing'[cite: 240]. A implementação dessa medida aumenta a segurança da comunicação SMB e reduz o risco de ataques MitM[cite: 241]. Consulte a documentação oficial do sistema operacional ou serviço para obter mais detalhes sobre a configuração adequada[cite: 242].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações Indevidas",
+        "Subcategoria": "Configuração Incorreta de Protocolos e Segurança",
+        "Vulnerabilidade": "HSTS Ausente no Servidor HTTPS (RFC 6797)",
+        "Descrição": "O servidor web remoto não está implementando o mecanismo HTTP Strict Transport Security (HSTS), conforme definido na RFC 6797[cite: 243]. O HSTS é um cabeçalho de resposta opcional que pode ser configurado no servidor para instruir os navegadores a se comunicarem exclusivamente via HTTPS[cite: 243]. A ausência do HSTS permite ataques de downgrade, ataques do tipo SSL-stripping Man-in-the-Middle (MitM) e enfraquece as proteções contra sequestro de cookies (cookie hijacking), aumentando os riscos de comprometimento da comunicação segura[cite: 244].",
+        "Solução": "Configurar o servidor web remoto para utilizar HSTS, garantindo que todas as conexões sejam feitas via HTTPS e protegendo contra ataques de downgrade e interceptação de tráfego[cite: 245].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas à Execução Remota de Código",
+        "Subcategoria": "Execução Remota via Serviços e Protocolos",
+        "Vulnerabilidade": "Microsoft DNS Server Remote Code Execution (SIGRed)",
+        "Descrição": "De acordo com a versão autodetectada, o Microsoft DNS Server em execução no host remoto está vulnerável a uma falha de execução remota de código[cite: 246]. Um atacante remoto e não autenticado que explore essa vulnerabilidade com sucesso pode executar código arbitrário no contexto da conta Local System, obtendo controle total sobre o servidor DNS afetado[cite: 247]. Para obter a versão completa do Microsoft DNS Server, a configuração EnableVersionQuery precisa estar definida como 1.",
+        "Solução": "A Microsoft lançou patches de segurança para corrigir essa vulnerabilidade em diversas versões do Windows Server, incluindo Windows Server 2008, 2008 R2, 2012, 2012 R2, 2016, 2019 e Windows Server versão 1903, 1909 e 2004[cite: 248]. Recomenda-se aplicar as atualizações fornecidas pela Microsoft o mais rápido possível para mitigar os riscos associados a essa vulnerabilidade[cite: 248].",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas à Execução Remota de Código",
+        "Subcategoria": "Execução Remota via Serviços e Protocolos",
+        "Vulnerabilidade": "DNS Server Spoofed Request Amplification DDoS",
+        "Descrição": "O servidor DNS remoto está configurado para responder a qualquer solicitação, inclusive aquelas que consultam os servidores de nomes (NS) da zona raiz (.). Essa resposta, por ser muito maior que a requisição original, permite que um atacante explore o servidor como vetor de amplificação em um ataque de Negação de Serviço Distribuído (DDoS).\nUtilizando técnicas de falsificação de IP (IP spoofing), um atacante pode forjar o endereço de origem de uma requisição DNS e redirecionar as respostas volumosas do servidor DNS para um host de terceiros, gerando tráfego excessivo com impacto potencialmente catastrófico ao destino — sem que este tenha iniciado qualquer requisição.",
+        "Solução": "Reconfigure o servidor DNS para mitigar esse tipo de abuso:\nRestringir o acesso ao servidor DNS, permitindo apenas consultas de redes confiáveis (por exemplo, redes internas).\nDesabilitar respostas recursivas ou rejeitar consultas não autorizadas de zonas externas, principalmente para servidores que não são resolvers públicos.\nSe possível, implemente filtros de taxa (rate limiting) para reduzir o potencial de amplificação.\nExemplo para BIND (named.conf):\nallow-query { localnets; localhost; };\nrecursion no;\nRecomendações adicionais:\nConsidere o uso de mecanismos como Response Rate Limiting (RRL).\nVerifique regularmente logs e utilize ferramentas de auditoria para identificar comportamentos suspeitos ou abusivos.\nSe o servidor DNS não precisa estar exposto à internet, garanta que ele esteja corretamente isolado por meio de firewalls.",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas ao Acesso Remoto",
+        "Subcategoria": "Acesso Remoto Sem Autenticação Segura",
+        "Vulnerabilidade": "Terminal Services Encryption Level is Medium or Low",
+        "Descrição": "O serviço de Terminal Services (RDP) no host remoto está configurado para utilizar um nível de criptografia médio ou baixo, o que não garante a segurança adequada da comunicação entre cliente e servidor.\nCriptografia fraca pode permitir que um atacante que esteja monitorando a rede intercepte e descriptografe a comunicação RDP, possibilitando a visualização de telas remotas (screenshots), digitação de comandos (keystrokes) e outras informações sensíveis trocadas durante a sessão.",
+        "Solução": "É altamente recomendável elevar o nível de criptografia do RDP para fortalecer a segurança das sessões remotas. As opções recomendadas são:\nAlta (High): Garante criptografia forte com algoritmos robustos.\nCompatível com FIPS (FIPS Compliant): Utiliza apenas algoritmos aprovados pelo padrão FIPS 140-2, adequado para ambientes com requisitos regulatórios.\nComo aplicar:\nNo Windows, a configuração pode ser feita por meio de Política de Grupo (GPO):\nAcesse: gpedit.msc\nVá até:\nConfiguração do Computador > Modelos Administrativos > Componentes do Windows > Serviços de Área de Trabalho Remota > Host de Sessão da Área de Trabalho Remota > Segurança\nConfigure a opção \"Definir o nível de criptografia da conexão do cliente\" para Alta ou Compatível com FIPS.\nAlternativamente, edite diretamente no Registro do Windows ou utilize PowerShell para aplicar a política em massa.\nRecomendações adicionais:\nCombine essa configuração com Autenticação em Nível de Rede (NLA) para aumentar ainda mais a segurança.\nVerifique se os clientes RDP suportam os níveis de criptografia exigidos.\nUse firewalls para limitar o acesso ao serviço RDP apenas a redes confiáveis.",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas à Versões não suportadas",
+        "Subcategoria": "Sistemas e Aplicações Fora de Suporte",
+        "Vulnerabilidade": "Debian Linux SEoL (8.x)",
+        "Descrição": "O sistema operacional identificado no host remoto é o Debian Linux na versão 8.x. Essa versão está fora do ciclo de suporte oficial, o que significa que não recebe mais atualizações de segurança ou correções de vulnerabilidades por parte do fornecedor.\nA ausência de suporte implica que falhas conhecidas e futuras não serão corrigidas, tornando o sistema vulnerável a ataques e comprometimentos de segurança que podem afetar a confidencialidade, integridade e disponibilidade das informações.",
+        "Solução": "Atualize o sistema operacional para uma versão do Debian Linux que esteja atualmente em suporte ativo. Versões mantidas recebem patches de segurança regulares, garantindo maior proteção contra ameaças. A migração para uma versão suportada deve ser priorizada para manter a conformidade com boas práticas de segurança da informação.",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas à Execução Remota de Código",
+        "Subcategoria": "Execução Remota via Serviços e Protocolos",
+        "Vulnerabilidade": "DNS Server Recursive Query Cache Poisoning Weakness",
+        "Descrição": "O servidor DNS remoto está configurado para aceitar consultas recursivas de qualquer origem, inclusive para domínios de terceiros (por exemplo, www.nessus.org). Essa configuração permite que qualquer usuário externo utilize seu servidor como um resolvedor público.\nEsse comportamento representa um risco grave de segurança, pois:\nPode ser explorado em ataques de envenenamento de cache DNS (cache poisoning), permitindo que respostas maliciosas sejam armazenadas e propagadas para outros usuários que confiem nesse servidor.\nPode ser utilizado como vetor para ataques de negação de serviço (DoS) refletidos, especialmente se o servidor aceitar requisições via UDP e as repassar a terceiros.\nCaso o servidor DNS seja de uso interno, o impacto pode ser limitado a colaboradores ou dispositivos autorizados na rede corporativa. Entretanto, se estiver exposto à internet, representa uma ameaça significativa.",
+        "Solução": "Restrinja as consultas recursivas apenas para os hosts que realmente necessitam usar este servidor DNS, geralmente dispositivos da rede interna (LAN). As medidas específicas dependem da versão do BIND ou software DNS utilizado.\nRecomendação Adicional:\nVerifique se o servidor não está indevidamente exposto à internet. Sempre aplique filtros de acesso (via firewall ou ACLs) para impedir consultas externas não autorizadas. Isso ajuda a proteger contra abusos e ataques indiretos via o seu serviço DNS.",
+        "Imagem": ""
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas ao Acesso Remoto",
+        "Subcategoria": "Acesso Remoto Sem Autenticação Segura",
+        "Vulnerabilidade": "SSH Terrapin Prefix Truncation Weakness (CVE-2023-48795)",
+        "Descrição": "O servidor SSH remoto está vulnerável a um ataque conhecido como Terrapin, que explora uma fraqueza na verificação de integridade durante a troca de chaves. Essa vulnerabilidade permite que um invasor, posicionado entre o cliente e o servidor (man-in-the-middle), manipule o início da comunicação SSH truncando mensagens iniciais.\nO ataque pode resultar em redução do nível de segurança da conexão (downgrade) ou mesmo na bypass de mecanismos de integridade, comprometendo a confidencialidade e autenticidade da sessão SSH estabelecida.\nEsta verificação identifica servidores SSH que:\nSuportam os algoritmos ChaCha20-Poly1305 ou CBC com Encrypt-then-MAC;\nNão implementam as contramedidas de verificação estrita de troca de chaves (strict key exchange).\nImportante: o teste não verifica diretamente a versão do software SSH, apenas o suporte a algoritmos e ausência de contramedidas.",
+        "Solução": "Atualize o software SSH com a versão que inclua as contramedidas rigorosas de troca de chaves contra o ataque Terrapin.\nDesative os algoritmos afetados (chacha20-poly1305@openssh.com e CBC com Encrypt-then-MAC), caso a atualização não seja viável no momento.",
+        "Imagem": ""
+    },
+    {
+        "Vulnerabilidade": "Teste",
+        "Categoria": "Vulnerabilidades Relacionadas À Execução Remota De Código",
+        "Subcategoria": "Execução Remota Via Serviços E Protocolos",
+        "Descrição": "teste",
+        "Solução": "teste",
+        "Imagem": "images-was/vulnerabilidades-relacionadas-a-execucao-remota-de-codigo/execucao-remota-via-servicos-e-protocolos/teste.jpg"
+    }
+]

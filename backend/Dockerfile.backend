@@ -1,0 +1,56 @@
+# backend/Dockerfile.backend
+
+# Use uma imagem base Python
+FROM python:3.10-slim-buster
+
+# Instala as dependências do sistema necessárias para o TeX Live
+# e ferramentas de compilação. Priorizando `texlive-full` para garantir pacotes,
+# mas se o tamanho for problema, use as alternativas comentadas.
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        # Opção 1: Pacote completo (maior, mas mais garantido)
+        #texlive-full \
+        # --- OU ---
+        # Opção 2: Pacotes essenciais + tlmgr + pacotes específicos
+         texlive-latex-base \
+         texlive-fonts-recommended \
+         texlive-latex-extra \
+         texlive-pictures \
+         texlive-binaries \
+         texlive-lang-portuguese \
+         texlive-publishers \
+         texlive-fonts-extra \
+         fontconfig \
+         latexmk \
+        # Adiciona 'texlive-extra-utils' que contém 'tlmgr'
+         texlive-extra-utils \
+        # --- FIM OPÇÃO 2 ---
+        ghostscript \
+        build-essential \
+        && \
+    rm -rf /var/lib/apt/lists/*
+
+# Se você usou a "Opção 2" acima, DESCOMENTE e execute as linhas abaixo
+# para instalar o pacote 'transparent' via tlmgr.
+# Se você usou a "Opção 1" (texlive-full), essa etapa geralmente não é necessária,
+# pois 'transparent' já deve estar incluído.
+# RUN tlmgr update --self && tlmgr install transparent
+
+# Define o diretório de trabalho no contêiner
+WORKDIR /app
+
+# Copia os arquivos de dependências Python e instala-os
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copia todo o resto do código da sua aplicação (incluindo shared_data e src)
+COPY . . 
+
+# Define a variável de ambiente para a aplicação Flask
+ENV FLASK_APP=src.main 
+
+# Expõe a porta que o Flask vai rodar
+EXPOSE 5000
+
+# Comando para iniciar a aplicação Flask
+CMD ["flask", "run", "--host=0.0.0.0"]

@@ -1,0 +1,77 @@
+# Use a versão 3.8 do Docker Compose para compatibilidade e recursos mais recentes
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: auditex_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      # Volume nomeado para persistir os dados do MongoDB
+      - mongodb_data:/data/db
+      # Monta o script para criar o usuário da aplicação no MongoDB
+      # Este script é executado apenas na primeira inicialização do contêiner MongoDB
+      - ./backend/init-mongo-app-user.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    environment:
+      # Variáveis usadas pelo Docker para configurar o usuário root interno do MongoDB
+      # e pelo init-mongo-app-user.js para criar o usuário da aplicação.
+      MONGO_INITDB_DATABASE: mydatabase
+      MONGO_INITDB_ROOT_USERNAME: admin_root_mongo # Usuário root do MongoDB (para autenticação inicial)
+      MONGO_INITDB_ROOT_PASSWORD: admin_root_password_123 # Senha root do MongoDB
+      MONGO_APP_USER: admin # Usuário que a aplicação Flask usará para se conectar
+      MONGO_APP_PASSWORD: admin # Senha para o usuário da aplicação Flask
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend # O contexto de construção é a pasta 'backend'
+      dockerfile: Dockerfile.backend # Usa o Dockerfile específico para o backend
+    container_name: auditex_backend
+    ports:
+      - "5000:5000"
+    environment:
+      # URI de conexão com o MongoDB, usando o nome do serviço 'mongodb' e as credenciais
+      # definidas no script init-mongo-app-user.js. O authSource=admin é crucial.
+      MONGO_URI: mongodb://admin:admin@mongodb:27017/mydatabase?authSource=admin
+      TENABLE_SECRET_KEY: ${TENABLE_SECRET_KEY} # Variáveis de ambiente lidas do arquivo .env do host
+      TENABLE_ACCESS_KEY: ${TENABLE_ACCESS_KEY} # Variáveis de ambiente lidas do arquivo .env do host
+      FLASK_DEBUG: 1 # Ativa o modo debug do Flask (bom para desenvolvimento)
+      FLASK_RUN_RELOAD: 'false' # Desativa o recarregamento automático do Flask (evita problemas com o Docker Compose)
+    depends_on:
+      - mongodb # Garante que o MongoDB inicie antes do backend
+    volumes:
+      # Mapeia o código-fonte do backend do host para o contêiner para hot-reloading
+      - ./backend/src:/app/src
+      # Mapeia a pasta de dados compartilhados do host para o contêiner
+      - ./shared_data:/app/shared_data
+      # Mapeia o arquivo de configuração do backend
+      - ./backend/config.json:/app/config.json
+      # REMOVIDO: - /app/node_modules (o backend é Python, não usa módulos Node.js)
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend # O contexto de construção é a pasta 'frontend'
+      dockerfile: Dockerfile.frontend # Usa o Dockerfile específico para o frontend
+    container_name: auditex_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      # CORRIGIDO: Para o navegador (que está no seu host) acessar o backend,
+      # você precisa usar 'localhost' e a porta mapeada (5000).
+      # 'backend:5000' é apenas para comunicação INTERNA entre contêineres Docker.
+      VITE_REACT_APP_API_URL: http://localhost:5000
+    depends_on:
+      - backend # Garante que o backend inicie antes do frontend
+    volumes:
+      # Mapeia o código-fonte do frontend para hot-reloading
+      - ./frontend:/app
+      # Volume anônimo para node_modules para evitar problemas de compatibilidade
+      # entre as versões de Node.js do host e do contêiner.
+      - /app/node_modules
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
+    driver: local

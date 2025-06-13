@@ -1,0 +1,78 @@
+{
+    "vulnerabilidades": [
+        {
+            "categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+            "descricao": "Esta categoria aborda as vulnerabilidades associadas à configuração inadequada ou ausente de medidas de segurança no protocolo HTTP e na implementação de TLS, cruciais para a proteção da comunicação entre o cliente e o servidor.",
+            "subcategorias": [
+                {
+                    "subcategoria": "Informações de Cabeçalho",
+                    "descricao": "Esta subseção exibe vulnerabilidades associadas à ausência ou má configuração de cabeçalhos HTTP importantes. Tais cabeçalhos ajudam a prevenir ataques como clickjacking, XSS e vazamento de informações sensíveis, sendo essenciais para a segurança das aplicações web."
+                },
+                {
+                    "subcategoria": "Protocolos e Cifragem",
+                    "descricao": "Esta subseção aborda a vulnerabilidade de protocolos e mecanismos de cifragem inadequados ou desatualizados em implementações TLS/SSL. Configurações fracas de criptografia podem permitir a interceptação de dados sensíveis, comprometendo a confidencialidade e integridade das informações."
+                }
+            ]
+        },
+        {
+            "categoria": "Vulnerabilidades em Cookies e Segurança de Sessão",
+            "descricao": "Esta categoria foca em vulnerabilidades relacionadas à segurança de cookies e sessões de usuário, essenciais para garantir que as informações de autenticação e sessão permaneçam protegidas contra roubo e ataques como fixação de sessão.",
+            "subcategorias": [
+                {
+                    "subcategoria": "Segurança de Cookies e Sessões",
+                    "descricao": "Esta subseção discute as vulnerabilidades associadas à segurança de cookies e sessões de usuário. Questões como falta de configuração de atributos de segurança como HttpOnly e Secure em cookies podem permitir ataques como roubo de sessão e acesso não autorizado a dados sensíveis."
+                }
+            ]
+        },
+        {
+            "categoria": "Vulnerabilidades Relacionadas a Injeção de Código",
+            "descricao": "Esta categoria trata das vulnerabilidades de injeção de código, onde entradas de usuário não são devidamente validadas ou filtradas, permitindo a execução de código malicioso que pode comprometer a aplicação e os dados do usuário.",
+            "subcategorias": [
+                {
+                    "subcategoria": "Cross-Site Scripting (XSS)",
+                    "descricao": "Aqui são abordadas as vulnerabilidades XSS, onde atacantes conseguem injetar scripts maliciosos nas páginas da aplicação, podendo roubar dados de usuários ou realizar ações indesejadas em nome do usuário."
+                },
+                {
+                    "subcategoria": "SQL Injection",
+                    "descricao": "Esta subseção detalha as falhas de injeção de SQL, onde entradas de usuário não são devidamente filtradas, permitindo que um atacante execute comandos SQL maliciosos para acessar ou manipular dados no banco de dados."
+                },
+                {
+                    "subcategoria": "Outras Injeções",
+                    "descricao": "Aqui são discutidas outras formas de injeção de código, como injeções em comandos de sistema, XML ou LDAP, que podem comprometer a segurança da aplicação e do servidor."
+                }
+            ]
+        },
+        {
+            "categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+            "descricao": "Esta categoria reúne vulnerabilidades associadas a configurações inadequadas do servidor e à exposição de informações sensíveis, que podem ser acessadas por atacantes devido à falta de medidas de segurança apropriadas.",
+            "subcategorias": [
+                {
+                    "subcategoria": "Configurações do Servidor",
+                    "descricao": "Esta subseção trata de configurações inadequadas do servidor que podem expor informações sensíveis, como diretórios públicos, arquivos de configuração acessíveis ou falta de medidas de proteção contra ataques comuns."
+                },
+                {
+                    "subcategoria": "Exposição de Código e Recursos",
+                    "descricao": "Aqui são abordadas vulnerabilidades relacionadas à exposição não intencional de código-fonte ou outros recursos sensíveis, como arquivos de configuração, chaves de API ou credenciais em endpoints acessíveis, que podem ser explorados por atacantes."
+                }
+            ]
+        },
+        {
+            "categoria": "Outras Vulnerabilidades Críticas e Explorações",
+            "descricao": "Esta categoria abrange vulnerabilidades de alta criticidade que não se encaixam diretamente nas categorias anteriores, mas representam riscos significativos para a segurança da aplicação, como falhas em redirecionamentos, autenticação e versões desatualizadas de software.",
+            "subcategorias": [
+                {
+                    "subcategoria": "Redirecionamentos e Autenticação",
+                    "descricao": "Esta subseção discute vulnerabilidades em mecanismos de redirecionamento e autenticação, que podem permitir que atacantes realizem ataques de phishing, sequestro de sessão ou obtenham acesso indevido a recursos restritos."
+                },
+                {
+                    "subcategoria": "Versões Antigas e Falhas de Plugins",
+                    "descricao": "Aqui são abordadas as vulnerabilidades decorrentes do uso de versões antigas de software ou plugins desatualizados, que podem conter falhas conhecidas e exploráveis, comprometendo a segurança geral do sistema."
+                },
+                {
+                    "subcategoria": "Desafios de Configuração de Segurança",
+                    "descricao": "Esta subseção trata dos desafios decorrentes de configurações inadequadas de segurança, como permissões de acesso excessivas ou falta de autenticação multifatorial, que podem ser exploradas por atacantes para obter acesso não autorizado."
+                }
+            ]
+        }
+    ]
+}

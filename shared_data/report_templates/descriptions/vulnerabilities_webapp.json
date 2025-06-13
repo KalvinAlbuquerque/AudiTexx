@@ -1,0 +1,650 @@
+[
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Informações de Cabeçalho",
+        "Vulnerabilidade": "HTTP Header Information Disclosure",
+        "Descrição": "A vulnerabilidade de divulgação de informações em cabeçalhos HTTP ocorre quando o servidor web remoto envia cabeçalhos que revelam detalhes sensíveis, como a versão do servidor e as tecnologias utilizadas. Essas informações podem ser exploradas por um atacante para identificar potenciais pontos fracos ou vulnerabilidades específicas, facilitando a execução de ataques direcionados.\nÉ crucial que as organizações implementem práticas de segurança, como a minimização das informações expostas nos cabeçalhos HTTP, para reduzir o risco de exploração. A configuração adequada do servidor pode mitigar a divulgação desnecessária de dados que possam ser utilizados para comprometer a segurança da aplicação.",
+        "Solução": "Para mitigar essa vulnerabilidade, recomendamos a modificação dos cabeçalhos HTTP do servidor web para não divulgar informações detalhadas sobre o servidor subjacente. A desativação ou modificação de cabeçalhos como Server, X-Powered-By, X-AspNet-Version e outros cabeçalhos que revelam a versão ou a tecnologia do servidor é essencial.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-de-seguranca-http-e-tls/http-header-information-disclosure.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Informações de Cabeçalho",
+        "Vulnerabilidade": "Missing 'Cache-Control' Header",
+        "Descrição": "A vulnerabilidade relacionada à ausência do cabeçalho X-Frame-Options ocorre quando o servidor web não envia o cabeçalho HTTP que define se a página pode ou não ser exibida em um frame ou iframe. Isso pode tornar o site vulnerável a ataques de clickjacking, onde um atacante manipula a interface do usuário para enganá-lo a clicar em algo diferente do que ele percebia, visando revelar informações confidenciais ou tomar controle do computador do usuário.\nA ausência do cabeçalho X-Frame-Options significa que o site pode ser incorporado em frames de outros sites, expondo os usuários a riscos de clickjacking. A implementação deste cabeçalho é uma medida importante para proteger os usuários contra esse tipo de ataque.",
+        "Solução": "Para mitigar essa vulnerabilidade, recomenda-se configurar o servidor web para incluir o cabeçalho X-Frame-Options em todas as respostas HTTP. Isso pode ser feito configurando o servidor para permitir ou bloquear a exibição da página em frames, sendo recomendado o valor DENY ou SAMEORIGIN para evitar que o conteúdo seja incorporado em sites de terceiros.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-de-seguranca-http-e-tls/missing-x-content-type-options-header.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Informações de Cabeçalho",
+        "Vulnerabilidade": "Missing 'Content-Type' Header",
+        "Descrição": "A vulnerabilidade de ausência do cabeçalho X-Frame-Options ocorre quando o servidor web não retorna esse cabeçalho nas respostas HTTP. O cabeçalho X-Frame-Options é crucial para proteger os usuários contra ataques de clickjacking, um tipo de ataque onde o atacante engana o usuário a clicar em um elemento diferente do que ele percebe, frequentemente resultando na execução de ações não intencionais, como a revelação de informações confidenciais ou o controle do computador do usuário.\nSem a presença do cabeçalho X-Frame-Options, o conteúdo do site pode ser carregado em um frame ou iframe de outro site, o que facilita a exploração dessa vulnerabilidade. Isso ocorre porque um atacante pode embutir o site vulnerável em um iframe disfarçado, enganando o usuário a clicar em botões ou links que, na realidade, estão direcionados para outra ação maliciosa.",
+        "Solução": "Para mitigar esse risco, recomenda-se configurar o servidor web para incluir o cabeçalho X-Frame-Options nas respostas HTTP. Esse cabeçalho pode ser configurado para bloquear a exibição da página em frames de outros sites, utilizando o valor DENY (proibindo completamente) ou SAMEORIGIN (permitindo apenas a exibição no mesmo domínio). Essa simples configuração ajuda a evitar que o conteúdo do site seja incorporado em páginas de terceiros, protegendo os usuários contra ataques de clickjacking.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-de-seguranca-http-e-tls/missing-x-frame-options-header.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Informações de Cabeçalho",
+        "Vulnerabilidade": "Missing 'X-Content-Type-Options' Header",
+        "Descrição": "A vulnerabilidade relacionada à ausência do cabeçalho X-Frame-Options ocorre quando o servidor web não envia o cabeçalho HTTP que define se a página pode ou não ser exibida em um frame ou iframe. Isso pode tornar o site vulnerável a ataques de clickjacking, onde um atacante manipula a interface do usuário para enganá-lo a clicar em algo diferente do que ele percebia, visando revelar informações confidenciais ou tomar controle do computador do usuário. A ausência do cabeçalho X-Frame-Options significa que o site pode ser incorporado em frames de outros sites, expondo os usuários a riscos de clickjacking. A implementação deste cabeçalho é uma medida importante para proteger os usuários contra esse tipo de ataque.",
+        "Solução": "Para mitigar essa vulnerabilidade, recomenda-se configurar o servidor web para incluir o cabeçalho X-Frame-Options em todas as respostas HTTP. Isso pode ser feito configurando o servidor para permitir ou bloquear a exibição da página em frames, sendo recomendado o valor DENY ou SAMEORIGIN para evitar que o conteúdo seja incorporado em sites de terceiros.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-de-seguranca-http-e-tls/missing-x-content-type-options-header.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Informações de Cabeçalho",
+        "Vulnerabilidade": "Missing 'X-Frame-Options' Header",
+        "Descrição": "A vulnerabilidade de ausência do cabeçalho X-Frame-Options ocorre quando o servidor web não retorna esse cabeçalho nas respostas HTTP. O cabeçalho X-Frame-Options é crucial para proteger os usuários contra ataques de clickjacking, um tipo de ataque onde o atacante engana o usuário a clicar em um elemento diferente do que ele percebe, frequentemente resultando na execução de ações não intencionais, como a revelação de informações confidenciais ou o controle do computador do usuário.\nSem a presença do cabeçalho X-Frame-Options, o conteúdo do site pode ser carregado em um frame ou iframe de outro site, o que facilita a exploração dessa vulnerabilidade. Isso ocorre porque um atacante pode embutir o site vulnerável em um iframe disfarçado, enganando o usuário a clicar em botões ou links que, na realidade, estão direcionados para outra ação maliciosa.",
+        "Solução": "Para mitigar esse risco, recomenda-se configurar o servidor web para incluir o cabeçalho X-Frame-Options nas respostas HTTP. Esse cabeçalho pode ser configurado para bloquear a exibição da página em frames de outros sites, utilizando o valor DENY (proibindo completamente) ou SAMEORIGIN (permitindo apenas a exibição no mesmo domínio). Essa simples configuração ajuda a evitar que o conteúdo do site seja incorporado em páginas de terceiros, protegendo os usuários contra ataques de clickjacking.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-de-seguranca-http-e-tls/missing-x-frame-options-header.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Informações de Cabeçalho",
+        "Vulnerabilidade": "Missing HTTP Strict Transport Security Policy",
+        "Descrição": "O protocolo HTTP transmite dados em texto claro, o que significa que qualquer dado enviado via HTTP pode ser interceptado e visualizado. Para proteger a privacidade e evitar a interceptação de dados, o HTTP é frequentemente encapsulado através dos padrões de criptografia Secure Sockets Layer (SSL) ou Transport Layer Security (TLS), resultando no uso de HTTPS.\nO HTTP Strict Transport Security (HSTS) é um cabeçalho de resposta opcional que pode ser configurado no servidor para instruir o navegador a se comunicar exclusivamente via HTTPS. Essa política será forçada pelo navegador, mesmo que o usuário tente acessar um recurso HTTP na mesma origem. O HSTS ajuda a proteger contra ataques de downgrade, em que um atacante pode tentar forçar uma conexão insegura em vez de usar a versão segura HTTPS.\nCriminosos cibernéticos costumam tentar comprometer informações sensíveis transmitidas entre o cliente e o servidor via HTTP, utilizando técnicas como ataques Man-in-The-Middle (MiTM) ou capturas de pacotes de rede. Embora a aplicação afetada utilize HTTPS, ela não está utilizando o cabeçalho HSTS, o que a deixa vulnerável a esse tipo de ataque.",
+        "Solução": "Para mitigar esse risco, é altamente recomendado configurar o cabeçalho Strict-Transport-Security no servidor. Esse cabeçalho instrui os navegadores a forçar o uso do HTTPS e a garantir que, mesmo que o usuário tente acessar uma versão HTTP de um recurso, a comunicação será automaticamente redirecionada para HTTPS. Uma das opções para configurar o cabeçalho é o parâmetro max-age, que define o tempo (em segundos) pelo qual o navegador deve seguir a política de HSTS. O período pode variar conforme o ambiente e os requisitos da aplicação, podendo ser de alguns minutos até vários dias.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-de-seguranca-http-e-tls/missing-http-strict-transport-security-policy.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Informações de Cabeçalho",
+        "Vulnerabilidade": "Permissive HTTP Strict Transport Security Policy Detected",
+        "Descrição": "O HTTP Strict Transport Security (HSTS) é um cabeçalho de resposta opcional que pode ser configurado no servidor para instruir o navegador a se comunicar exclusivamente via HTTPS. Ao ser configurado corretamente, o HSTS ajuda a proteger os usuários contra ataques de downgrade e interceptação de dados. No entanto, foi detectado que a política HSTS configurada para o servidor não possui um valor suficientemente longo para o parâmetro max-age ou não cobre subdomínios por meio da diretiva includeSubDomains.",
+        "Solução": "Para melhorar a segurança e evitar que a política HSTS seja permissiva demais, é recomendado ajustar o parâmetro max-age para um valor de, pelo menos, 31536000 segundos (1 ano). Além disso, a diretiva includeSubDomains deve ser especificada para garantir que todos os subdomínios sejam protegidos pela mesma política HSTS.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-de-seguranca-http-e-tls/permissive-http-strict-transport-security-policy-detected.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Informações de Cabeçalho",
+        "Vulnerabilidade": "Missing Content Security Policy",
+        "Descrição": "A Política de Segurança de Conteúdo (CSP) é um padrão de segurança da web que ajuda a mitigar ataques como Cross-Site Scripting (XSS), clickjacking ou problemas de conteúdo misto. O CSP fornece mecanismos para que os sites restrinjam o conteúdo que os navegadores podem carregar.\nNenhum cabeçalho CSP foi detectado neste host. Esta URL é sinalizada como um exemplo específico.",
+        "Solução": "Configure a Política de Segurança de Conteúdo no seu site, adicionando o cabeçalho HTTP 'Content-Security-Policy' ou a tag meta http-equiv='Content-Security-Policy'.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-de-seguranca-http-e-tls/missing-content-security-policy.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Informações de Cabeçalho",
+        "Vulnerabilidade": "HTTPS Not Detected",
+        "Descrição": "O HTTPS é um protocolo que protege a integridade e a confidencialidade dos dados entre o cliente e o servidor. O uso do HTTPS é altamente recomendado para proteger as conexões com o site, independentemente do tipo de conteúdo.",
+        "Solução": "Habilite o HTTPS seguindo as melhores práticas.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-de-seguranca-http-e-tls/https-not-detected.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Informações de Cabeçalho",
+        "Vulnerabilidade": "Mixed Resource Detection",
+        "Descrição": "O scanner descobriu que o site afetado está utilizando tanto HTTP quanto HTTPS. Embora o código HTML seja servido via HTTPS, o servidor também está fornecendo recursos por um canal não criptografado, o que pode comprometer os dados, ao mesmo tempo que oferece uma falsa sensação de segurança ao usuário.",
+        "Solução": "Todas as páginas e/ou recursos no site afetado devem ser igualmente protegidos, utilizando os protocolos de criptografia mais seguros e recentes, como TLS 1.2 e TLS 1.3.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-de-seguranca-http-e-tls/mixed-resource-detection.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Protocolos e Cifragem",
+        "Vulnerabilidade": "TLS 1.1 Weak Protocol",
+        "Descrição": "O protocolo TLS 1.0, introduzido em 1999, foi um importante avanço para a segurança da comunicação na web, mas é atualmente considerado obsoleto devido a diversas vulnerabilidades que podem ser exploradas por atacantes. O uso do TLS 1.0 apresenta riscos de segurança, como a possibilidade de ataques de downgrade e a exploração de algoritmos de criptografia mais fracos. Isso pode resultar na exposição de dados sensíveis transmitidos entre o cliente e o servidor.\nManter o suporte a protocolos depreciados como o TLS 1.0 pode enfraquecer a postura de segurança da aplicação e deixar os usuários vulneráveis a ataques cibernéticos que exploram essas falhas conhecidas.",
+        "Solução": "Recomenda-se a reconfiguração da aplicação afetada para desabilitar o uso do protocolo TLS 1.0. Deve-se optar pelo uso de TLS 1.2 ou, preferencialmente, TLS 1.3, que proporcionam níveis de segurança substancialmente superiores, com mecanismos de criptografia mais robustos e menor susceptibilidade a vulnerabilidades exploradas em versões anteriores.",
+        "Imagem": "assets/images-was/protocolos-e-cifragem/tls-11-weak-protocol.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Protocolos e Cifragem",
+        "Vulnerabilidade": "TLS 1.0 Weak Protocol",
+        "Descrição": "O servidor remoto suporta o uso de conjuntos de cifras (cipher suites) de SSL/TLS que oferecem criptografia fraca, como RC4 e 3DES. Esses algoritmos de criptografia estão obsoletos e possuem vulnerabilidades conhecidas que podem ser exploradas por atacantes para comprometer a confidencialidade e a integridade dos dados transmitidos.\nO uso de cifras fracas, como RC4, que está suscetível a ataques de viés de chave, e 3DES, que é vulnerável a ataques de colisão devido ao seu tamanho de chave efetivo de 112 bits, enfraquece a segurança da comunicação entre o cliente e o servidor. Isso pode resultar em ataques de interceptação e roubo de dados, comprometendo a segurança da aplicação e seus usuários.",
+        "Solução": "Para mitigar essa vulnerabilidade, recomenda-se reconfigurar a aplicação ou o servidor afetado para desabilitar o uso do protocolo TLS 1.0. Em vez disso, deve-se usar versões mais seguras do protocolo, como TLS 1.2 ou TLS 1.3, que oferecem melhorias significativas em termos de segurança e desempenho. A atualização para essas versões mais recentes ajuda a proteger a comunicação de ameaças conhecidas e garante uma experiência mais segura para os usuários.",
+        "Imagem": "assets/images-was/protocolos-e-cifragem/tls-10-weak-protocol.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Protocolos e Cifragem",
+        "Vulnerabilidade": "SSL/TLS Weak Cipher Suites Supported",
+        "Descrição": "O servidor remoto suporta o uso de conjuntos de cifras (cipher suites) de SSL/TLS que oferecem criptografia insegura, incluindo suites de exportação e cifras com menos de 128 bits. Esses conjuntos de cifras são considerados inseguros porque proporcionam um nível de proteção inadequado, tornando mais fácil para um atacante decifrar os dados transmitidos.\nConjuntos de cifras com menos de 128 bits de força não oferecem uma barreira suficiente contra ataques de força bruta e outros métodos de comprometimento de dados. O suporte a essas cifras pode expor a comunicação a riscos significativos, incluindo a interceptação de dados sensíveis e a perda da integridade da transmissão.",
+        "Solução": "Recomenda-se reconfigurar a aplicação ou servidor afetado para desabilitar o suporte a conjuntos de cifras fracas. As cifras mais seguras, como AES (Advanced Encryption Standard) em modos de operação modernos (por exemplo, GCM), devem ser priorizadas. Além disso, a configuração do servidor deve ser revisada para garantir o suporte a protocolos e algoritmos de criptografia que estejam de acordo com as melhores práticas de segurança, como TLS 1.2 ou TLS 1.3, que oferecem melhorias significativas em segurança e desempenho.",
+        "Imagem": "assets/images-was/protocolos-e-cifragem/ssl-tls-weak-cipher-suites-supported.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Protocolos e Cifragem",
+        "Vulnerabilidade": "SSL/TLS Insecure Cipher Suites Supported",
+        "Descrição": "O servidor remoto apresenta um certificado SSL/TLS expirado. Os certificados SSL/TLS são utilizados para estabelecer uma comunicação segura e criptografada entre o cliente e o servidor. Quando um certificado expira, ele deixa de ser considerado válido e não pode mais garantir a integridade e a confidencialidade da comunicação. Isso pode resultar em falhas na verificação de identidade do servidor e expor a comunicação a ataques de intermediários (Man-in-the-Middle).\nUm certificado expirado também pode gerar alertas de segurança nos navegadores dos usuários, prejudicando a confiança na aplicação ou site e impactando negativamente a experiência do usuário.",
+        "Solução": "Para mitigar essa vulnerabilidade, recomenda-se reconfigurar a aplicação ou servidor afetado para desabilitar o uso de cifras inseguras. É importante garantir que apenas cifras que utilizem criptografia forte (128 bits ou mais) sejam suportadas, priorizando algoritmos como AES em modos de operação seguros (por exemplo, AES-GCM). A implementação de versões mais recentes do protocolo TLS, como TLS 1.2 e TLS 1.3, também deve ser considerada para reforçar a segurança da comunicação.",
+        "Imagem": "assets/images-was/protocolos-e-cifragem/ssl-tls-insecure-cipher-suites-supported.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Protocolos e Cifragem",
+        "Vulnerabilidade": "SSL/TLS Certificate Expired",
+        "Descrição": "O servidor remoto apresenta um certificado SSL/TLS no qual o Common Name (CN) e o Subject Alternative Name (SAN) não correspondem ao nome de host do servidor. O Common Name e o Subject Alternative Name são campos no certificado que devem refletir os domínios e subdomínios que o certificado protege. Quando esses campos não coincidem com o nome de host do servidor, pode ocorrer um erro de validação do certificado, levando os navegadores e clientes a desconfiarem da identidade do servidor.\nEsse tipo de mismatch pode ocorrer devido a um erro na emissão do certificado, em que os nomes registrados não correspondem ao nome real do servidor, comprometendo a confiança e a integridade da conexão. Além disso, pode ser um indicativo de que o servidor está sendo mal configurado ou de um possível ataque de man-in-the-middle.",
+        "Solução": "Para corrigir essa vulnerabilidade, é necessário adquirir ou gerar um novo certificado SSL/TLS para substituir o atual, priorizando o certificado TLS 1.2 e superior. O novo certificado deve ser configurado corretamente no servidor para garantir que todas as conexões sejam criptografadas com um certificado válido. Além disso, é importante configurar alertas ou monitoramento para garantir que o certificado seja renovado antes de sua expiração no futuro.",
+        "Imagem": "assets/images-was/protocolos-e-cifragem/ssl-tls-certificate-expired.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Protocolos e Cifragem",
+        "Vulnerabilidade": "SSL/TLS Certificate Common Name Mismatch",
+        "Descrição": "O servidor remoto apresenta um certificado SSL/TLS autoassinado, ou seja, um certificado que não foi assinado por uma autoridade certificadora (CA) reconhecida. Certificados autoassinados não têm a validação de uma autoridade confiável, o que significa que não há uma garantia de que o servidor é legítimo. Isso compromete a confiança na comunicação segura estabelecida pelo SSL/TLS.\nSe o servidor for um host público em produção, o uso de um certificado autoassinado anula a eficácia do SSL/TLS, pois qualquer pessoa pode gerar um certificado autoassinado e realizar um ataque de man-in-the-middle (MITM) entre o cliente e o servidor. Isso permite a interceptação e manipulação de dados sensíveis.",
+        "Solução": "Para corrigir essa vulnerabilidade, é necessário adquirir ou gerar um novo certificado SSL/TLS que tenha o Common Name ou o Subject Alternative Name configurados corretamente, correspondendo exatamente ao nome de host do servidor. Isso garante que o certificado seja válido e que a comunicação entre o cliente e o servidor seja criptografada de forma segura e confiável. É importante também verificar a configuração do servidor para garantir que ele apresente o certificado correto durante o processo de handshake SSL/TLS.",
+        "Imagem": "assets/images-was/protocolos-e-cifragem/ssl-tls-certificate-common-name-mismatch.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Protocolos e Cifragem",
+        "Vulnerabilidade": "SSL/TLS Self-Signed Certificate",
+        "Descrição": "O servidor remoto não oferece suporte para o protocolo TLS 1.2, que é um protocolo de criptografia considerado essencial para garantir um nível adequado de segurança nas comunicações. O TLS 1.2 oferece melhorias significativas em relação a versões anteriores do TLS e SSL, incluindo suporte para algoritmos de criptografia mais fortes e uma maior resistência a ataques de man-in-the-middle e outros tipos de comprometimento de dados.\nSem o suporte ao TLS 1.2, as comunicações podem estar sujeitas a fraquezas significativas de segurança, uma vez que versões anteriores do protocolo, como TLS 1.0 e TLS 1.1, não são mais consideradas seguras. O uso de protocolos obsoletos pode permitir que atacantes explorem vulnerabilidades conhecidas.",
+        "Solução": "A solução para essa vulnerabilidade é adquirir ou gerar um novo certificado SSL/TLS que seja assinado por uma autoridade certificadora confiável. Isso garantirá que a comunicação seja autenticada por uma entidade confiável, aumentando a segurança e a confiança na troca de dados. Além disso, o novo certificado deve ser configurado corretamente no servidor para garantir que todas as conexões sejam criptografadas de forma segura e verificada.",
+        "Imagem": "assets/images-was/protocolos-e-cifragem/ssl-tls-self-signed-certificate.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Protocolos e Cifragem",
+        "Vulnerabilidade": "TLS 1.2 Not Supported Protocol",
+        "Descrição": "O servidor remoto oferece versões inseguras do protocolo SSL, como SSLv2 e SSLv3, que são vulneráveis a vários ataques conhecidos, como o ataque POODLE (Padding Oracle On Downgraded Legacy Encryption). Essas versões antigas do SSL não oferecem a segurança necessária para proteger as comunicações entre o cliente e o servidor. Elas permitem que atacantes explorem falhas e interceptem ou manipulem dados transmitidos.\nO uso dessas versões do SSL compromete a segurança da conexão e pode ser uma porta de entrada para ataques, como interceptação de dados sensíveis, execução de ataques man-in-the-middle, e comprometimento de integridade e confidencialidade.",
+        "Solução": "Para mitigar essa vulnerabilidade, recomenda-se reconfigurar o servidor afetado para habilitar o suporte ao protocolo TLS 1.2. Isso pode ser feito ajustando as configurações do servidor web, como Apache, Nginx ou outros servidores, para garantir que o TLS 1.2 seja ativado e utilizado nas comunicações. Além disso, deve-se desabilitar versões anteriores do TLS e SSL para garantir que apenas conexões seguras sejam estabelecidas.",
+        "Imagem": "assets/images-was/protocolos-e-cifragem/tls-12-not-supported-protocol.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Protocolos e Cifragem",
+        "Vulnerabilidade": "SSL Insecure Protocols",
+        "Descrição": "",
+        "Solução": "Para corrigir essa vulnerabilidade, é recomendável reconfigurar o servidor afetado para desabilitar o uso das versões inseguras do SSL (SSLv2 e SSLv3). Em vez disso, deve-se habilitar o uso do protocolo TLS 1.2 ou superior, que oferece uma criptografia mais forte e é considerado seguro para comunicações confidenciais. A configuração do servidor web, como Apache, Nginx, ou outros, deve ser ajustada para garantir que apenas protocolos seguros, como TLS 1.2, sejam utilizados nas conexões.",
+        "Imagem": "assets/images-was/protocolos-e-cifragem/ssl-insecure-protocols.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Protocolos e Cifragem",
+        "Vulnerabilidade": "SSL/TLS Forward Secrecy Cipher Suites Not Supported",
+        "Descrição": "O host remoto utiliza pelo menos uma cifra SSL/TLS que não oferece segredo perfeito (FS), também conhecido como segredo perfeito de avanço (PFS). Essa é uma característica que garante que as chaves de sessão não serão comprometidas mesmo que a chave privada do servidor seja comprometida.",
+        "Solução": "Reconfigure o servidor para desabilitar as cifras sem segredo perfeito e mantenha apenas as cifras que oferecem segredo perfeito (cifras baseadas em ECDHE ou DHE).",
+        "Imagem": "assets/images-was/protocolos-e-cifragem/ssl-tls-forward-secrecy-cipher-suites-not-supported.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades em Cookies e Segurança de Sessão",
+        "Subcategoria": "Vulnerabilidades em Cookies e Segurança de Sessão",
+        "Vulnerabilidade": "Cookie Without SameSite Flag Detected",
+        "Descrição": "O atributo SameSite pode ser configurado em cookies para informar ao navegador se o cookie pode ser enviado junto com solicitações de sites diferentes (cross-site), ajudando a prevenir ataques de Cross-Site Request Forgery (CSRF). Esse atributo pode ter três valores possíveis:\n* Strict: o cookie será enviado apenas em contextos de primeira parte, ou seja, apenas para o próprio site, impedindo que sites de terceiros o incluam em requisições.\n* Lax: o cookie pode ser enviado em requisições GET de sites de terceiros, quando a navegação é iniciada pelo usuário em um link externo. Por exemplo, ao clicar em um link de um site externo, o cookie será incluído na solicitação.\n* None: o cookie será explicitamente enviado pelo navegador em qualquer contexto, independentemente de ser uma requisição de primeira parte ou de terceiros.\nO scanner identificou que o aplicativo não configura ou configura incorretamente o atributo SameSite nos cookies. Isso pode resultar em um comportamento inesperado, já que o navegador pode, por padrão, enviar cookies em contextos cruzados, aumentando o risco de ataques CSRF.",
+        "Solução": "Para mitigar essa vulnerabilidade, é essencial configurar o atributo SameSite em todos os cookies. O valor do atributo deve ser ajustado conforme o comportamento desejado. Ao usar o valor \"None\", é crucial também configurar o cookie com a flag Secure, garantindo que ele seja enviado apenas por conexões HTTPS seguras.",
+        "Imagem": "assets/images-was/vulnerabilidades-em-cookies-e-seguranca-de-sessao/cookie-without-samesite-flag-detected.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades em Cookies e Segurança de Sessão",
+        "Subcategoria": "Vulnerabilidades em Cookies e Segurança de Sessão",
+        "Vulnerabilidade": "Cookie Without HttpOnly Flag Detected",
+        "Descrição": "A flag HttpOnly ajuda a prevenir que scripts do lado do cliente (como o JavaScript) acessem e usem o cookie. Isso é particularmente importante para proteger os cookies que contêm tokens de sessão do cliente, já que impede que um script malicioso, como um que explora uma vulnerabilidade de Cross-Site Scripting (XSS), possa roubar esses dados sensíveis.\nVale destacar que configurar a flag HttpOnly não previne ou resolve vulnerabilidades XSS diretamente, mas limita o escopo de exploração ao impedir que os cookies sejam acessados por scripts do lado do cliente.",
+        "Solução": "O primeiro passo para corrigir essa vulnerabilidade é determinar se algum script do lado do cliente (como o JavaScript) precisa acessar o cookie. Se o cookie não precisar ser acessado por scripts, a flag HttpOnly deve ser configurada. Essa configuração ajuda a proteger os dados do cookie contra tentativas de roubo por meio de ataques XSS.\nÉ importante observar que navegadores mais antigos podem não ser compatíveis com a flag HttpOnly, o que significa que esses clientes ainda estarão suscetíveis a esse tipo de ataque, mesmo com a configuração da flag.",
+        "Imagem": "assets/images-was/vulnerabilidades-em-cookies-e-seguranca-de-sessao/cookie-without-httponly-flag-detected.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades em Cookies e Segurança de Sessão",
+        "Subcategoria": "Vulnerabilidades em Cookies e Segurança de Sessão",
+        "Vulnerabilidade": "Cookie Without Secure Flag Detected",
+        "Descrição": "Quando a flag secure é configurada em um cookie, o navegador impede que ele seja enviado através de um canal de texto claro (HTTP), permitindo que o cookie seja enviado apenas quando uma conexão segura (HTTPS) for utilizada. Isso ajuda a garantir que os cookies contendo informações sensíveis não sejam expostos em conexões não seguras.\nO scanner detectou que o servidor configurou um cookie sem a flag secure. Embora o cookie tenha sido inicialmente configurado em uma conexão HTTPS, qualquer link HTTP para o mesmo servidor resultará no envio do cookie em texto claro, o que pode comprometer a segurança dos dados transmitidos, caso o cookie contenha informações sensíveis.\nVale ressaltar que, se o cookie não contiver informações sensíveis, o risco dessa vulnerabilidade é reduzido.",
+        "Solução": "Se o cookie contiver informações sensíveis, como credenciais de usuário, dados financeiros ou informações pessoais, é essencial que o servidor configure o cookie com a flag secure. Isso garantirá que o cookie seja transmitido apenas em conexões HTTPS, protegendo assim a integridade e confidencialidade dos dados.",
+        "Imagem": "assets/images-was/vulnerabilidades-em-cookies-e-seguranca-de-sessao/cookie-without-secure-flag-detected.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Injeção de Código",
+        "Subcategoria": "Cross-Site Scripting (XSS)",
+        "Vulnerabilidade": "jQuery 1.2.0 < 3.5.0 Cross-Site Scripting",
+        "Descrição": "De acordo com o número de versão autodeclarado, a versão do jQuery da aplicação é pelo menos 1.2.0 e anterior à 3.5.0. Nesse intervalo de versões, o jQuery pode ser vulnerável a um ataque de Cross-Site Scripting (XSS) devido a uma falha na operação de regex na função jQuery.htmlPrefilter. Essa falha pode ser explorada por um atacante para injetar e executar código JavaScript malicioso no contexto do navegador de um usuário, comprometendo a segurança da aplicação e dos dados do usuário.\nVale ressaltar que o scanner não realizou um teste direto para identificar essa vulnerabilidade, mas confiou exclusivamente na versão informada pela aplicação.",
+        "Solução": "A solução para essa vulnerabilidade é atualizar o jQuery para a versão 3.5.0 ou posterior, que resolve a falha de segurança relacionada ao htmlPrefilter. Essa atualização garantirá que a aplicação esteja protegida contra essa vulnerabilidade de XSS.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-injecao-de-codigo/cross-site-scriptingxss/jquery-120-inferior-a-350-cross-site-scripting.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Injeção de Código",
+        "Subcategoria": "Cross-Site Scripting (XSS)",
+        "Vulnerabilidade": "Bootstrap 4.x \\textless 4.3.1 Cross-Site Scripting",
+        "Descrição": "De acordo com o número de versão autodeclarado, a versão do Bootstrap da aplicação é 3.x anterior à 3.4.1 ou 4.x anterior à 4.3.1. Nesse intervalo de versões, o Bootstrap pode ser vulnerável a um ataque de Cross-Site Scripting (XSS) devido ao uso do atributo data-template nos plugins de tooltip e popover. Essa falha pode permitir que um atacante injete código malicioso através do uso do atributo data-template, comprometendo a segurança da aplicação e permitindo a execução de scripts não autorizados no navegador do usuário.\nVale ressaltar que o scanner não realizou um teste direto para identificar essa vulnerabilidade, mas confiou exclusivamente na versão informada pela aplicação.",
+        "Solução": "Para mitigar essa vulnerabilidade, recomenda-se atualizar o Bootstrap para a versão 4.3.1 ou superior. As versões mais recentes corrigem essa falha, prevenindo a injeção de código malicioso nos elementos de tooltip e popover.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-injecao-de-codigo/cross-site-scriptingxss/bootstrap-4x-inferior-431-cross-site-scripting.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Injeção de Código",
+        "Subcategoria": "Cross-Site Scripting (XSS)",
+        "Vulnerabilidade": "jQuery UI \\textless 1.13.2 Cross-Site Scripting",
+        "Descrição": "De acordo com o número de versão autodeclarado, o jQuery UI da aplicação é anterior à versão 1.13.2. Portanto, ele está vulnerável a um ataque de Cross-Site Scripting (XSS) ao atualizar um checkboxradio com um rótulo de texto inicial em formato HTML (CVE-2022-31160). Esse tipo de vulnerabilidade permite que um atacante injete código malicioso no conteúdo HTML, afetando a interação do usuário com o checkboxradio e possivelmente comprometendo a segurança da aplicação.\nVale ressaltar que o scanner não testou diretamente essa vulnerabilidade, mas confiou exclusivamente na versão informada pela aplicação.",
+        "Solução": "Para mitigar essa vulnerabilidade, recomenda-se atualizar o jQuery UI para a versão 1.13.2 ou superior. As versões mais recentes corrigem essa falha, evitando a injeção de código malicioso e aumentando a segurança da aplicação.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-injecao-de-codigo/cross-site-scriptingxss/jquery-ui-inferior-1132-cross-site-scripting.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Injeção de Código",
+        "Subcategoria": "Cross-Site Scripting (XSS)",
+        "Vulnerabilidade": "Contact Form 7 Plugin for WordPress \\textless 5.9.2 Cross-Site Scripting",
+        "Descrição": "A vulnerabilidade de Cross-Site Scripting (XSS) no plugin Contact Form 7 para WordPress ocorre quando o plugin permite que entradas de usuários não sejam devidamente validadas ou higienizadas antes de serem renderizadas no navegador. Isso pode permitir que um atacante injete código JavaScript malicioso, que será executado no contexto do navegador da vítima, potencialmente comprometendo dados sensíveis ou realizando ações não autorizadas em nome do usuário afetado.\nÉ importante que administradores de sites assegurem que todos os plugins estejam atualizados para proteger o ambiente contra explorações que possam comprometer a integridade e a segurança dos usuários e da aplicação. Esta vulnerabilidade é particularmente preocupante em sites que utilizam o Contact Form 7 em versões anteriores à 5.9.2, pois pode ser explorada para executar código malicioso.",
+        "Solução": "Para mitigar essa vulnerabilidade, é recomendado que os administradores do site atualizem o plugin Contact Form 7 para a versão 5.9.2 ou posterior. A manutenção regular de plugins e a aplicação de patches de segurança são essenciais para garantir que o ambiente de WordPress esteja protegido contra vulnerabilidades conhecidas.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-injecao-de-codigo/cross-site-scriptingxss/contact-form-7-plugin-for-wordpress-inferior-592-cross-site-scripting.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Injeção de Código",
+        "Subcategoria": "Cross-Site Scripting (XSS)",
+        "Vulnerabilidade": "Wordfence Security Plugin for WordPress \\textless 7.6.0 Stored Cross-Site Scripting",
+        "Descrição": "A vulnerabilidade de Cross-Site Scripting (XSS) armazenado no plugin Wordfence Security para WordPress ocorre quando entradas de usuários maliciosas podem ser armazenadas no servidor e posteriormente executadas no navegador de outros usuários. Isso pode permitir que um atacante injete código JavaScript malicioso, que será executado quando a página vulnerável for acessada, comprometendo a segurança dos dados e permitindo a execução de ações não autorizadas.\nEssa vulnerabilidade pode ser explorada para roubo de informações, sequestro de sessões ou outros ataques de engenharia social que impactam tanto os administradores quanto os usuários do site. Sites com o plugin Wordfence Security em versões anteriores à 7.6.0 estão suscetíveis a essa falha.",
+        "Solução": "É altamente recomendado que os administradores de sites atualizem o plugin Wordfence Security para a versão 7.6.0 ou posterior. A atualização dos plugins de segurança e a verificação constante de patches de correção são medidas fundamentais para prevenir ataques e garantir a integridade do site.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-injecao-de-codigo/cross-site-scriptingxss/wordfence-security-plugin-for-wordpress-inferior-760-stored-cross-site-scripting.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Injeção de Código",
+        "Subcategoria": "Cross-Site Scripting (XSS)",
+        "Vulnerabilidade": "jQuery 1.2.0 \textless 3.5.0 Cross-Site Scripting",
+        "Descrição": "De acordo com o número da versão auto-relatado, o jQuery está na versão pelo menos 1.2.0 e anterior à 3.5.0. Portanto, ele pode ser afetado por uma vulnerabilidade de Cross-Site Scripting (XSS) através da operação regex em jQuery.htmlPrefilter. Observa-se que o scanner não testou diretamente essas questões, mas baseou-se apenas na versão auto-relatada pela aplicação.",
+        "Solução": "Atualize para a versão 3.5.0 ou posterior do jQuery.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-bibliotecas-de-terceiros/versoes-obsoletas-ou-vulneraveis/jquery-120-350-cross-site-scripting.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Injeção de Código",
+        "Subcategoria": "SQL Injection",
+        "Vulnerabilidade": "Blind SQL Injection (timing attack)",
+        "Descrição": "Devido à necessidade de conteúdo dinâmico nas aplicações web atuais, muitas dependem de um banco de dados para armazenar dados que serão recuperados e processados pela aplicação web (ou outros programas). As aplicações web recuperam dados do banco de dados por meio de consultas SQL (Structured Query Language).\nPara atender às demandas de muitos desenvolvedores, servidores de banco de dados (como MSSQL, MySQL, Oracle, etc.) possuem funcionalidades adicionais que podem permitir controle extenso do banco de dados e interação com o sistema operacional hospedeiro.\nUma injeção de SQL ocorre quando um valor originado da solicitação do cliente é usado dentro de uma consulta SQL sem a devida sanitização. Isso pode permitir que criminosos cibernéticos executem código SQL arbitrário, roubem dados ou usem a funcionalidade adicional do servidor de banco de dados para obter controle de mais componentes do servidor.\nA exploração bem-sucedida de uma injeção de SQL pode ser devastadora para uma organização e é uma das vulnerabilidades mais exploradas em aplicações web.\nEssa injeção foi detectada quando o scanner foi capaz de injetar consultas SQL específicas, que, se vulneráveis, resultam em respostas para cada solicitação sendo retardadas antes de serem enviadas pelo servidor. Isso é conhecido como uma vulnerabilidade de Blind SQL Injection baseada em tempo.",
+        "Solução": "A única maneira comprovada de prevenir ataques de injeção de SQL, mantendo a funcionalidade completa da aplicação, é utilizar consultas parametrizadas (também conhecidas como declarações preparadas). Ao utilizar esse método de consulta ao banco de dados, qualquer valor fornecido pelo cliente será tratado como um valor de string, em vez de fazer parte da consulta SQL.\nAlém disso, ao utilizar consultas parametrizadas, o mecanismo de banco de dados verificará automaticamente se a string utilizada corresponde ao tipo da coluna. Por exemplo, o mecanismo de banco de dados verificará se a entrada fornecida pelo usuário é um número inteiro, caso a coluna do banco de dados esteja configurada para conter inteiros.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-injecao-de-codigo/sql-injection/blind-sql-injection-timing-attack.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Injeção de Código",
+        "Subcategoria": "SQL Injection",
+        "Vulnerabilidade": "LayerSlider Plugin for WordPress 7.9.11 \\textless 7.10.1 SQL Injection",
+        "Descrição": "O plugin LayerSlider para WordPress instalado no host remoto está vulnerável a uma injeção de SQL.\nVale ressaltar que o scanner não testou essas vulnerabilidades diretamente, mas se baseou apenas no número da versão informado pela aplicação.",
+        "Solução": "Atualize o plugin LayerSlider para WordPress para a versão 7.10.1 ou a versão mais recente.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-injecao-de-codigo/sql-injection/requisicao-blind-sql-injection-timing-attack.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Injeção de Código",
+        "Subcategoria": "SQL Injection",
+        "Vulnerabilidade": "SQL Injection",
+        "Descrição": "Devido à necessidade de conteúdo dinâmico nas aplicações web atuais, muitas dependem de um banco de dados para armazenar dados que serão recuperados e processados pela aplicação web (ou outros programas). As aplicações web recuperam dados do banco de dados por meio de consultas SQL (Structured Query Language).\nPara atender às demandas de muitos desenvolvedores, servidores de banco de dados (como MSSQL, MySQL, Oracle, etc.) possuem funcionalidades adicionais que podem permitir controle extenso do banco de dados e interação com o sistema operacional hospedeiro.\nUma injeção de SQL ocorre quando um valor originado da solicitação do cliente é usado dentro de uma consulta SQL sem a devida sanitização. Isso pode permitir que criminosos cibernéticos executem código SQL arbitrário, roubem dados ou usem a funcionalidade adicional do servidor de banco de dados para obter controle de mais componentes do servidor.\nA exploração bem-sucedida de uma injeção de SQL pode ser devastadora para uma organização e é uma das vulnerabilidades mais exploradas em aplicações web.\nEssa injeção foi detectada quando o scanner foi capaz de causar um erro relacionado ao banco de dados na resposta do servidor.",
+        "Solução": "A única maneira comprovada de prevenir ataques de injeção de SQL, mantendo a funcionalidade completa da aplicação, é utilizar consultas parametrizadas (também conhecidas como declarações preparadas). Ao utilizar esse método de consulta ao banco de dados, qualquer valor fornecido pelo cliente será tratado como um valor de string, em vez de fazer parte da consulta SQL.\nAlém disso, ao utilizar consultas parametrizadas, o mecanismo de banco de dados verificará automaticamente se a string utilizada corresponde ao tipo da coluna. Por exemplo, o mecanismo de banco de dados verificará se a entrada fornecida pelo usuário é um número inteiro, caso a coluna do banco de dados esteja configurada para conter inteiros.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-injecao-de-codigo/sql-injection/sql-injection.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Injeção de Código",
+        "Subcategoria": "SQL Injection",
+        "Vulnerabilidade": "Blind SQL Injection (differential analysis)",
+        "Descrição": "Devido à necessidade de conteúdo dinâmico nas aplicações web atuais, muitas dependem de um banco de dados para armazenar dados que serão recuperados e processados pela aplicação web (ou outros programas). As aplicações web recuperam dados do banco de dados utilizando consultas em Structured Query Language (SQL).\nPara atender à demanda de muitos desenvolvedores, servidores de banco de dados (como MSSQL, MySQL, Oracle, etc.) possuem funcionalidades adicionais integradas que podem permitir controle extensivo sobre o banco de dados e interação com o sistema operacional do host.\nUma injeção SQL ocorre quando um valor originado da requisição do cliente é utilizado dentro de uma consulta SQL sem a devida sanitização. Isso poderia permitir que cibercriminosos executem códigos SQL arbitrários, roubem dados ou utilizem as funcionalidades adicionais do servidor de banco de dados para assumir o controle de mais componentes do servidor.\nA exploração bem-sucedida de uma injeção SQL pode ser devastadora para uma organização e é uma das vulnerabilidades mais exploradas em aplicações web.\nEsta injeção foi detectada quando o scanner foi capaz de injetar consultas SQL específicas, que, se vulneráveis, resultam em respostas para cada injeção que são diferentes. Isso é conhecido como vulnerabilidade de injeção SQL cega (blind SQL injection).",
+        "Solução": "O único método comprovado para prevenir ataques de injeção SQL enquanto ainda mantém a funcionalidade completa da aplicação é utilizar consultas parametrizadas (também conhecidas como instruções preparadas). Ao utilizar esse método para consultar o banco de dados, qualquer valor fornecido pelo cliente será tratado como um valor de string em vez de parte da consulta SQL.\nAlém disso, ao utilizar consultas parametrizadas, o mecanismo do banco de dados verificará automaticamente se a string utilizada corresponde ao tipo da coluna. Por exemplo, o mecanismo do banco de dados verificará se a entrada fornecida pelo usuário é um número inteiro, caso a coluna do banco de dados tenha sido configurada para conter números inteiros.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-injecao-de-codigo/sql-injection/blind-sql-injection-differential-analysis.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Injeção de Código",
+        "Subcategoria": "Outras Injeções",
+        "Vulnerabilidade": "Underscore.js 1.3.2 \\textless 1.12.1 Arbitrary Code Injection",
+        "Descrição": "De acordo com o número da versão informado pela aplicação, a versão 1.3.2 do Underscore.js (anterior à 1.12.1) ou versões 1.13.x anteriores à 1.13.0-2 podem ser afetadas por uma injeção de código arbitrário através da função de template quando a opção de variável é obtida a partir de _templateSettings.\nVale ressaltar que o scanner não testou essas vulnerabilidades diretamente, mas se baseou apenas no número da versão informado pela aplicação.",
+        "Solução": "Atualize o Underscore.js para a versão 1.12.1 ou mais recente.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-injecao-de-codigo/outras-injecoes/underscorejs-132-inferior-1121-arbitrary-code-injection.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Injeção de Código",
+        "Subcategoria": "Outras Injeções",
+        "Vulnerabilidade": "HTML/CSS Injection",
+        "Descrição": "A injeção HTML/CSS é um ataque que injeta caracteres arbitrários em uma página web. Quando uma aplicação não lida corretamente com dados fornecidos pelo usuário, um atacante pode fornecer conteúdo a uma aplicação web, normalmente através de um valor de parâmetro que é refletido na página. Esse ataque é frequentemente usado como parte de engenharia social, transmitindo uma URL que modifica completamente a página alvo com, por exemplo, um padrão de teste de autenticação falso, para roubar os identificadores do usuário. Em alguns casos, esse ataque também pode levar, direta ou indiretamente, a um Cross-Site Scripting (XSS).",
+        "Solução": "Para remediar as vulnerabilidades de injeção HTML/CSS, é importante nunca usar dados não confiáveis ou não filtrados dentro do código de uma página HTML.\nDados não confiáveis podem originar-se não apenas do cliente, mas também de terceiros ou de arquivos previamente carregados, entre outros.\nA filtragem de dados não confiáveis normalmente envolve a conversão de caracteres especiais para suas versões codificadas em entidades HTML (no entanto, existem outros métodos, consulte as referências). Esses caracteres especiais incluem:\n* &\n* <\n* >\n* '\n* \"\n* /\nUm exemplo de codificação de entidades HTML é converter < para &lt;.\nEmbora seja possível filtrar entradas não confiáveis, existem cinco locais dentro de uma página HTML onde a entrada não confiável (mesmo que filtrada) nunca deve ser colocada:\n* Diretamente em um script.\n* Dentro de um comentário HTML.\n* Em um nome de atributo.\n* Em um nome de tag.\n* Diretamente em CSS.\nCada um desses locais possui sua própria forma de escape e filtragem.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-injecao-de-codigo/outras-injecoes/html-css-injection.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Injeção de Código",
+        "Subcategoria": "Outras Injeções",
+        "Vulnerabilidade": "Content Injection",
+        "Descrição": "Content Injection é um ataque que injeta caracteres arbitrários em uma página web. Quando uma aplicação não trata adequadamente os dados fornecidos pelo usuário, um atacante pode fornecer conteúdo à aplicação web, geralmente por meio de um valor de parâmetro que é refletido na página. Este ataque é frequentemente utilizado em conjunto com engenharia social, transmitindo uma URL que modifica completamente a página de destino com, por exemplo, um padrão falso de autenticação para roubar identificadores do usuário. Em alguns casos, esse ataque pode levar, direta ou indiretamente, a um Cross-Site Scripting (XSS) ou a uma injeção de JSON no lado do cliente.",
+        "Solução": "Para corrigir vulnerabilidades de Content Injection, é fundamental nunca usar dados não confiáveis ou não filtrados no código de uma página HTML. Dados não confiáveis podem vir não apenas do cliente, mas potencialmente de terceiros ou arquivos previamente enviados. A filtragem de dados não confiáveis geralmente envolve converter caracteres especiais em suas entidades HTML equivalentes (exemplo: `<` para `&lt;`). Contudo, existem cinco locais dentro de uma página HTML onde dados não confiáveis, mesmo que filtrados, nunca devem ser colocados: 1. Diretamente em um script. 2. Dentro de um comentário HTML. 3. Em um nome de atributo. 4. Em um nome de tag. 5. Diretamente em CSS. Cada um desses locais possui sua própria forma de escape e filtragem.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-injecao-de-codigo/outras-injecoes/content-injection.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Configurações do Servidor",
+        "Vulnerabilidade": "ASP.NET DEBUG Method Enabled",
+        "Descrição": "A vulnerabilidade ocorre quando o método HTTP DEBUG está habilitado em um servidor ASP.NET, permitindo que informações de depuração sejam enviadas sem autenticação. Um atacante pode explorar isso para alterar a execução dos scripts e obter dados sensíveis.",
+        "Solução": "Desabilite o método DEBUG em ambientes de produção. Caso seja necessário utilizá-lo, restrinja seu uso a usuários autenticados, configurando adequadamente o servidor para impedir o acesso não autorizado.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/configuracoes-do-servidor/aspnet-debug-method-enabled.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Configurações do Servidor",
+        "Vulnerabilidade": "Web Server Configuration File Detected",
+        "Descrição": "Foi detectado um arquivo de configuração do servidor web no host alvo. Isso pode expor informações privilegiadas ou configurações sensíveis a um ator malicioso.",
+        "Solução": "Restringir o acesso ao arquivo de configuração do servidor web ou removê-lo para prevenir o acesso não autorizado.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/configuracoes-do-servidor/web-server-configuration-file-detected.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Configurações do Servidor",
+        "Vulnerabilidade": "Web.config File Information Disclosure",
+        "Descrição": "Existe uma vulnerabilidade de divulgação de informações no servidor web remoto devido à exposição do arquivo web.config. Um atacante remoto e não autenticado pode explorar isso por meio de uma simples requisição GET para divulgar informações sensíveis de configuração.",
+        "Solução": "Garanta que restrições adequadas estejam em vigor ou remova o arquivo caso ele não seja necessário.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/configuracoes-do-servidor/webconfig-file-information-disclosure.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Configurações do Servidor",
+        "Vulnerabilidade": "PHPinfo Information Disclosure",
+        "Descrição": "Muitos tutoriais de instalação do PHP instruem o usuário a criar um arquivo PHP que chama a função phpinfo() para fins de depuração, e várias aplicações PHP também podem incluir esse arquivo por padrão. Ao acessar esse arquivo, um atacante remoto pode descobrir uma grande quantidade de informações sobre a configuração do servidor web remoto, como:\n* Versões do servidor web, sistema operacional e componentes do PHP\n* Detalhes da configuração do PHP\n* Extensões PHP carregadas com suas configurações\n* Variáveis de ambiente do servidor",
+        "Solução": "Remova o(s) arquivo(s) afetado(s).",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/configuracoes-do-servidor/phpinfo-information-disclosure.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Configurações do Servidor",
+        "Vulnerabilidade": "Apache modStatus Information Disclosure",
+        "Descrição": "É possível obter uma visão geral da atividade e desempenho do servidor web Apache remoto ao solicitar a URL /server-status. Essa visão inclui informações como hosts e requisições sendo processadas, número de workers ociosos, requisições de serviço e utilização de CPU.",
+        "Solução": "Se necessário, atualize o(s) arquivo(s) de configuração do Apache para desabilitar o mod_status ou garantir que o acesso seja limitado a usuários/hosts válidos.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/configuracoes-do-servidor/apache-mod-status-information-disclosure.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Configurações do Servidor",
+        "Vulnerabilidade": "Microsoft IIS Tilde Character Short File/Folder Name Disclosure",
+        "Descrição": "Foi detectada a instalação de uma versão do Microsoft Internet Information Services (IIS) que não é mais suportada no host remoto. Isso significa que o produto não receberá mais atualizações ou correções de segurança por parte da Microsoft. A falta de suporte implica que a versão em questão provavelmente contém vulnerabilidades de segurança não resolvidas, o que pode deixar o servidor suscetível a ataques. A ausência de patches de segurança torna o sistema cada vez mais vulnerável a novas ameaças e exploits conhecidos.",
+        "Solução": "É altamente recomendada a atualização para uma versão suportada do Microsoft IIS, a fim de garantir a aplicação de correções de segurança e a proteção contínua do sistema.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/configuracoes-do-servidor/microsoft-iis-unsupported-version.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Configurações do Servidor",
+        "Vulnerabilidade": "Travis CI Configuration Detected",
+        "Descrição": "O Travis CI é um serviço de integração contínua baseado em Software as a Service (SaaS) utilizado para construir e testar projetos de software. Ao definir um arquivo de configuração chamado .travis.yml nos repositórios de código fonte, os desenvolvedores podem personalizar os fluxos de trabalho de construção de suas aplicações.\nQuando exposto junto à aplicação web, esse arquivo pode ser utilizado por um atacante para obter acesso a informações sensíveis.",
+        "Solução": "Garanta que o arquivo .travis.yml não seja implantado junto com a aplicação ou, pelo menos, que não seja exposto em um diretório de servidor web, configurando permissões adequadas para ele. Caso informações sensíveis, como credenciais, tenham sido vazadas no arquivo exposto, elas devem ser revogadas e redefinidas nos ativos afetados.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/configuracoes-do-servidor/travis-ci-configuration-detected.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Configurações do Servidor",
+        "Vulnerabilidade": "Apache modStatus Information Disclosure",
+        "Descrição": "É possível obter uma visão geral da atividade e desempenho do servidor web Apache remoto ao solicitar a URL /server-status. Essa visão inclui informações como hosts e requisições sendo processadas, número de workers ociosos, requisições de serviço e utilização de CPU.",
+        "Solução": "Se necessário, atualize o(s) arquivo(s) de configuração do Apache para desabilitar o mod_status ou garantir que o acesso seja limitado a usuários/hosts válidos.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/configuracoes-do-servidor/apache-mod-status-information-disclosure.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Configurações do Servidor",
+        "Vulnerabilidade": "HTTP Verb Tampering",
+        "Descrição": "HTTP Verb Tampering é um ataque que explora a possibilidade de burlar sistemas de autenticação ou controle de acesso baseados nos métodos HTTP. Algumas vezes, mecanismos de autenticação em servidores Web utilizam controle de acesso baseado em verbos HTTP. Esses mecanismos podem incluir regras específicas para métodos HTTP, como GET ou POST. Devido à especificação do HTTP incluir outros métodos, como PUT, PATCH, DELETE, entre outros, um servidor Web compatível com o padrão pode responder a esses métodos de formas não previstas pelos desenvolvedores. Assim, se uma aplicação restringe apenas o método GET, ainda pode ser possível acessar uma página utilizando outros métodos como POST ou PUT.",
+        "Solução": "Configure o servidor Web para bloquear todos os métodos HTTP que não sejam explicitamente necessários, ao invés de usar uma lista de bloqueio específica de verbos HTTP.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/configuracoes-do-servidor/http-verb-tampering.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Configurações do Servidor",
+        "Vulnerabilidade": "Access Restriction Bypass Via Origin Spoof",
+        "Descrição": "Os cabeçalhos de origem (Origin headers) são utilizados por proxies e/ou balanceadores de carga para rastrear o endereço IP de origem do cliente. À medida que a requisição progride por um proxy, o cabeçalho de origem é adicionado aos cabeçalhos existentes, e o valor do IP do cliente é definido neste cabeçalho. Em algumas ocasiões, restrições de acesso mal implementadas são baseadas exclusivamente no endereço IP de origem. Por exemplo, qualquer endereço IP público pode ser obrigado a autenticar, enquanto um endereço IP interno pode não ser. Como este cabeçalho também pode ser configurado pelo cliente, ele permite que criminosos cibernéticos falsifiquem seu endereço IP e, potencialmente, obtenham acesso a páginas restritas. O scanner descobriu um recurso ao qual não tinha permissão para acessar, mas conseguiu acesso após falsificar o endereço de localhost (127.0.0.1), contornando assim a exigência de autenticação.",
+        "Solução": "As ações corretivas podem variar amplamente dependendo do framework utilizado e de como a aplicação foi codificada. No entanto, o cabeçalho de origem nunca deve ser usado para validar o acesso de um cliente, pois ele é trivialmente modificável.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/configuracoes-do-servidor/access-restriction-bypass-via-origin-spoof.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Exposição de Código e Recursos",
+        "Vulnerabilidade": "Gitignore File Detected",
+        "Descrição": "O servidor web no host remoto contém arquivos de configuração .gitignore. Esta falha potencial pode ser explorada para acessar conteúdos do servidor web que, de outra forma, poderiam ser privados.",
+        "Solução": "Remova o arquivo .gitignore listado ou configure o servidor para que ele não seja acessível publicamente.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/exposicao-de-codigo-e-recursos/gitignore-file-detected.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Exposição de Código e Recursos",
+        "Vulnerabilidade": "Source Code Passive Disclosure",
+        "Descrição": "Foi detectada a divulgação passiva de código-fonte do lado do servidor na resposta do servidor. Aplicações web modernas utilizam diversas linguagens de programação que podem ser classificadas em duas categorias: linguagens do lado do cliente (executadas no navegador, como JavaScript) e linguagens do lado do servidor (executadas no servidor, como ASP, PHP, JSP, etc.), que formam as páginas dinâmicas enviadas ao cliente.\nTodo código do lado do servidor deve ser executado pelo servidor e nunca exposto ao cliente. No entanto, devido a configurações incorretas do servidor ou erros de sintaxe, pode ocorrer que o código do lado do servidor não seja executado e, em vez disso, seja enviado ao cliente. Como o código-fonte do lado do servidor frequentemente contém informações sensíveis, como strings de conexão de banco de dados ou detalhes sobre o fluxo de trabalho da aplicação, essa exposição representa um risco significativo.\nCriminosos cibernéticos podem tentar descobrir páginas que, acidentalmente ou propositalmente, permitem a divulgação do código-fonte do lado do servidor, a fim de identificar vulnerabilidades ou informações sensíveis.",
+        "Solução": "É fundamental garantir que o servidor não entregue código do lado do servidor ao cliente. Para isso, deve-se corrigir a configuração incorreta do servidor ou ajustar o código do servidor para evitar essa exposição.\n%---------------------------------------------------------------------------------\n*",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/exposicao-de-codigo-e-recursos/source-code-passive-disclosure.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Exposição de Código e Recursos",
+        "Vulnerabilidade": "External Broken Resources Detected",
+        "Descrição": "Aplicações web dependem fortemente de recursos externos, como arquivos JavaScript, folhas de estilo em cascata (CSS) ou imagens. Quando uma aplicação utiliza links para recursos externos que não existem, um invasor pode tentar obter controle sobre esses recursos para injetar código malicioso na aplicação-alvo ou redirecionar o tráfego dos usuários da aplicação para seus próprios servidores mal-intencionados. Isso pode resultar em sérias implicações de segurança, como a execução de scripts maliciosos (XSS) ou o roubo de dados dos usuários.\nA presença de recursos quebrados também pode afetar a experiência do usuário e a integridade da aplicação, deixando-a suscetível a outras vulnerabilidades, como ataques de sequestro de domínio (typosquatting).",
+        "Solução": "Revise todos os recursos quebrados e remova-os da aplicação alvo. Antes de referenciar recursos externos em uma aplicação web, verifique a existência e a confiabilidade dos recursos e certifique-se de que o comportamento desejado esteja de acordo com as expectativas. Implementar monitoramento contínuo dos recursos externos pode ajudar a identificar e corrigir rapidamente quaisquer alterações ou problemas que possam surgir.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/exposicao-de-codigo-e-recursos/external-broken-resources-detected.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Exposição de Código e Recursos",
+        "Vulnerabilidade": "SQL Statement Disclosure",
+        "Descrição": "Aplicações web dependem frequentemente de servidores de banco de dados para armazenar informações persistentes, como usuários, sessões ou produtos de um site de e-commerce. Em alguns casos, essas aplicações podem não tratar adequadamente os erros gerados durante as consultas ao banco de dados, exibindo mensagens de erro brutas ou rastreamentos de pilha.\nEssas exposições podem vazar informações sensíveis (como tokens de sessão usados em uma instrução) ou auxiliar um invasor na execução de ataques subsequentes, como injeções de SQL. Mensagens de erro detalhadas podem revelar a estrutura e o funcionamento do banco de dados, facilitando a exploração de vulnerabilidades por atacantes.",
+        "Solução": "Certifique-se de que os possíveis erros e exceções de SQL sejam capturados e tratados pelas aplicações web para evitar a exibição de mensagens de erro cruas. Além disso, verifique as instruções SQL para garantir que não possam ocorrer injeções de SQL devido a entradas de usuários não sanitizadas. Implementar tratamentos de erro personalizados e evitar a exibição de detalhes técnicos ao usuário final são práticas recomendadas para mitigar esse risco.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/exposicao-de-codigo-e-recursos/sql-statement-disclosure.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Exposição de Código e Recursos",
+        "Vulnerabilidade": "Secret Data Disclosure",
+        "Descrição": "A maioria das aplicações web depende de vários serviços públicos para fornecer funcionalidades aos seus usuários. Em designs seguros, o consumo desses serviços privados ou em nuvem exige autenticação, como chaves de API, credenciais baseadas em nome de usuário e senha, e dados sensíveis semelhantes.\nNo entanto, os desenvolvedores às vezes codificam esses dados em vários pontos de suas aplicações, sem perceber que isso pode se tornar publicamente disponível, por exemplo, em JavaScript no lado do cliente ou até mesmo em comentários HTML. Ao explorar essas informações sensíveis, um atacante remoto e não autenticado poderia obter acesso privilegiado aos serviços críticos utilizados pela aplicação web e pela organização.",
+        "Solução": "Remova a exposição de dados secretos identificando a causa raiz do problema (por exemplo, inserção manual de dados no código ou variáveis de ambiente agrupadas no JavaScript do front-end). Gire os segredos para evitar o uso posterior caso tenham sido previamente obtidos por um ator malicioso.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/exposicao-de-codigo-e-recursos/secret-data-disclosure.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Redirecionamentos e Autênticação",
+        "Vulnerabilidade": "Insecure Redirect Chain",
+        "Descrição": "O scanner identificou uma ou mais cadeias de redirecionamento inseguras durante a varredura da aplicação, indicando que a sequência de redirecionamentos não foi totalmente realizada via HTTPS. Redirecionamentos inseguros permitem que um invasor potencialmente estabeleça um ataque man-in-the-middle contra o host remoto, comprometendo a confidencialidade e integridade dos dados transmitidos.",
+        "Solução": "É necessário garantir que todos os redirecionamentos sejam realizados apenas para sites que utilizam HTTPS. Recomenda-se também a adição da política HTTP Strict Transport Security (HSTS) na URL final para reforçar a segurança e evitar que navegadores acessem a aplicação por conexões HTTP inseguras.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/redirecionamentos-e-autenticacao/insecure-redirect-chain.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Redirecionamentos e Autênticação",
+        "Vulnerabilidade": "Login Form Cross-Site Request Forgery",
+        "Descrição": "A vulnerabilidade de Cross-Site Request Forgery (CSRF) ocorre quando um usuário é induzido a clicar em um link que automaticamente submete uma solicitação sem o seu consentimento. Isso pode acontecer quando a solicitação não inclui um token anti-CSRF, gerado a cada visita e passado na submissão da solicitação. O backend da aplicação utiliza esse token para verificar se a requisição é originada de um usuário legítimo.\nPara que uma requisição vulnerável ao CSRF seja explorada, alguns fatores devem estar presentes:\n* A requisição deve realizar uma ação sensível.\n* O atacante deve induzir a vítima a clicar em um link que envie a requisição sem consentimento.\nO impacto da exploração dessa vulnerabilidade costuma ser limitado, mas cenários complexos podem ser criados caso a aplicação também esteja vulnerável a Cross-Site Scripting (XSS).",
+        "Solução": "Atualize a aplicação para incluir tokens anti-CSRF nesse formulário de login. A maioria dos frameworks web oferece soluções embutidas ou plugins que facilitam a adição desses tokens a qualquer formulário. Consulte as referências para possíveis soluções nos frameworks mais conhecidos.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/redirecionamentos-e-autenticacao/login-form-cross-site-request-forgery.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Redirecionamentos e Autênticação",
+        "Vulnerabilidade": "Unencrypted Password Form",
+        "Descrição": "O protocolo HTTP é transmitido em texto claro, o que significa que qualquer dado enviado por meio de HTTP pode ser capturado e visualizado. Para proteger dados e evitar que sejam interceptados, o HTTP pode ser encapsulado em Secure Sockets Layer (SSL) ou Transport Layer Security (TLS), passando a ser conhecido como HTTPS.\nCriminosos cibernéticos frequentemente tentam comprometer credenciais transmitidas entre o cliente e o servidor usando HTTP, através de ataques de Man-in-the-Middle (MiTM) ou captura de pacotes de rede. O scanner detectou que a página afetada contém um campo de entrada de senha (`password`), mas o valor desse campo não é transmitido ao servidor com o uso de HTTPS. Dessa forma, existe a possibilidade de que as credenciais enviadas sejam comprometidas.",
+        "Solução": "O site afetado deve ser protegido utilizando os protocolos de criptografia mais recentes e seguros, como SSL versão 3.0 e TLS versão 1.2. Embora o TLS 1.2 seja o mais atual e preferido, nem todos os navegadores oferecem suporte a esse método de criptografia, portanto, o uso de SSL também é recomendado. Protocolos antigos, como SSL versão 2, e cifras fracas (inferiores a 128 bits) devem ser desativados.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/redirecionamentos-e-autenticacao/unencrypted-password-form.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Redirecionamentos e Autênticação",
+        "Vulnerabilidade": "Insecure 'Access-Control-Allow-Origin' Header",
+        "Descrição": "O Cross Origin Resource Sharing (CORS) é uma tecnologia HTML5 que permite aos navegadores modernos contornar restrições impostas pela Política de Mesma Origem. A Política de Mesma Origem exige que tanto o JavaScript quanto a página sejam carregados do mesmo domínio para permitir que o JavaScript interaja com a página, prevenindo a execução de JavaScript malicioso carregado de domínios externos.\nA política CORS permite que a aplicação defina exceções às proteções implementadas pelo navegador e possibilita ao desenvolvedor especificar domínios permitidos (whitelist) para os quais o JavaScript externo está autorizado a executar e interagir com a página.\nO cabeçalho 'Access-Control-Allow-Origin' é considerado inseguro quando configurado para '*' ou null, pois permite que qualquer domínio realize solicitações de origem cruzada e leia respostas. Um atacante poderia explorar essa configuração para recuperar conteúdo privado de uma aplicação que não utilize mecanismos de autenticação padrão (por exemplo, uma intranet que permite acesso apenas à rede interna).",
+        "Solução": "A menos que a aplicação tenha sido projetada especificamente para fornecer conteúdo público a qualquer domínio, o cabeçalho 'Access-Control-Allow-Origin' deve ser configurado com uma lista de domínios conhecidos e confiáveis para realizar solicitações de origem cruzada, ou, se necessário, deve ser desabilitado.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/redirecionamentos-e-autenticacao/insecure-access-control-allow-origin-header.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Redirecionamentos e Autenticação",
+        "Vulnerabilidade": "Password Field With Auto-Complete",
+        "Descrição": "A vulnerabilidade Password Field With Auto-Complete ocorre quando um formulário de login permite que os navegadores completem automaticamente os campos de nome de usuário e senha, armazenando as credenciais do usuário localmente para reutilização. Isso pode ocorrer quando o atributo autocomplete não está desativado no campo de senha ou no formulário em si.\nEm um cenário normal, o recurso de preenchimento automático é útil para facilitar o preenchimento de formulários. No entanto, se o preenchimento automático estiver habilitado em um campo de senha, um atacante que tenha acesso físico ao computador da vítima poderá visualizar e capturar as credenciais armazenadas, simplesmente acessando a página de login. Além disso, se o computador estiver comprometido por malware, esse recurso pode ser explorado para roubo de senhas.\nO impacto dessa vulnerabilidade é elevado, pois pode expor as credenciais dos usuários a ataques locais. Esse risco é agravado se o dispositivo da vítima não estiver adequadamente protegido por medidas de segurança, como criptografia de dados e autenticação de múltiplos fatores.",
+        "Solução": "Para mitigar essa vulnerabilidade, é recomendado desabilitar o preenchimento automático (autocomplete) nos campos de senha e em todo o formulário de login. Isso pode ser feito da seguinte maneira:\n- Desabilitar o atributo autocomplete no elemento <form>, o que desativará o preenchimento automático para todos os campos do formulário: <form autocomplete=\"off\">\n- Desabilitar o atributo autocomplete no campo de senha especificamente, caso o preenchimento automático precise ser habilitado para outros campos do formulário: <input type=\"password\" autocomplete=\"off\">\nAdotar essas práticas ajudará a reduzir o risco de exposição das credenciais armazenadas localmente em dispositivos comprometidos ou acessados indevidamente.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/redirecionamentos-e-autenticacao/password-field-with-auto-complete.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Versões Antigas e Falhas de Plugins",
+        "Vulnerabilidade": "PHP Unsupported Version",
+        "Descrição": "A instalação do PHP detectada no host remoto não é mais suportada. A falta de suporte implica que nenhuma nova correção de segurança será liberada pelo fornecedor, o que aumenta a probabilidade de a versão instalada conter vulnerabilidades de segurança.",
+        "Solução": "Atualize para uma versão suportada do PHP.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/versoes-antigas-e-falhas-de-plugins/php-unsupported-version.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Versões Antigas e Falhas de Plugins",
+        "Vulnerabilidade": "PHP 8.2.x \\textless 8.2.20 Multiple Vulnerabilities",
+        "Descrição": "De acordo com o número de versão auto-relatado, a versão do PHP instalada no host remoto é 8.1.x antes da 8.1.29, 8.2.x antes da 8.2.20 ou 8.3.x antes da 8.3.8. Portanto, ela é afetada por várias vulnerabilidades:\n* Injeção de argumento no PHP-CGI com uma falha de bypass da CVE-2012-1823. (CVE-2024-4577)\n* Bypass de filtro em filter-var com FILTER-VALIDATE-URL. (CVE-2024-5458)\n* Bypass da CVE-2024-1874. (CVE-2024-5585)\nObserve que o scanner não testou essas questões, mas se baseou apenas no número de versão auto-relatado pela aplicação.",
+        "Solução": "Atualize para a versão 8.2.20 ou posterior do PHP.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/versoes-antigas-e-falhas-de-plugins/php-82x-inferior-8220-multiple-vulnerabilities.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Versões Antigas e Falhas de Plugins",
+        "Vulnerabilidade": "WordPress User Enumeration",
+        "Descrição": "Em uma instalação padrão do WordPress, existem vários métodos para enumerar os nomes de usuário dos autores. Esses usuários do WordPress podem ser usados em ataques de força bruta contra a página de login do WordPress para adivinhar senhas.",
+        "Solução": "Bloqueie as requisições para informações sensíveis de usuários no servidor usando o arquivo .htaccess ou um WAF, por exemplo. É necessário bloquear ou redirecionar todas as requisições feitas para '/wp-json/wp/v2/users/' e para o parâmetro 'author' (via requisições GET e POST).",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/versoes-antigas-e-falhas-de-plugins/wordpress-user-enumeration.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Versões Antigas e Falhas de Plugins",
+        "Vulnerabilidade": "WordPress \\textless 5.8.0 Multiple Vulnerabilities",
+        "Descrição": "De acordo com o número de versão informado pelo aplicativo, a versão detectada do WordPress é afetada por várias vulnerabilidades:\n- Execução Remota de Código via um ataque de cadeia de suprimentos.\n- Vulnerabilidade de Cross-Site Scripting (XSS) no editor de blocos.",
+        "Solução": "Atualize para a versão 5.8.0 ou mais recente do WordPress.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/versoes-antigas-e-falhas-de-plugins/wordpress-inferior-580-multiple-vulnerabilities.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Versões Antigas e Falhas de Plugins",
+        "Vulnerabilidade": "Apache 2.4.x \textless 2.4.62 Multiple Vulnerabilities",
+        "Descrição": "De acordo com o banner, a versão do Apache em execução no host remoto é a 2.4.x anterior à versão 2.4.62. Portanto, ela é afetada por múltiplas vulnerabilidades:\n- Uma correção parcial para o CVE-2024-39884 no núcleo do Apache HTTP Server 2.4.61 ignora alguns usos da configuração legada baseada no tipo de conteúdo dos manipuladores. O comando \"AddType\" e configurações similares, em algumas circunstâncias onde arquivos são solicitados indiretamente, podem resultar na divulgação de código-fonte de conteúdo local. Por exemplo, scripts PHP podem ser servidos ao invés de serem interpretados. (CVE-2024-40725)\n- Vulnerabilidade SSRF no Apache HTTP Server em ambientes Windows com o mod_rewrite no contexto de servidor/vhost, permitindo potencial vazamento de hashes NTLM para um servidor malicioso via SSRF e requisições maliciosas. (CVE-2024-40898) Observe que o scanner não testou diretamente essas questões, confiando apenas no número da versão informado pela aplicação.",
+        "Solução": "Atualize para a versão 2.4.62 ou posterior do Apache.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/versoes-antigas-e-falhas-de-plugins/apache-24x-vulnerabilities-inferior-2462.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Versões Antigas e Falhas de Plugins",
+        "Vulnerabilidade": "PHP 7.0.x \\textless 7.0.33 Multiple Vulnerabilities",
+        "Descrição": "De acordo com o banner, a versão do PHP em execução no servidor web remoto é 5.6.x anterior a 5.6.39, 7.0.x anterior a 7.0.33, 7.1.x anterior a 7.1.25, 7.2.x anterior a 7.2.13 ou 7.3.x anterior a 7.3.0. Portanto, ela é afetada por múltiplas vulnerabilidades:\n- Uma vulnerabilidade de injeção de comando arbitrário existe na função imap_open devido a filtros inadequados para nomes de caixa de correio antes de passá-los para os comandos rsh ou ssh. Um atacante remoto autenticado pode explorar isso enviando um nome de servidor IMAP especialmente criado para causar a execução de comandos arbitrários no sistema alvo. (CVE-2018-19518)\n- Uma vulnerabilidade de leitura além do buffer na função phar_parse_pharfile. Um atacante remoto não autenticado pode explorar isso para ler memória alocada ou não alocada além dos dados reais ao tentar analisar um arquivo .phar. (CVE-2018-20783)\n- Um erro de desreferenciação de ponteiro NULL no Windows. Um atacante remoto não autenticado pode explorar isso para travar a aplicação e causar uma negação de serviço. (CVE-2018-19395)\nObserve que o scanner não testou diretamente essas questões, confiando apenas no número da versão informado pela aplicação.",
+        "Solução": "Atualize para a versão 7.0.33 ou posterior do PHP",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/versoes-antigas-e-falhas-de-plugins/php-70x-inferior-70.33-multiple-vulnerabilities.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Versões Antigas e Falhas de Plugins",
+        "Vulnerabilidade": "jQuery < 3.4.0 Prototype Pollution",
+        "Descrição": "De acordo com o número de versão informado, o jQuery está em uma versão anterior à 3.4.0. Portanto, ele pode ser afetado por uma vulnerabilidade de poluição de protótipo devido à função 'extend', que pode ser enganada para modificar o protótipo de 'Object'.\nObserve que o scanner não testou diretamente essas questões, confiando apenas no número da versão informado pela aplicação.",
+        "Solução": "Atualize para a versão 3.4.0 ou posterior do jQuery.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/versoes-antigas-e-falhas-de-plugins/jquery-inferior-34-0-prototype-pollution.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Versões Antigas e Falhas de Plugins",
+        "Vulnerabilidade": "Bootstrap 3.x \\textless 3.4.1 Cross-Site Scripting",
+        "Descrição": "De acordo com o número de versão informado, o Bootstrap é 3.x anterior a 3.4.1 ou 4.x anterior a 4.3.1. Portanto, pode ser afetado por uma vulnerabilidade de Cross-Site Scripting (XSS) através do atributo data-template nos plugins de tooltip e popover.\nObserve que o scanner não testou diretamente essas questões, confiando apenas no número da versão informado pela aplicação.",
+        "Solução": "Atualize para a versão 3.4.1 ou posterior do Bootstrap.",
+        "Imagem": "ssets/images-was/Outras-Vulnerabilidades-Criticas-e-Exploracoes/Versoes-Antigas-e-Falhas-de-Plugins/Bootstrap-3-x-inferior-3-4-1-Cross-Site-Scripting.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Versões Antigas e Falhas de Plugins",
+        "Vulnerabilidade": "jQuery UI \\textless 1.13.2 Cross-Site Scripting",
+        "Descrição": "De acordo com o número de versão informado, o jQuery UI está em uma versão anterior à 1.13.2. Portanto, ele pode ser afetado por uma vulnerabilidade de Cross-Site Scripting (XSS) ao atualizar um checkboxradio com um rótulo de texto inicial semelhante a HTML (CVE-2022-31160).\nObserve que o scanner não testou diretamente essas questões, confiando apenas no número da versão informado pela aplicação.",
+        "Solução": "Atualize para a versão 1.13.2 ou posterior do jQuery UI.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/versoes-antigas-e-falhas-de-plugins/jquery-ui-inferior-113.2-cross-site-scripting.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Versões Antigas e Falhas de Plugins",
+        "Vulnerabilidade": "Moment.js \\textless 2.19.3 Regular Expression Denial of Service",
+        "Descrição": "De acordo com o número de versão informado, o Moment.js está em uma versão anterior à 2.19.3. Portanto, ele pode ser afetado por uma vulnerabilidade de negação de serviço por meio de expressões regulares (ReDoS) ao processar datas como string.\nObserve que o scanner não testou diretamente essas questões, confiando apenas no número da versão informado pela aplicação.",
+        "Solução": "Atualize para a versão 2.19.3 ou posterior do Moment.js.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/versoes-antigas-e-falhas-de-plugins/momentjs-inferior-219-3-regular-expression-denial-of-service.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Versões Antigas e Falhas de Plugins",
+        "Vulnerabilidade": "jQuery \textless 3.4.0 Prototype Pollution",
+        "Descrição": "De acordo com o número da versão auto-relatado, o jQuery está em uma versão anterior à 3.4.0. Portanto, ele pode ser afetado por uma vulnerabilidade de Prototype Pollution devido à função 'extend', que pode ser manipulada para modificar o protótipo de 'Object'. Observa-se que o scanner não testou diretamente essas questões, mas baseou-se apenas na versão auto-relatada pela aplicação.",
+        "Solução": "Atualize para a versão 3.4.0 ou posterior do jQuery.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/versoes-antigas-e-falhas-de-plugins/jquery-340-prototype-pollution.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Versões Antigas e Falhas de Plugins",
+        "Vulnerabilidade": "jQuery 1.4.0 < 1.12.0 Cross-Site Scripting",
+        "Descrição": "De acordo com o número da versão auto-relatado, o jQuery está na versão pelo menos 1.4.0 e anterior à 1.12.0 ou pelo menos 1.12.4 e anterior à 3.0.0-beta1. Portanto, ele pode ser afetado por uma vulnerabilidade de Cross-Site Scripting (XSS) devido a requisições ajax entre domínios realizadas sem o parâmetro dataType. Observa-se que o scanner não testou diretamente essas questões, mas baseou-se apenas na versão auto-relatada pela aplicação.",
+        "Solução": "Atualize para a versão 1.12.0 ou posterior do jQuery.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/versoes-antigas-e-falhas-de-plugins/jquery-140-1120-cross-site-scripting.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Versões Antigas e Falhas de Plugins",
+        "Vulnerabilidade": "Bootstrap 4.x < 4.3.1 Cross-Site Scripting",
+        "Descrição": "De acordo com o número de versão auto-relatado, o Bootstrap está na versão 3.x anterior à 3.4.1 ou 4.x anterior à 4.3.1. Portanto, ele pode ser afetado por uma vulnerabilidade de Cross-Site Scripting (XSS) por meio do atributo data-template para os plugins de tooltip e popover.\nNote que o scanner não testou essas questões, mas confiou apenas no número da versão auto-relatado pela aplicação.",
+        "Solução": "Atualize para a versão 4.3.1 ou posterior do Bootstrap.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/versoes-antigas-e-falhas-de-plugins/bootstrap-4x-431.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Versões Antigas e Falhas de Plugins",
+        "Vulnerabilidade": "jQuery < 1.9.0 Cross-Site Scripting",
+        "Descrição": "De acordo com o número de versão auto-relatado, o jQuery está em uma versão anterior à 1.9.0. Portanto, ele pode ser afetado por uma vulnerabilidade de Cross-Site Scripting (XSS), pois o método 'load' falha ao reconhecer e remover corretamente as tags '<script>' que contêm um caractere de espaço.\nNote que o scanner não testou essas questões, mas confiou apenas no número da versão auto-relatado pela aplicação.",
+        "Solução": "Atualize para a versão 1.9.0 ou posterior do jQuery.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/versoes-antigas-e-falhas-de-plugins/jquery-190.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Desafios de Configuração de Segurança",
+        "Vulnerabilidade": "PHP Input Variables Exceeded",
+        "Descrição": "Por padrão, o PHP aceita um máximo de 1000 variáveis em uma solicitação. Se houver mais variáveis de entrada do que o especificado, um E-WARNING é gerado, e as variáveis de entrada adicionais são truncadas da solicitação. Dependendo da configuração do servidor e do código da aplicação, isso pode ter vários impactos, como contornar chamadas de funções.",
+        "Solução": "Desative a exibição de todos os avisos, mensagens de erro e notificações. Configure a aplicação para registrar essas mensagens em um arquivo de log. Também é necessário realizar uma revisão de código para verificar o impacto que isso pode ter na aplicação.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/desafios-de-configuracao-de-seguranca/php-input-variables-exceeded.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Desafios de Configuração de Segurança",
+        "Vulnerabilidade": "ASP.NET ViewState Not Encrypted",
+        "Descrição": "O ViewState é um parâmetro específico do framework ASP.NET, utilizado como um rastreador de navegação para preservar valores e controles entre diferentes páginas web. Ele está presente nas páginas como o parâmetro __viewstate, onde todos os valores são serializados e codificados em base64 em um campo oculto. Além da codificação base64, o ViewState pode ser assinado com um MAC (Código de Autenticação de Mensagens) para garantir a integridade e também pode ser criptografado para garantir a confidencialidade.\nCaso o ViewState não seja criptografado, dependendo das informações armazenadas, um atacante pode ser capaz de recuperar dados sensíveis sobre o usuário.",
+        "Solução": "O ASP.NET oferece criptografia para parâmetros ViewState adicionando o atributo 'textless%@Page ViewStateEncryptionMode=\"Always\" %textgreater' na página específica ou configurando '<pages viewStateEncryptionMode=\"Always\"textgreater' dentro do arquivo web.config.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/desafios-de-configuracao-de-seguranca/aspnet-viewstate-not-encrypted.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Desafios de Configuração de Segurança",
+        "Vulnerabilidade": "HTTP TRACE Allowed",
+        "Descrição": "O método HTTP TRACE permite que um cliente envie uma solicitação ao servidor e receba a mesma solicitação de volta na resposta do servidor. Isso permite que o cliente determine se o servidor está recebendo a solicitação conforme o esperado. Esse método é frequentemente usado para fins de depuração (por exemplo, para verificar se uma solicitação chega sem alterações).\nEm muitas instalações padrão, o método TRACE continua habilitado. Embora não seja vulnerável por si só, ele fornece uma maneira para os atacantes cibernéticos contornarem a flag HTTPOnly do cookie, o que pode permitir que um ataque XSS acesse com sucesso um token de sessão.",
+        "Solução": "O método HTTP TRACE normalmente não é necessário em sites de produção e, portanto, deve ser desabilitado.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/desafios-de-configuracao-de-seguranca/http-trace-allowed.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Desafios de Configuração de Segurança",
+        "Vulnerabilidade": "HTTP to HTTPS Redirect Not Enabled",
+        "Descrição": "O HTTPS está habilitado no site, no entanto, as requisições HTTP não são redirecionadas para HTTPS. Isso significa que a comunicação não será criptografada se os usuários não acessarem explicitamente a versão HTTPS do site.",
+        "Solução": "Habilite o redirecionamento de HTTP para HTTPS para todas as requisições. Além dos redirecionamentos, se o HTTP Strict Transport Security (HSTS) não estiver implementado, é altamente recomendado ativá-lo.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/desafios-de-configuracao-de-seguranca/http-to-https-redirect-not-enabled.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações de Segurança HTTP E TLS",
+        "Subcategoria": "Informações de Cabeçalho",
+        "Vulnerabilidade": "Permissive Content Security Policy Detected",
+        "Descrição": "A Política de Segurança de Conteúdo (CSP) é um padrão de segurança da web que ajuda a mitigar ataques como Cross-Site Scripting (XSS), clickjacking ou problemas de conteúdo misto. O CSP permite que os sites controlem quais recursos os navegadores podem carregar, restringindo o conteúdo carregado e aumentando a proteção contra ataques.\nNo entanto, uma política de CSP excessivamente permissiva pode permitir que conteúdos não seguros sejam carregados, o que enfraquece a eficácia da política. O scanner identificou uma ou mais diretivas permissivas na política de CSP do site, o que pode expor o site a ataques como injeção de scripts maliciosos (XSS), carregamento de conteúdo inseguro ou execução de código não autorizado.\nAs diretivas permissivas podem incluir, por exemplo, o uso de * ou *.* nas diretrizes de fontes (como script-src ou default-src), o que permite a execução de scripts ou o carregamento de recursos de origens não confiáveis. Isso pode comprometer a segurança da aplicação ao permitir a execução de código arbitrário proveniente de fontes não autorizadas.",
+        "Solução": "Para corrigir essa vulnerabilidade, recomenda-se restringir a política de CSP e aplicar as diretivas de forma mais rígida. A seguir, estão algumas diretrizes gerais que podem ser implementadas:\n- Defina frame-ancestors como none para evitar que a página seja renderizada dentro de <frame>, <iframe>, <object>, <embed> ou <applet>.\n- Configure form-action explicitamente como self para restringir o envio de formulários apenas à origem do site.\n- Evite o uso das diretivas unsafe-*, pois indicam ações inseguras. Refatore o código para não depender de manipuladores de eventos HTML que utilizem essas diretivas.\n- Evite o uso de data:, https: ou http: nas diretivas default-src, object-src, base-uri e script-src, pois essas configurações permitem a execução de scripts não seguros.\n- Não utilize * ou *.* em diretivas como script-src e outras diretrizes -src, pois isso permite a execução de scripts não seguros de origens não especificadas.\n- Defina default-src explicitamente como self ou none, e defina as diretivas individuais de forma mais permissiva apenas quando necessário.\n- Para APIs, deve-se evitar carregar recursos como scripts ou frames. Use uma política rígida com default-src 'none' e frame-ancestors 'none'.\nSe for necessário usar algumas diretivas inseguras para a continuidade dos negócios, aplique controles mitigadores adequados ao seu ambiente e consulte os fornecedores dos produtos que exigem essas diretivas. Lembre-se de que existem versões diferentes do CSP e que algumas diretivas podem não ser suportadas em versões de navegador mais antigas.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/desafios-de-configuracao-de-seguranca/permissive-content-security-policy-detected.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Configurações do Servidor",
+        "Vulnerabilidade": "Apache mod_status Information Disclosure",
+        "Descrição": "Foi identificado que o recurso /server-status do servidor web Apache está acessível publicamente. Esse recurso, fornecido pelo módulo mod_status, exibe uma visão detalhada da atividade e desempenho do servidor, incluindo:\nLista de hosts conectados e requisições ativas\nNúmero de workers ociosos e em uso\nUtilização de CPU\nHistórico de requisições e tempos de resposta\nEssas informações, embora úteis para administradores, podem ser exploradas por atacantes para obter inteligência sobre o ambiente, facilitando ataques direcionados ou negação de serviço (DoS).",
+        "Solução": "Solução:\nÉ fortemente recomendado revisar a configuração do Apache e adotar uma das seguintes medidas:\nDesabilitar o módulo mod_status, caso ele não seja essencial para a operação do servidor.\nRestringir rigorosamente o acesso à URL /server-status apenas a endereços IP confiáveis ou usuários autenticados, por meio de diretivas como Require ip, Require host ou autenticação básica (AuthType Basic).\nExemplo de configuração segura no Apache (httpd.conf ou similar):\n<Location \"/server-status\">\nSetHandler server-status\nRequire ip 192.168.1.0/24\n</Location>",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/configuracoes-do-servidor/apache-mod-status-information-disclosure.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Configurações do Servidor",
+        "Vulnerabilidade": "Apache .htaccess and .htpasswd Disclosure",
+        "Descrição": "Foi identificado que o servidor Apache permite o acesso direto aos arquivos .htaccess e/ou .htpasswd por meio de requisições HTTP. Esses arquivos são comumente utilizados para configurar diretivas de segurança e armazenar credenciais de autenticação básica.\nA exposição desses arquivos pode permitir que um atacante não autenticado:\nVisualize regras e diretivas de segurança específicas da aplicação\nObtenha hashes de senhas definidos em .htpasswd, que podem ser posteriormente quebrados por força bruta ou dicionário\nEsse tipo de falha representa um risco crítico de segurança, pois pode comprometer completamente a confidencialidade das credenciais e da lógica de proteção configurada via .htaccess.",
+        "Solução": "Recomenda-se configurar o Apache para bloquear o acesso a qualquer arquivo que comece com um ponto (\".\") — especialmente .htaccess e .htpasswd.\nExemplo de diretiva que pode ser adicionada ao arquivo de configuração principal (httpd.conf, apache2.conf, etc.) ou a um .htaccess de nível superior:\n<FilesMatch \"^.ht\">\nRequire all denied\n</FilesMatch>",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/configuracoes-do-servidor/apache-htaccess-and-htpasswd-disclosure.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Injeção de Código",
+        "Subcategoria": "Cross-Site Scripting (XSS)",
+        "Vulnerabilidade": "CKEditor < 4.25.0-LTS Multiples Cross-Site Scripting",
+        "Descrição": "Descrição:\nFoi identificado que a instância do CKEditor em execução está em uma versão inferior à 4.25.0-LTS (ou inferior à 4.25.0-LTS na série 4.22.x), conforme número de versão informado pela própria aplicação.\nAs versões afetadas apresentam múltiplas vulnerabilidades de Cross-Site Scripting (XSS), incluindo:\nUma vulnerabilidade de XSS refletido no plugin Code Snippet GeSHi, que pode ser explorada por meio da biblioteca de realce de sintaxe (GeSHi) embutida em conteúdo manipulado.\nUma vulnerabilidade teórica identificada em versões 4.22 e superiores, onde, em um cenário extremamente improvável (mas possível), um atacante com controle sobre o domínio https://cke4.ckeditor.com poderia realizar ataques XSS contra instâncias vulneráveis do CKEditor 4.\nObservação:\nO scanner não realizou testes ativos para explorar essas falhas. A identificação baseia-se unicamente na versão informada pela aplicação.",
+        "Solução": "Realize a atualização do CKEditor para a versão 4.25.0-LTS ou superior, que corrige as vulnerabilidades conhecidas.\nRecomendações adicionais:\nSe a atualização imediata não for viável, limite ao máximo o uso de plugins afetados como o Code Snippet GeSHi e desative funcionalidades desnecessárias.\nMonitore logs e comportamentos suspeitos nas aplicações que utilizam o CKEditor.\nSempre valide e sanitize entradas do usuário, mesmo em editores WYSIWYG, para mitigar riscos de XSS.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-injecao-de-codigo/cross-site-scripting-xss/ckeditor-4250-lts-multiples-cross-site-scripting.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Injeção de Código",
+        "Subcategoria": "Cross-Site Scripting (XSS)",
+        "Vulnerabilidade": "CKEditor < 4.24.0-LTS Multiples Cross-Site Scripting",
+        "Descrição": "Foi identificado que a instância do CKEditor em execução está em uma versão inferior à 4.24.0-LTS, conforme o número de versão informado pela própria aplicação.\nAs versões afetadas são vulneráveis a múltiplas falhas de Cross-Site Scripting (XSS), incluindo:\nExecução de código JavaScript nos exemplos embarcados com o CKEditor, devido a uma configuração inadequada da funcionalidade de preview (pré-visualização).\nExecução de código JavaScript nos exemplos AJAX embarcados, também explorando configurações inseguras presentes nos exemplos de demonstração.\nInjeção de HTML malformado no núcleo da aplicação, contornando o mecanismo de filtragem avançada de conteúdo (Advanced Content Filtering), o que pode resultar na execução de scripts maliciosos.\nImportante:\nO scanner não realizou testes ativos para verificar essas falhas. A identificação baseia-se unicamente na versão autodeclarada pelo CKEditor.",
+        "Solução": "Atualize o CKEditor para a versão 4.24.0-LTS ou superior, na qual essas vulnerabilidades foram corrigidas.\nRecomendações adicionais:\nRemova os exemplos de código (como samples/ ou ajax/) do ambiente de produção, se estiverem presentes. Esses diretórios devem ser utilizados exclusivamente em ambientes de desenvolvimento.\nDesabilite quaisquer funcionalidades desnecessárias que envolvam pré-visualização dinâmica de conteúdo ou chamadas AJAX não controladas.\nAplique validações e sanitizações rigorosas em todo conteúdo HTML que possa ser interpretado ou salvo pela aplicação.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-injecao-de-codigo/cross-site-scripting-xss/ckeditor-4240-lts-multiples-cross-site-scripting.png"
+    },
+    {
+        "Categoria": "Outras Vulnerabilidades Críticas e Explorações",
+        "Subcategoria": "Redirecionamentos e Autenticação",
+        "Vulnerabilidade": "WordPress Administration Panel Login Form Detected",
+        "Descrição": "Foi detectado o painel de administração do WordPress na aplicação web-alvo. A exposição desse recurso pode oferecer uma superfície de ataque adicional, especialmente se combinado com técnicas como:\nAtaques de força bruta (brute-force), utilizando listas de senhas comuns ou personalizadas\nAtaques por dicionário visando descobrir credenciais fracas ou padrão\nExploits direcionados a versões específicas do WordPress e seus plugins\nO acesso não restrito ao painel administrativo pode comprometer totalmente o sistema, permitindo que um atacante ganhe privilégios administrativos e modifique conteúdo, instale plugins maliciosos ou extraia dados sensíveis.",
+        "Solução": "Implemente restrições de acesso ao painel administrativo utilizando regras no servidor web. Um dos métodos mais comuns é a utilização de um arquivo .htaccess (para servidores Apache), limitando o acesso ao diretório /wp-admin apenas a endereços IP confiáveis.\nRecomendações adicionais:\nHabilite autenticação em duas etapas (2FA) para todas as contas administrativas.\nUtilize nomes de usuário personalizados, evitando valores padrão como admin.\nMonitore tentativas de login e aplique bloqueios temporários após múltiplas falhas de autenticação.\nConsidere alterar o caminho de login padrão (/wp-login.php) com o uso de plugins de segurança.",
+        "Imagem": "assets/images-was/outras-vulnerabilidades-criticas-e-exploracoes/redirecionamentos-e-autenticacao/wordpress-administration-panel-login-form-detected.png"
+    },
+    {
+        "Categoria": "Vulnerabilidades Relacionadas a Configurações e Exposição de Informações",
+        "Subcategoria": "Configurações do Servidor",
+        "Vulnerabilidade": "WordPress Directory Listing",
+        "Descrição": "Foi identificada a exposição pública de listagens de diretórios pertencentes à instalação do WordPress na aplicação web analisada. Essa configuração permite que qualquer usuário visualize o conteúdo de pastas diretamente no navegador, por exemplo: https://exemplo.com/wp-content/plugins/.\nEssa prática pode fornecer informações sensíveis a um atacante, como:\nNome de temas e plugins instalados\nEstrutura interna de arquivos da aplicação\nArquivos temporários, de backup ou configuração que não deveriam estar acessíveis\nPontos de entrada que podem ser explorados em ataques direcionados\nA combinação dessas informações com vulnerabilidades conhecidas pode facilitar a exploração e comprometimento do servidor alvo.",
+        "Solução": "Desabilite a listagem de diretórios no servidor web.",
+        "Imagem": "assets/images-was/vulnerabilidades-relacionadas-a-configuracoes-e-exposicao-de-informacoes/configuracoes-do-servidor/wordpress-directory-listing.png"
+    }
+]

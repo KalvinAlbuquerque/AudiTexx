@@ -1,0 +1,139 @@
+{
+    "vulnerabilidades": [
+      {
+        "categoria": "Vulnerabilidades Relacionadas à Execução Remota de Código",
+        "descricao": "Falhas que permitem a execução de código malicioso em sistemas afetados, comprometendo sua integridade e segurança, muitas vezes por meio de serviços vulneráveis.",
+        "subcategorias": [
+          {
+            "subcategoria": "Execução Remota via Serviços e Protocolos",
+            "descricao": "Vulnerabilidades em protocolos e serviços como RDP, SMB, Apache e PHP, que podem permitir a execução remota de código malicioso em sistemas afetados."
+          }
+        ]
+      },
+      {
+        "categoria": "Vulnerabilidades Relacionadas a Configurações Indevidas",
+        "descricao": "Falhas causadas por configurações inadequadas em serviços ou servidores, que podem abrir brechas para ataques, aumentando a superfície de risco.",
+        "subcategorias": [
+          {
+            "subcategoria": "Configuração Incorreta de Protocolos e Segurança",
+            "descricao": "Deficiências na configuração de protocolos de segurança, como SMB, RDP e HSTS, ou o uso de protocolos obsoletos, que podem resultar em vulnerabilidades exploráveis."
+          }
+        ]
+      },
+      {
+        "categoria": "Vulnerabilidades Relacionadas ao Acesso Remoto",
+        "descricao": "Falhas que permitem que atacantes obtenham acesso remoto não autorizado a sistemas, serviços ou dados sensíveis, sem a devida autenticação ou controle.",
+        "subcategorias": [
+          {
+            "subcategoria": "Acesso Remoto Sem Autenticação Segura",
+            "descricao": "Vulnerabilidades em protocolos como SMB ou RDP, onde a falta de autenticação ou controles de segurança permite o acesso remoto não autorizado."
+          }
+        ]
+      },
+      {
+        "categoria": "Vulnerabilidades relacionadas à Cifras Não suportadas",
+        "descricao": "Falhas associadas ao uso de algoritmos de criptografia fracos ou desatualizados, que podem ser facilmente quebrados por atacantes, comprometendo a confidencialidade dos dados.",
+        "subcategorias": [
+          {
+            "subcategoria": "Protocolos e Cifras Depreciadas",
+            "descricao": "Uso de protocolos e cifras antigas ou vulneráveis, como SSL 2/3 e RC4, que são suscetíveis a ataques e não oferecem proteção adequada."
+          }
+        ]
+      },
+      {
+        "categoria": "Vulnerabilidades Relacionadas à Versões não suportadas",
+        "descricao": "Riscos provenientes do uso de software ou sistemas operacionais desatualizados e fora de suporte, que não recebem mais atualizações de segurança e permanecem vulneráveis a ataques.",
+        "subcategorias": [
+          {
+            "subcategoria": "Sistemas e Aplicações Fora de Suporte",
+            "descricao": "Uso de versões descontinuadas de software, como sistemas operacionais ou servidores, que não recebem mais patches de segurança e apresentam falhas conhecidas."
+          },
+          {
+            "subcategoria": "Protocolos e Cifras Depreciadas",
+            "descricao": "Uso de protocolos e cifras antigas ou vulneráveis, como SSL 2/3 e RC4, que são suscetíveis a ataques e não oferecem proteção adequada."
+          }
+        ]
+      },
+      {
+        "categoria": "Vulnerabilidades associadas a versões obsoletas",
+        "descricao": "Falhas de segurança decorrentes do uso de versões antigas e não mantidas de aplicativos e serviços populares, que possuem vulnerabilidades conhecidas e não corrigidas.",
+        "subcategorias": [
+          {
+            "subcategoria": "Softwares Desatualizados",
+            "descricao": "Adoção de versões desatualizadas de software, como Apache, Tomcat ou navegadores, que são susceptíveis a falhas de segurança que já foram corrigidas em versões mais recentes."
+          }
+        ]
+      },
+      {
+        "categoria": "Vulnerabilidades Relacionadas à Autenticação e Controle de Acesso",
+        "descricao": "Falhas nos sistemas de autenticação e controle de acesso, que podem permitir que usuários não autorizados obtenham acesso a informações e recursos restritos.",
+        "subcategorias": [
+          {
+            "subcategoria": "Autenticação Fraca ou Ausente",
+            "descricao": "Deficiência em métodos de autenticação, como uso de senhas fracas, falta de autenticação multifatorial ou ausência de controles adequados de acesso."
+          },
+          {
+            "subcategoria": "Controle de Acesso Impropriamente Configurado",
+            "descricao": "Falhas na implementação de políticas de controle de acesso, como permissões excessivas, listas de controle de acesso (ACLs) mal configuradas ou ausência de restrições adequadas, permitindo que usuários não autorizados acessem recursos restritos."
+          }
+        ]
+      },
+      {
+        "categoria": "Vulnerabilidades Relacionadas à Exposição de Informações Sensíveis",
+        "descricao": "Falhas que resultam na exposição inadvertida de dados sensíveis, como informações de configuração, dados de usuário ou erros do sistema, que podem ser exploradas por atacantes para obter mais informações sobre o sistema.",
+        "subcategorias": [
+          {
+            "subcategoria": "Exposição de Arquivos de Configuração",
+            "descricao": "Falhas que permitem que arquivos de configuração sensíveis, como `.env`, `config.php` ou `web.config`, sejam acessados externamente, expondo dados críticos como credenciais e configurações do servidor."
+          },
+          {
+            "subcategoria": "Logs e Mensagens de Erro Detalhadas",
+            "descricao": "Vulnerabilidades onde mensagens de erro ou logs do sistema fornecem informações detalhadas sobre a estrutura interna do sistema, stack trace, ou dados sensíveis, podendo ser utilizados por atacantes para realizar movimentos laterais ou exploração adicional."
+          }
+        ]
+      },
+      {
+        "categoria": "Vulnerabilidades Relacionadas ao Gerenciamento de Sessões",
+        "descricao": "Falhas no gerenciamento de sessões de usuários, como controle inadequado de tokens de sessão ou ausência de atributos de segurança em cookies, que podem permitir a tomada de controle ou roubo de sessões.",
+        "subcategorias": [
+          {
+            "subcategoria": "Sessões Expirando Tardiamente ou Inexistentes",
+            "descricao": "Vulnerabilidades em que sessões de usuários permanecem ativas por períodos longos, ou não são invalidadas corretamente após o logout, permitindo que atacantes possam reutilizar sessões ou manter o acesso indevido."
+          },
+          {
+            "subcategoria": "Falta de Atributos Secure e HttpOnly",
+            "descricao": "Ausência de atributos de segurança, como `Secure` e `HttpOnly`, nos cookies de sessão, o que pode permitir que atacantes acessem as sessões por meio de ataques como cross-site scripting (XSS) ou roubo de cookies."
+          }
+        ]
+      },
+      {
+        "categoria": "Vulnerabilidades em Serviços de Rede",
+        "descricao": "Falhas em serviços de rede habilitados em servidores, que podem ser exploradas por atacantes para movimentação lateral, escalada de privilégios ou execução de código remoto.",
+        "subcategorias": [
+          {
+            "subcategoria": "Serviços Inseguros Ativos",
+            "descricao": "Uso de serviços de rede legados, como Telnet, FTP ou RSH, sem criptografia ou autenticação forte, permitindo que atacantes interceptem ou manipulem as comunicações de rede."
+          },
+          {
+            "subcategoria": "Portas Abertas Expostas",
+            "descricao": "Falhas na configuração do firewall ou do servidor que resultam na exposição de portas desnecessárias à internet, ampliando a superfície de ataque e permitindo que atacantes tentem explorar esses pontos de acesso."
+          }
+        ]
+      },
+      {
+        "categoria": "Vulnerabilidades Relacionadas a Atualizações de Software",
+        "descricao": "Falhas devido à falta de atualizações regulares em softwares, bibliotecas e sistemas operacionais, deixando o sistema vulnerável a ataques conhecidos que já foram corrigidos em versões mais recentes.",
+        "subcategorias": [
+          {
+            "subcategoria": "Software com Patches de Segurança Ausentes",
+            "descricao": "Vulnerabilidades em sistemas que não receberam patches ou atualizações de segurança, permitindo a exploração de falhas conhecidas que poderiam ser corrigidas com as atualizações disponíveis."
+          },
+          {
+            "subcategoria": "Dependências Obsoletas em Aplicações Web",
+            "descricao": "Uso de bibliotecas e frameworks antigos em aplicações web que não recebem mais atualizações de segurança e possuem vulnerabilidades conhecidas."
+          }
+        ]
+      }
+    ]
+  }
+  

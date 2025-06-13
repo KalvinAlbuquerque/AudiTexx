@@ -1,0 +1,55 @@
+time="2025-06-07T15:21:24-03:00" level=warning msg="/home/kalvin/code/AudiTex/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+auditex_backend  |  * Serving Flask app 'src.main'
+auditex_backend  |  * Debug mode: off
+auditex_backend  | WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+auditex_backend  |  * Running on all addresses (0.0.0.0)
+auditex_backend  |  * Running on http://127.0.0.1:5000
+auditex_backend  |  * Running on http://172.18.0.3:5000
+auditex_backend  | Press CTRL+C to quit
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:10] "GET /reports/getRelatorioMissingVulnerabilities?relatorioId=68448119ab8c9e17a0b8b493&type=sites HTTP/1.1" 404 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:10] "GET /reports/getRelatorioMissingVulnerabilities?relatorioId=68448119ab8c9e17a0b8b493&type=sites HTTP/1.1" 404 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:11] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:11] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:12] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:12] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:17] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:17] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:20] "OPTIONS /lists/criarLista/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:20] "POST /lists/criarLista/ HTTP/1.1" 201 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:21] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:21] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:24] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:24] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:27] "OPTIONS /scans/webapp/scansfromfolderofuser/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:28] "POST /scans/webapp/scansfromfolderofuser/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:31] "OPTIONS /lists/adicionarWAPPScanALista/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:32] "POST /lists/adicionarWAPPScanALista/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:34] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:34] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:37] "OPTIONS /scans/vm/getScanByName/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:37] "POST /scans/vm/getScanByName/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:39] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:39] "OPTIONS /scans/vm/downloadscans/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:46] "POST /scans/vm/downloadscans/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:46] "OPTIONS /lists/adicionarVMScanALista/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:54] "POST /lists/adicionarVMScanALista/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:54] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:54] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:54] "OPTIONS /lists/getScansDeLista/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:54] "OPTIONS /lists/getScansDeLista/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:54] "POST /lists/getScansDeLista/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:54] "OPTIONS /lists/getVMScansDeLista/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:54] "POST /lists/getScansDeLista/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:54] "POST /lists/getVMScansDeLista/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:54] "POST /lists/getVMScansDeLista/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:59] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:20:59] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:21:00] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:21:00] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:21:09] "OPTIONS /reports/gerarRelatorioDeLista/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:21:10] "POST /reports/gerarRelatorioDeLista/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:21:10] "GET /reports/getRelatorioMissingVulnerabilities?relatorioId=6844831538fec20450d537b9&type=sites HTTP/1.1" 404 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:21:10] "GET /reports/getRelatorioMissingVulnerabilities?relatorioId=6844831538fec20450d537b9&type=sites HTTP/1.1" 404 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:21:12] "OPTIONS /reports/baixarRelatorioPdf/ HTTP/1.1" 404 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:21:13] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -
+auditex_backend  | 172.18.0.1 - - [07/Jun/2025 18:21:13] "GET /lists/getTodasAsListas/ HTTP/1.1" 200 -

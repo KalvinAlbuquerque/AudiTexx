@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+html, body {
+  font-family: 'Source Sans Pro', 'sans-serif';
+  background-color: #141723;
+}
+
+/* Estilização da barra de rolagem para navegadores Webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 10px; /* Largura da barra de rolagem vertical */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Cor do fundo da trilha da barra de rolagem */
+  border-radius: 10px; /* Bordas arredondadas */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Cor do "arrastador" da barra de rolagem */
+  border-radius: 10px; /* Bordas arredondadas */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Cor do "arrastador" ao passar o mouse */
+}
+
+/* Para navegadores Firefox (opcional, menos personalizável) */
+html {
+  scrollbar-width: thin; /* 'auto' ou 'none' */
+  scrollbar-color: #888 #f1f1f1; /* thumb track */
+}

@@ -1,0 +1,26 @@
+# frontend/Dockerfile.frontend
+
+# Usa uma imagem base Node.js oficial (para desenvolvimento)
+FROM node:20-alpine
+
+# Define o diretório de trabalho dentro do contêiner
+WORKDIR /app
+
+# Copia os arquivos package.json e package-lock.json
+# Isso permite que o Docker use o cache para a etapa de instalação de dependências
+COPY package*.json ./
+
+# Instala as dependências do Node.js
+# 'npm ci' é mais determinístico do que 'npm install' em ambientes de CI/CD
+RUN npm ci
+
+# O restante do código da aplicação (pasta 'src')
+# NÃO precisa ser copiado aqui com 'COPY . .', pois ele será montado
+# via volume pelo docker-compose.yml, permitindo hot-reloading.
+
+# Expõe a porta que o servidor de desenvolvimento do Vite vai rodar
+EXPOSE 3000
+
+# Comando para iniciar o servidor de desenvolvimento do Vite
+# O '--host 0.0.0.0' permite que o servidor seja acessível de fora do contêiner
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
