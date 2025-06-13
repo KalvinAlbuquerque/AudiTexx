@@ -13,6 +13,7 @@ from .routes.scans import scans_bp
 from .routes.lists import lists_bp
 from .routes.reports import reports_bp
 from .routes.vulnerabilities_manager import vulnerabilities_manager_bp
+from .routes.api_key_manager import api_keys_bp 
 
 # Inicializa a configuração
 config = Config("config.json") 
@@ -29,16 +30,14 @@ app.register_blueprint(lists_bp)
 app.register_blueprint(reports_bp)
 app.register_blueprint(vulnerabilities_manager_bp)
 
-# CORREÇÃO AQUI: Servir a pasta de imagens estaticamente através do Flask
-# O caminho é relativo à raiz do backend (AudiTex/backend/)
-# A pasta base_report/assets está em AudiTex/shared_data/report_templates/base_report/assets
+
 images_folder_path = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), # /home/kalvin/AudiTex/backend/src
-    '..', # /home/kalvin/AudiTex/backend
-    'shared_data', # /home/kalvin/AudiTex/shared_data
-    'report_templates', # /home/kalvin/AudiTex/shared_data/report_templates
-    'base_report', # /home/kalvin/AudiTex/shared_data/report_templates/base_report
-    'assets' # /home/kalvin/AudiTex/shared_data/report_templates/base_report/assets
+    os.path.dirname(os.path.abspath(__file__)), 
+    '..', 
+    'shared_data', 
+    'report_templates', 
+    'base_report', 
+    'assets' 
 )
 
 app.static_folder = images_folder_path # Define a pasta estática do Flask

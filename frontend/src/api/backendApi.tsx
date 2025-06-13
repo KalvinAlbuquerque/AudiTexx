@@ -37,15 +37,14 @@ export interface ScanData {
     id?: string; // Propriedade de VM Scan (ID numérico principal)
     last_modification_date?: string; // Propriedade comum (pode vir de WAS ou VM)
     
-    // --- INÍCIO DA CORREÇÃO APLICADA AQUI: Adicionando a propriedade 'history' ---
-    history?: Array<{ // Propriedade específica de VM Scan (histórico de execuções)
+    // Propriedade específica de VM Scan (histórico de execuções)
+    history?: Array<{ 
         uuid: string; // O UUID do histórico de scan, usado para download
         scan_id?: string; // ID do scan dentro do histórico (pode ser o mesmo que o 'id' principal)
         status?: string; // Status da execução do histórico
         last_modification_date?: string; // Data de modificação do histórico (para encontrar o mais recente)
         // Adicione outras propriedades do objeto 'history' se forem relevantes
     }>;
-    // --- FIM DA CORREÇÃO APLICADA AQUI ---
 }
 
 export interface Folder {
@@ -211,6 +210,18 @@ export const vulnerabilitiesApi = {
 
     getDescriptiveVulnerabilities: async (type: 'sites' | 'servers'): Promise<any[]> => {
         const response = await api.get(`/vulnerabilities/getDescritivos/?type=${type}`);
+        return response.data;
+    },
+};
+
+// Nova exportação para Tenable API Keys
+export const tenableApiKeysApi = {
+    getTenableApiKeys: async (): Promise<{ TENABLE_ACCESS_KEY: string; TENABLE_SECRET_KEY: string }> => {
+        const response = await api.get('/api-keys/tenable');
+        return response.data;
+    },
+    updateTenableApiKeys: async (accessKey: string, secretKey: string): Promise<{ message: string }> => {
+        const response = await api.post('/api-keys/tenable', { TENABLE_ACCESS_KEY: accessKey, TENABLE_SECRET_KEY: secretKey });
         return response.data;
     },
 };

@@ -10,7 +10,7 @@ function Home() {
       style={{ backgroundImage: "url('/assets/fundo.png')" }} // Usando a imagem de fundo
     >
       {/* Logotipo COGEL no canto superior esquerdo com o texto "COGEL" */}
-      <div className="absolute top-4 left-4">
+      <div className="absolute top-4 left-4 mt-30">
         {/* Usando o logo.png que tem o escudo e o texto "COGEL" */}
         {/* Certifique-se de que logo.png está em /public/ */}
         <img
