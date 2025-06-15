@@ -76,3 +76,6 @@ json_exports/
 ############
 reports/
 output/
+shared_data/generated_reports/
+shared_data/json_exports/
+
