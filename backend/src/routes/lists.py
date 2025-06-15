@@ -34,17 +34,18 @@ lists_bp = Blueprint('listas', __name__, url_prefix='/lists')
 CORS(lists_bp, origins=["http://localhost:3000", "http://127.0.0.1:3000"]) # Adicione CORS para este blueprint AQUI
 
 @lists_bp.route('/criarLista/', methods=['POST'])
-##@cross_origin(origins=["http://localhost:5173", "127.0.0.1"])
 def criarLista():
     try:
         data = request.get_json()
 
         if not data:
+            logging.error("Sem dados no request para criarLista.")
             return jsonify({"error": "Sem dados no request"}), 400
 
         nomeLista = data.get("nomeLista")
 
         if not nomeLista:
+            logging.error("Campo 'nomeLista' é obrigatório ao criar lista.")
             return jsonify({"error": "Campo 'nomeLista' é obrigatório."}), 400
 
         db_instance = Database()
@@ -53,34 +54,50 @@ def criarLista():
 
         if lista_existente:
             db_instance.close()
+            logging.warning(f"Já existe uma lista com o nome \"{nomeLista}\".")
             return jsonify({"error": f"Já existe uma lista com o nome \"{nomeLista}\"."}), 409
 
-        id_lista = db_instance.insert_one("listas", {
+        novo_documento_lista = {
             "nomeLista": nomeLista,
             "pastas_scans_webapp": None,
+            "pastas_scans_vm": None,
             "id_scan": None,
             "historyid_scanservidor": None,
             "nomeScanStoryId": None,
             "scanStoryIdCriadoPor": None,
             "relatorioGerado": False
-        }).inserted_id
+        }
 
-        pasta_scan = os.path.join(config.caminho_shared_jsons, str(id_lista)) + os.sep
+        id_lista = db_instance.insert_one("listas", novo_documento_lista).inserted_id
+
+        pasta_base_lista = os.path.join(config.caminho_shared_jsons, str(id_lista))
+        pasta_scans_webapp_caminho = os.path.join(pasta_base_lista, "webapp")
+        pasta_scans_vm_caminho = os.path.join(pasta_base_lista, "vm")
         
-        db_instance.update_one("listas", {"_id": id_lista}, {"pastas_scans_webapp": pasta_scan})
+        os.makedirs(pasta_scans_webapp_caminho, exist_ok=True)
+        os.makedirs(pasta_scans_vm_caminho, exist_ok=True)
+        logging.info(f"Pastas criadas para lista {nomeLista}: {pasta_scans_webapp_caminho}, {pasta_scans_vm_caminho}")
 
-        os.makedirs(pasta_scan, exist_ok=True)
+        # CORREÇÃO AQUI: Passar apenas os campos a serem atualizados, sem o '$set'
+        db_instance.update_one(
+            "listas", 
+            {"_id": id_lista}, 
+            { # Este é o dicionário 'update' que será envolvido por {"$set": update} em database.py
+                "pastas_scans_webapp": pasta_scans_webapp_caminho,
+                "pastas_scans_vm": pasta_scans_vm_caminho
+            }
+        )
 
         db_instance.close()
+        logging.info(f"Lista '{nomeLista}' criada com sucesso! ID: {str(id_lista)}")
 
         return jsonify({"message": "Lista criada com sucesso!", "idLista": str(id_lista)}), 201
 
     except Exception as e:
-        print(f"Erro ao criar lista: {e}")
+        logging.exception(f"Erro ao criar lista: {e}")
         if 'db_instance' in locals() and db_instance.client:
             db_instance.close()
         return jsonify({"error": f"Erro interno: {str(e)}"}), 500
-    
 @lists_bp.route('/getScansDeLista/', methods=['POST'])
 #@cross_origin(origins=["http://localhost:5173", "127.0.0.1"])
 def getScansDeLista():
@@ -371,7 +388,6 @@ def adicionarWAPPScanALista():
         return jsonify({"error": f"Erro interno: {str(e)}"}), 500
 
 @lists_bp.route('/adicionarVMScanALista/', methods=['POST'])
-#@cross_origin(origins=["http://localhost:5173", "127.0.0.1"])
 def adicionarVMScanALista():  
     try:
         data = request.get_json()
@@ -381,12 +397,10 @@ def adicionarVMScanALista():
             return jsonify({"error": "Nenhum dado fornecido."}), 400
 
         nome_lista = data.get("nomeLista")
-        id_scan_tenable = data.get("idScan") # Este parece ser o scan_id real na Tenable
+        id_scan_tenable = data.get("idScan")
         nome_scan_tenable = data.get("nomeScan")
         criado_por_tenable = data.get("criadoPor")
-        # Ajuste: se id_nmr_tenable é o history_id, ele deve ser do tipo esperado pela API Tenable.
-        # Geralmente history_id é um inteiro. Se for uma string de fato, ok.
-        history_id_tenable = str(data.get("idNmr")) # Renomeado para clareza
+        history_id_tenable = str(data.get("idNmr"))
 
         if not all([nome_lista, id_scan_tenable, nome_scan_tenable, criado_por_tenable, history_id_tenable]):
             logging.error("Dados de VM scan incompletos para adicionar à lista.")
@@ -401,7 +415,6 @@ def adicionarVMScanALista():
             logging.warning(f"Lista '{nome_lista}' não encontrada ao tentar adicionar VM scan.")
             return jsonify({"error": "Lista não encontrada"}), 404
         
-        # CORREÇÃO: Usar pasta_destino_scans_vm para VM scans
         pasta_destino_scans_vm = documento.get("pastas_scans_vm")
         if not pasta_destino_scans_vm:
             db_instance.close()
@@ -411,40 +424,25 @@ def adicionarVMScanALista():
         os.makedirs(pasta_destino_scans_vm, exist_ok=True)
         logging.info(f"Diretório de destino '{pasta_destino_scans_vm}' garantido para VM scans da lista '{nome_lista}'.")
 
-        # Atualiza a lista no banco de dados com as informações do scan
-        # Note: 'id_scan', 'historyid_scanservidor' etc. parecem campos personalizados no seu DB.
-        # Certifique-se de que correspondem ao seu esquema.
+        # CORREÇÃO AQUI: Remover o "$set" ao passar os campos para update_one
         db_instance.update_one(
             "listas",
             {"_id": ObjectId(documento["_id"])},
-            {"$set": { # Usar $set para atualizar campos, ou $push se for uma array
-                "id_scan": id_scan_tenable, # O ID do scan Tenable (que você chamou de idScan)
-                "historyid_scanservidor": history_id_tenable, # O history_id (que você chamou de idNmr)
+            { # Passar apenas o dicionário de campos e valores
+                "id_scan": id_scan_tenable,
+                "historyid_scanservidor": history_id_tenable,
                 "nomeScanStoryId": nome_scan_tenable,
                 "scanStoryIdCriadoPor": criado_por_tenable
-                # Considere adicionar o caminho do arquivo baixado aqui também para referência
-                # "filePath": os.path.join(pasta_destino_scans_vm, f"vm_scan_{id_scan_tenable}.csv")
-            }}
+                # Adicione aqui outros campos que deseja atualizar, como "filePath"
+            }
         )
-        # Se você quiser adicionar o scan como um item em uma lista de scans_vm:
-        # db_instance.update_one(
-        #     "listas",
-        #     {"_id": ObjectId(documento["_id"])},
-        #     {"$push": {"scans_vm": {
-        #         "id_scan_tenable": id_scan_tenable,
-        #         "history_id_tenable": history_id_tenable,
-        #         "nomeScanTenabe": nome_scan_tenable,
-        #         "criadoPorTenabe": criado_por_tenable,
-        #         "filePath": os.path.join(pasta_destino_scans_vm, f"vm_scan_{id_scan_tenable}.csv")
-        #     }}}
-        # )
 
         db_instance.close()
         logging.info(f"Informações do VM scan {id_scan_tenable} atualizadas na lista '{nome_lista}'.")
 
-        # Inicia o download do CSV. O resultado é salvo diretamente no disco pela TenableApi.
+        # Inicia o download do CSV.
         tenable_api.download_vmscans_csv(
-            target_dir=pasta_destino_scans_vm, # Passe o diretório correto
+            target_dir=pasta_destino_scans_vm,
             id_scan=id_scan_tenable,
             history_id=history_id_tenable
         )
