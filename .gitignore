@@ -19,7 +19,6 @@ venv.bak/
 *.egg-info/
 .eggs/
 # cython
-*.html
 *.c
 
 # Flask
