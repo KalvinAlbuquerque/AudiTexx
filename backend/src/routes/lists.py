@@ -1,4 +1,5 @@
 import json
+import logging
 from flask import Blueprint, jsonify, request, send_file
 from flask_cors import CORS, cross_origin
 
@@ -301,48 +302,72 @@ def editar_nome_lista():
         return jsonify({"error": f"Erro interno: {str(e)}"}), 500
     
 @lists_bp.route('/adicionarWAPPScanALista/', methods=['POST'])
-#@cross_origin(origins=["http://localhost:5173", "127.0.0.1"])
+#@cross_origin(origins=["http://localhost:5173", "127.0.0.1"]) # Descomente se precisar
 def adicionarWAPPScanALista():  
     try:
         data = request.get_json()
 
         if not data:
+            logging.error("Nenhum dado JSON fornecido na requisição para /adicionarWAPPScanALista/.")
             return jsonify({"error": "Nenhum dado fornecido."}), 400
 
         nome_lista = data.get("nomeLista")
-        scans_para_baixar = data.get("scans")
+        scans_from_request = data.get("scans") # Este é o dicionário completo com 'pagination' e 'items'
 
-        if not nome_lista or not scans_para_baixar:
+        if not nome_lista or not scans_from_request:
+            logging.error("Nome da lista ou dados de scans não fornecidos.")
             return jsonify({"error": "Nome da lista ou scans não fornecidos."}), 400
 
-        db_instance = Database()
+        if not isinstance(scans_from_request, dict) or "items" not in scans_from_request:
+            logging.error(f"Formato inesperado para 'scans'. Esperado um objeto com a chave 'items'. Recebido: {type(scans_from_request)}")
+            return jsonify({"error": "Formato inválido para dados de scans. Esperado um objeto com a chave 'items'."}), 400
 
-        documento = db_instance.find_one("listas", {"nomeLista": nome_lista})
+        db = Database()
+        documento = db.find_one("listas", {"nomeLista": nome_lista})
+        db.close() # Sempre fechar a conexão do DB
 
         if not documento:
-            db_instance.close()
+            logging.warning(f"Lista '{nome_lista}' não encontrada no banco de dados.")
             return jsonify({"error": "Lista não encontrada"}), 404
         
         pasta_destino_scans = documento.get("pastas_scans_webapp")
         if not pasta_destino_scans:
-            db_instance.close()
+            logging.error(f"Caminho da pasta de scans para a lista '{nome_lista}' não configurado no documento do banco de dados.")
             return jsonify({"error": "Caminho da pasta de scans para a lista não configurado."}), 500
         
         os.makedirs(pasta_destino_scans, exist_ok=True)
+        logging.info(f"Diretório de destino '{pasta_destino_scans}' garantido para lista '{nome_lista}'.")
 
+        # Chama a função download_scans_results_json passando o diretório e o dicionário completo de scans
         tenable_api.download_scans_results_json(
             pasta_destino_scans,
-            scans_para_baixar
+            scans_from_request
         )
+        logging.info(f"Processamento de download de WebApp scans para lista '{nome_lista}' concluído.")
 
-        db_instance.close()
+        # Opcional: Atualizar o documento da lista no banco de dados com os scans baixados.
+        # Isso dependeria de como você quer armazenar as referências aos arquivos baixados.
+        # Exemplo (requer reabrir a conexão com o DB ou passar uma instância aberta):
+        # db_instance = Database()
+        # for scan_data in scans_from_request.get("items", []):
+        #     scan_id = scan_data.get("last_scan", {}).get("scan_id")
+        #     if scan_id:
+        #         file_path = os.path.join(pasta_destino_scans, f"{scan_id}.json")
+        #         # Supondo que você queira adicionar apenas o ID e o caminho do arquivo à lista
+        #         db_instance.update_one(
+        #             "listas",
+        #             {"nomeLista": nome_lista},
+        #             {"$addToSet": {"scans_webapp": {"config_id": scan_data.get("config_id"), "scan_id": scan_id, "filePath": file_path}}}
+        #         )
+        # db_instance.close()
 
         return jsonify({"message": "Scans de WebApp adicionados à lista com sucesso!"}), 200
 
     except Exception as e:
-        print(f"Erro ao adicionar scans de WebApp à lista: {e}")
-        if 'db_instance' in locals() and db_instance.client:
-            db_instance.close()
+        logging.exception(f"Erro inesperado na rota /adicionarWAPPScanALista/: {e}")
+        # Garante que a conexão com o banco de dados seja fechada em caso de erro
+        if 'db' in locals() and db.client:
+            db.close()
         return jsonify({"error": f"Erro interno: {str(e)}"}), 500
 
 @lists_bp.route('/adicionarVMScanALista/', methods=['POST'])

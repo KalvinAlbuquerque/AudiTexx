@@ -1,3 +1,4 @@
+import os
 import httpx
 import logging
 import time
@@ -160,21 +161,64 @@ class TenableApi:
         logging.warning(f"Scan de VM com nome '{scan_name}' não foi encontrado.")
         return {"error": "Scan not found", "name": scan_name}
 
-    def download_scans_results_json(self, scan_config: dict):
+    def download_scans_results_json(self, target_dir: str, scans: dict) -> None:
         """
-        Baixa os resultados do último scan de uma configuração de WebApp.
-        Recebe o dicionário de configuração do scan.
+        Baixa os resultados dos scans de aplicação web para o diretório especificado.
+        Args:
+            target_dir (str): O caminho do diretório onde os arquivos JSON serão salvos.
+            scans (dict): O dicionário completo retornado pela API do Tenable (contendo a chave 'items').
         """
-        last_scan_info = scan_config.get("last_scan")
-        if not last_scan_info or "scan_id" not in last_scan_info:
-            logging.warning(f"Configuração de scan {scan_config.get('config_id')} não possui um último scan ('last_scan').")
-            return {"error": "No last scan found for this configuration."}
-        
-        scan_id = last_scan_info["scan_id"]
-        logging.info(f"Iniciando download para o scan de WAS ID: {scan_id}")
+        if not self.client:
+            logging.error("Cliente Tenable não inicializado. Não é possível baixar scans.")
+            return
 
-        # Endpoint direto para vulnerabilidades (mais eficiente que gerar relatório)
-        return self._make_request("GET", f"/was/v2/scans/{scan_id}/vulnerabilities")
+        if not isinstance(scans, dict) or "items" not in scans:
+            logging.error(f"Formato inválido para 'scans' em download_scans_results_json. Esperado um dicionário com a chave 'items'. Recebido: {type(scans)}")
+            return
+
+        scans_list = scans["items"]
+        
+        os.makedirs(target_dir, exist_ok=True)
+        logging.info(f"Diretório de destino '{target_dir}' garantido.")
+
+        for data in scans_list:
+            if not isinstance(data, dict):
+                logging.warning(f"Item inesperado na lista de scans: {data}. Ignorando.")
+                continue
+
+            last_scan_info = data.get("last_scan")
+            if not last_scan_info or "scan_id" not in last_scan_info:
+                logging.warning(f"Configuração de scan {data.get('config_id')} não possui um último scan ('last_scan') ou 'scan_id'. Pulando download.")
+                continue
+
+            scan_id = last_scan_info["scan_id"]
+            logging.info(f"Iniciando processo de download para WAS scan ID: {scan_id}")
+
+            url_init_report = f"/was/v2/scans/{scan_id}/report"
+            url_get_report = f"/was/v2/scans/{scan_id}/report" # A URL para GET é a mesma
+
+            try:
+                # 1. Iniciar a geração do relatório
+                response_put = self.client.put(url_init_report)
+                response_put.raise_for_status()
+                logging.info(f"Geração de relatório iniciada para scan {scan_id}. Status: {response_put.status_code}")
+
+                # 2. Baixar o relatório
+                response_get = self.client.get(url_get_report)
+                response_get.raise_for_status()
+                logging.info(f"Relatório obtido para scan {scan_id}. Status: {response_get.status_code}")
+
+                # 3. Salvar os dados do scan
+                file_path = os.path.join(target_dir, f"{scan_id}.json")
+                with open(file_path, "w", encoding="utf-8") as file:
+                    file.write(response_get.text)
+                logging.info(f"Scan {scan_id} salvo com sucesso em {file_path}")
+
+            except httpx.HTTPStatusError as e:
+                logging.error(f"Erro HTTP ao baixar scan {scan_id}: {e.response.status_code} - {e.response.text}")
+            except Exception as e:
+                logging.error(f"Erro inesperado ao processar scan {scan_id}: {str(e)}")
+
 
     def download_vmscans_csv(self, scan_id: int, history_id: int = None):
         """
@@ -192,7 +236,7 @@ class TenableApi:
         export_request = self._make_request("POST", f"/scans/{scan_id}/export", json=export_payload)
         
         if not isinstance(export_request, dict) or "export_uuid" not in export_request:
-            logging.error(f"Falha ao iniciar a exportação do scan. Resposta: {export_request}")
+            logging.error(f"Falha ao iniciar a exporta  ção do scan. Resposta: {export_request}")
             return None
         
         export_uuid = export_request["export_uuid"]
