@@ -377,15 +377,19 @@ def adicionarVMScanALista():
         data = request.get_json()
 
         if not data:
+            logging.error("Nenhum dado fornecido para adicionar VM Scan à lista.")
             return jsonify({"error": "Nenhum dado fornecido."}), 400
 
         nome_lista = data.get("nomeLista")
-        id_scan_tenable = data.get("idScan")
+        id_scan_tenable = data.get("idScan") # Este parece ser o scan_id real na Tenable
         nome_scan_tenable = data.get("nomeScan")
         criado_por_tenable = data.get("criadoPor")
-        id_nmr_tenable = str(data.get("idNmr"))
+        # Ajuste: se id_nmr_tenable é o history_id, ele deve ser do tipo esperado pela API Tenable.
+        # Geralmente history_id é um inteiro. Se for uma string de fato, ok.
+        history_id_tenable = str(data.get("idNmr")) # Renomeado para clareza
 
-        if not all([nome_lista, id_scan_tenable, nome_scan_tenable, criado_por_tenable, id_nmr_tenable]):
+        if not all([nome_lista, id_scan_tenable, nome_scan_tenable, criado_por_tenable, history_id_tenable]):
+            logging.error("Dados de VM scan incompletos para adicionar à lista.")
             return jsonify({"error": "Dados de VM scan incompletos."}), 400
 
         db_instance = Database()
@@ -393,40 +397,67 @@ def adicionarVMScanALista():
         documento = db_instance.find_one("listas", {"nomeLista": nome_lista})
 
         if not documento:
+            db_instance.close()
+            logging.warning(f"Lista '{nome_lista}' não encontrada ao tentar adicionar VM scan.")
             return jsonify({"error": "Lista não encontrada"}), 404
         
-        pasta_destino_scans = documento.get("pastas_scans_webapp")
-        if not pasta_destino_scans:
+        # CORREÇÃO: Usar pasta_destino_scans_vm para VM scans
+        pasta_destino_scans_vm = documento.get("pastas_scans_vm")
+        if not pasta_destino_scans_vm:
             db_instance.close()
-            return jsonify({"error": "Caminho da pasta de scans para a lista não configurado."}), 500
+            logging.error(f"Caminho da pasta de scans VM para a lista '{nome_lista}' não configurado.")
+            return jsonify({"error": "Caminho da pasta de scans VM para a lista não configurado."}), 500
         
-        os.makedirs(pasta_destino_scans, exist_ok=True)
+        os.makedirs(pasta_destino_scans_vm, exist_ok=True)
+        logging.info(f"Diretório de destino '{pasta_destino_scans_vm}' garantido para VM scans da lista '{nome_lista}'.")
 
+        # Atualiza a lista no banco de dados com as informações do scan
+        # Note: 'id_scan', 'historyid_scanservidor' etc. parecem campos personalizados no seu DB.
+        # Certifique-se de que correspondem ao seu esquema.
         db_instance.update_one(
             "listas",
             {"_id": ObjectId(documento["_id"])},
-            {"id_scan": id_nmr_tenable,
-             "historyid_scanservidor": id_scan_tenable,
-             "nomeScanStoryId": nome_scan_tenable,
-             "scanStoryIdCriadoPor": criado_por_tenable}
+            {"$set": { # Usar $set para atualizar campos, ou $push se for uma array
+                "id_scan": id_scan_tenable, # O ID do scan Tenable (que você chamou de idScan)
+                "historyid_scanservidor": history_id_tenable, # O history_id (que você chamou de idNmr)
+                "nomeScanStoryId": nome_scan_tenable,
+                "scanStoryIdCriadoPor": criado_por_tenable
+                # Considere adicionar o caminho do arquivo baixado aqui também para referência
+                # "filePath": os.path.join(pasta_destino_scans_vm, f"vm_scan_{id_scan_tenable}.csv")
+            }}
         )
+        # Se você quiser adicionar o scan como um item em uma lista de scans_vm:
+        # db_instance.update_one(
+        #     "listas",
+        #     {"_id": ObjectId(documento["_id"])},
+        #     {"$push": {"scans_vm": {
+        #         "id_scan_tenable": id_scan_tenable,
+        #         "history_id_tenable": history_id_tenable,
+        #         "nomeScanTenabe": nome_scan_tenable,
+        #         "criadoPorTenabe": criado_por_tenable,
+        #         "filePath": os.path.join(pasta_destino_scans_vm, f"vm_scan_{id_scan_tenable}.csv")
+        #     }}}
+        # )
 
         db_instance.close()
+        logging.info(f"Informações do VM scan {id_scan_tenable} atualizadas na lista '{nome_lista}'.")
 
+        # Inicia o download do CSV. O resultado é salvo diretamente no disco pela TenableApi.
         tenable_api.download_vmscans_csv(
-            pasta_destino_scans,
-            id_nmr_tenable,
-            id_scan_tenable
+            target_dir=pasta_destino_scans_vm, # Passe o diretório correto
+            id_scan=id_scan_tenable,
+            history_id=history_id_tenable
         )
-
-        return jsonify({"message": "Scan VM adicionado à lista com sucesso!"}), 200
+        
+        logging.info(f"Solicitação de download para VM scan ID {id_scan_tenable} processada.")
+        return jsonify({"message": "Scan VM adicionado à lista e download iniciado com sucesso!"}), 200
 
     except Exception as e:
-        print(f"Erro ao adicionar scan VM à lista: {e}")
+        logging.exception(f"Erro ao adicionar scan VM à lista: {e}")
         if 'db_instance' in locals() and db_instance.client:
             db_instance.close()
         return jsonify({"error": f"Erro interno: {str(e)}"}), 500
-
+    
 @lists_bp.route('/getTodasAsListas/', methods=['GET'])
 #@cross_origin(origins=["http://localhost:5173", "127.0.0.1"])
 def getTodasAsListas():

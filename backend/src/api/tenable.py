@@ -220,42 +220,75 @@ class TenableApi:
                 logging.error(f"Erro inesperado ao processar scan {scan_id}: {str(e)}")
 
 
-    def download_vmscans_csv(self, scan_id: int, history_id: int = None):
-        """
-        Baixa os resultados de um scan de VM em formato CSV.
-        Se history_id for fornecido, baixa essa execução específica.
-        """
-        export_payload = {"format": "csv", "chapters": "vuln_by_host"}
-        
-        if history_id:
-            export_payload["history_id"] = history_id
-            logging.info(f"Iniciando exportação CSV para o histórico {history_id} do scan de VM ID: {scan_id}")
-        else:
-            logging.info(f"Iniciando exportação CSV para a última execução do scan de VM ID: {scan_id}")
+    def download_vmscans_csv(self, target_dir: str, id_scan: str, history_id: str = None) -> None:
+            """
+            Baixa os resultados de um scan de VM em formato CSV.
+            Usa o 'file' retornado pela API para rastrear o download.
+            Args:
+                target_dir (str): O caminho do diretório onde o arquivo CSV será salvo.
+                id_scan (str): O ID do scan VM.
+                history_id (str, optional): O ID do histórico do scan, se aplicável.
+            """
+            if not self.client:
+                logging.error("Cliente Tenable não inicializado. Não é possível baixar scans VM.")
+                return
 
-        export_request = self._make_request("POST", f"/scans/{scan_id}/export", json=export_payload)
-        
-        if not isinstance(export_request, dict) or "export_uuid" not in export_request:
-            logging.error(f"Falha ao iniciar a exporta  ção do scan. Resposta: {export_request}")
-            return None
-        
-        export_uuid = export_request["export_uuid"]
-        logging.info(f"Exportação iniciada com UUID: {export_uuid}")
+            url_export_init = f"/scans/{id_scan}/export"
+            export_payload = {
+                "format": "csv",
+                "chapters": "vuln_by_host"
+            }
+            if history_id:
+                export_payload["history_id"] = history_id
+                logging.info(f"Iniciando exportação CSV para o histórico {history_id} do scan de VM ID: {id_scan}")
+            else:
+                logging.info(f"Iniciando exportação CSV para a última execução do scan de VM ID: {id_scan}")
 
-        for i in range(15): 
-            status_response = self._make_request("GET", f"/scans/{scan_id}/export/{export_uuid}/status")
-            if isinstance(status_response, dict) and status_response.get("status") == "ready":
-                logging.info("Exportação pronta. Baixando o arquivo...")
-                # Para download de CSV, o conteúdo é texto, não JSON
-                download_response = self.client.request("GET", f"/scans/{scan_id}/export/{export_uuid}/download")
-                download_response.raise_for_status()
-                return download_response.text
-            
-            logging.info(f"Aguardando a exportação ficar pronta... (tentativa {i+1}/15)")
-            time.sleep(10)
+            try:
+                # 1. Iniciar a exportação e obter o 'file' ID
+                # Usando client.post diretamente para ter mais controle sobre a resposta bruta se _make_request for muito genérico
+                response = self.client.post(url_export_init, json=export_payload)
+                response.raise_for_status() # Levanta um erro para status codes 4xx/5xx
+                export_response = response.json()
+                
+                if not isinstance(export_response, dict) or "file" not in export_response:
+                    logging.error(f"Falha ao iniciar a exportação do scan {id_scan}. Resposta inesperada: {export_response}")
+                    return
 
-        logging.error(f"A exportação para o scan {scan_id} não ficou pronta a tempo (timeout).")
-        return None
+                file_id = export_response["file"]
+                logging.info(f"Exportação iniciada para scan {id_scan} com File ID: {file_id}")
+
+                # 2. Polling para verificar o status do download
+                url_status = f"/scans/{id_scan}/export/{file_id}/status"
+                for i in range(30): # Aumentado o número de tentativas
+                    status_check_response = self.client.get(url_status).json() # Chamada direta
+                    
+                    if isinstance(status_check_response, dict) and status_check_response.get("status") == "ready":
+                        logging.info(f"Exportação para scan {id_scan} está pronta. Baixando o arquivo...")
+                        break
+                    
+                    logging.info(f"Aguardando a exportação para scan {id_scan} ficar pronta... (tentativa {i+1}/30)")
+                    time.sleep(5) # Espera 5 segundos entre as verificações
+                else:
+                    logging.error(f"A exportação para o scan {id_scan} não ficou pronta a tempo (timeout após 150s).")
+                    return
+
+                # 3. Baixar o arquivo CSV
+                url_download = f"/scans/{id_scan}/export/{file_id}/download"
+                download_response = self.client.get(url_download)
+                download_response.raise_for_status() # Lança erro para status HTTP 4xx/5xx
+
+                # Salvar o conteúdo CSV no arquivo
+                os.makedirs(target_dir, exist_ok=True)
+                file_path = os.path.join(target_dir, f"vm_scan_{id_scan}.csv")
+                with open(file_path, "w", encoding="utf-8") as file:
+                    file.write(download_response.text)
+                logging.info(f"Scan VM {id_scan} baixado com sucesso para {file_path}")
+
+            except httpx.HTTPStatusError as e:
+                logging.error(f"Erro HTTP ao baixar scan VM {id_scan}: {e.response.status_code} - {e.response.text}")
+            except Exception as e:
+                logging.error(f"Erro inesperado ao processar download de scan VM {id_scan}: {str(e)}")
 
 # Instância singleton que será usada em toda a aplicação
 tenable_api = TenableApi()

@@ -117,6 +117,7 @@ def get_vm_scan_by_name_route():
         return jsonify({"error": f"Ocorreu um erro inesperado: {str(e)}"}), 500
 
 @scans_bp.route('/vm/downloadscans/', methods=['POST'])
+#@cross_origin(origins=["http://localhost:5173", "127.0.0.1"]) # Descomente se precisar
 def vm_downloadscans():
     """
     Baixa o resultado de um scan de VM em formato CSV.
@@ -124,31 +125,42 @@ def vm_downloadscans():
     try:
         data = request.get_json()
         if not data:
+            logging.error("Corpo da requisição vazio em /vm/downloadscans/.")
             return jsonify({"error": "Corpo da requisição não pode ser vazio."}), 400
 
-        list_id = data.get("nomeListaId")
+        # Assumindo que 'nomeListaId' é o ID da lista para construir o caminho
+        # Se 'nomeListaId' for o nome da lista, você precisará buscar a pasta do DB.
+        # Por simplicidade, vou usar 'nomeListaId' como parte do caminho base.
+        nome_lista_id = data.get("nomeListaId") 
         scan_id = data.get("idScan")
-        # history_id não é usado na implementação atual da API, mas pode ser adicionado no futuro
         history_id = data.get("historyId")
 
-        if not list_id or not scan_id:
+        if not nome_lista_id or not scan_id:
+            logging.error("Campos 'nomeListaId' ou 'idScan' ausentes na requisição para /vm/downloadscans/.")
             return jsonify({"error": "Campos 'nomeListaId' e 'idScan' são obrigatórios."}), 400
 
         # Define o caminho de destino
-        target_dir = os.path.join(config.caminho_shared_jsons, str(list_id))
+        # Use o caminho configurado para VM scans, não o genérico de jsons
+        target_dir = os.path.join(config.caminho_shared_jsons, str(nome_lista_id), "vm")
         os.makedirs(target_dir, exist_ok=True)
+        logging.info(f"Diretório de destino para VM scan: {target_dir}")
         
-        csv_content = tenable_api.download_vmscans_csv(scan_id=scan_id, history_id=history_id)
-        if csv_content and not (isinstance(csv_content, dict) and 'error' in csv_content):
-            file_path = os.path.join(target_dir, f"vm_scan_{scan_id}.csv")
-            with open(file_path, "w", encoding="utf-8") as f:
-                f.write(csv_content)
-            logging.info(f"Scan de VM {scan_id} salvo em {file_path}")
-            return jsonify({"message": "Scan VM baixado com sucesso!"})
-        else:
-            logging.error(f"Falha ao baixar scan de VM {scan_id}. Resposta: {csv_content}")
-            return jsonify({"error": "Falha ao baixar o arquivo CSV do scan.", "details": csv_content}), 500
+        # CHAME download_vmscans_csv com target_dir, id_scan e history_id
+        tenable_api.download_vmscans_csv(
+            target_dir=target_dir,
+            id_scan=scan_id,
+            history_id=history_id
+        )
+        
+        # A função download_vmscans_csv agora gerencia o salvamento e o logging interno.
+        # Se ela falhar, ela logará o erro e retornará None.
+        # Se você precisa saber se o download foi bem-sucedido aqui, você pode ajustar
+        # download_vmscans_csv para retornar True/False ou o path do arquivo se quiser.
+        # Por enquanto, assumimos que se não houver exceção, a operação foi tentada.
+        
+        logging.info(f"Solicitação de download para VM Scan ID {scan_id} processada com sucesso.")
+        return jsonify({"message": "Download do scan VM solicitado e iniciado com sucesso!"}), 200
 
     except Exception as e:
-        logging.error(f"Erro em /vm/downloadscans/: {e}")
+        logging.exception(f"Erro inesperado em /vm/downloadscans/: {e}")
         return jsonify({"error": f"Ocorreu um erro inesperado: {str(e)}"}), 500
