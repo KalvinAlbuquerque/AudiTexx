@@ -52,7 +52,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      VITE_REACT_APP_API_URL: http://backend:5000 
+      VITE_REACT_APP_API_URL: http://localhost:5000 
     depends_on:
       - backend # Garante que o backend inicie antes do frontend
     volumes:

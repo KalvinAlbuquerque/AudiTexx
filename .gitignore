@@ -17,9 +17,7 @@ venv.bak/
 # distutils
 .installed.cfg
 *.egg-info/
-.eggs/
-# cython
-*.c
+.eggs/ 
 
 # Flask
 ############
