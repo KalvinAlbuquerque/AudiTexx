@@ -220,7 +220,7 @@ class TenableApi:
                 logging.error(f"Erro inesperado ao processar scan {scan_id}: {str(e)}")
 
 
-    def download_vmscans_csv(self, target_dir: str, id_scan: str, history_id: str = None) -> None:
+    def download_vmscans_csv(self, target_dir: str, id_scan: str, output_filename: str, history_id: str = None) -> None:
             """
             Baixa os resultados de um scan de VM em formato CSV.
             Usa o 'file' retornado pela API para rastrear o download.
@@ -261,7 +261,7 @@ class TenableApi:
                 # 2. Polling para verificar o status do download
                 url_status = f"/scans/{id_scan}/export/{file_id}/status"
                 for i in range(30): # Aumentado o número de tentativas
-                    status_check_response = self.client.get(url_status).json() # Chamada direta
+                    status_check_response = self._make_request("GET", url_status)
                     
                     if isinstance(status_check_response, dict) and status_check_response.get("status") == "ready":
                         logging.info(f"Exportação para scan {id_scan} está pronta. Baixando o arquivo...")
@@ -275,20 +275,44 @@ class TenableApi:
 
                 # 3. Baixar o arquivo CSV
                 url_download = f"/scans/{id_scan}/export/{file_id}/download"
-                download_response = self.client.get(url_download)
-                download_response.raise_for_status() # Lança erro para status HTTP 4xx/5xx
+                #download_response = self.client.get(url_download)
+                #download_response.raise_for_status() # Lança erro para status HTTP 4xx/5xx
+                csv_content = self._download_file(url_download)
 
+                if isinstance(csv_content, dict) and 'error' in csv_content:
+                    logging.error(f"Falha no download do CSV para scan {id_scan}: {csv_content.get('message')}")
+                    return
+                
                 # Salvar o conteúdo CSV no arquivo
                 os.makedirs(target_dir, exist_ok=True)
-                file_path = os.path.join(target_dir, f"vm_scan_{id_scan}.csv")
+                file_path = os.path.join(target_dir, output_filename)
                 with open(file_path, "w", encoding="utf-8") as file:
-                    file.write(download_response.text)
+                    file.write(csv_content)
                 logging.info(f"Scan VM {id_scan} baixado com sucesso para {file_path}")
 
             except httpx.HTTPStatusError as e:
                 logging.error(f"Erro HTTP ao baixar scan VM {id_scan}: {e.response.status_code} - {e.response.text}")
             except Exception as e:
                 logging.error(f"Erro inesperado ao processar download de scan VM {id_scan}: {str(e)}")
+                
+                
+    def _download_file(self, endpoint: str) -> str | dict:
+        """Método auxiliar para baixar arquivos de forma robusta."""
+        if not self.client:
+            logging.error("Cliente Tenable não inicializado.")
+            return {"error": "API keys not configured"}
+
+        try:
+            response = self.client.get(endpoint)
+            response.raise_for_status()
+            return response.text # Retorna o conteúdo como texto
+
+        except httpx.HTTPStatusError as e:
+            logging.error(f"Erro de status HTTP ao baixar de {e.request.url}: {e.response.status_code} - {e.response.text}")
+            return {"error": f"HTTP {e.response.status_code}", "message": e.response.text}
+        except Exception as e:
+            logging.error(f"Erro inesperado ao baixar de {endpoint}: {str(e)}")
+            return {"error": "Unexpected API error", "message": str(e)}
 
 # Instância singleton que será usada em toda a aplicação
 tenable_api = TenableApi()

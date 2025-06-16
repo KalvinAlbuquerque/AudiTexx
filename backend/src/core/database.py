@@ -42,3 +42,4 @@ class Database:
     def get_object_id(self, id_string: str) -> ObjectId:
         """Converte uma string de ID em um ObjectId do MongoDB."""
         return ObjectId(id_string)
+    

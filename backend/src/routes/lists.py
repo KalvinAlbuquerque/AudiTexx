@@ -151,38 +151,38 @@ def getScansDeLista():
     
 
 @lists_bp.route('/getVMScansDeLista/', methods=['POST'])
-#@cross_origin(origins=["http://localhost:5173", "127.0.0.1"])
 def getVMScansDeLista():
     try:
         data = request.get_json()
-
         if not data:
             return jsonify({"error": "Nenhum dado fornecido."}), 400
 
         nome_lista = data.get("nomeLista")
-
         if not nome_lista:
             return jsonify({"error": "Nome da lista não fornecido"}), 400
 
         db_instance = Database()
-
         documento = db_instance.find_one("listas", {"nomeLista": nome_lista})
-
         db_instance.close()
 
         if not documento:
             return jsonify({"error": "Lista não encontrada"}), 404
 
-        nomeScanStoryId = documento.get("nomeScanStoryId")
-        criadoPor = documento.get("scanStoryIdCriadoPor")
+        # --- CORREÇÃO APLICADA AQUI ---
+        # Alterado para buscar os nomes de campo corretos que foram salvos.
+        nome_scan = documento.get("nome_scanservidor")
+        criado_por = documento.get("criado_por_scanservidor")
 
-        if not nomeScanStoryId or not criadoPor:
+        # Se os campos corretos não existirem ou estiverem vazios, retorna 404.
+        if not nome_scan or not criado_por:
             return jsonify({"message": "Não existem dados de VM para esta lista."}), 404
 
-        return jsonify([nomeScanStoryId, criadoPor]), 200
+        # Retorna os dados encontrados com sucesso.
+        return jsonify([nome_scan, criado_por]), 200
 
     except Exception as e:
         print(f"Erro em getVMScansDeLista: {e}")
+        # Garante que a conexão seja fechada em caso de erro.
         if 'db_instance' in locals() and db_instance.client:
             db_instance.close()
         return jsonify({"error": f"Erro interno: {str(e)}"}), 500
@@ -388,73 +388,55 @@ def adicionarWAPPScanALista():
         return jsonify({"error": f"Erro interno: {str(e)}"}), 500
 
 @lists_bp.route('/adicionarVMScanALista/', methods=['POST'])
-def adicionarVMScanALista():  
+def adicionarVMScanALista():
+    """
+    Adiciona um scan de VM a uma lista existente na coleção 'listas'.
+    """
     try:
+        # 1. Instanciar a sua classe (como você já faz nas outras funções)
+        db_instance = Database()
+        
         data = request.get_json()
-
         if not data:
-            logging.error("Nenhum dado fornecido para adicionar VM Scan à lista.")
-            return jsonify({"error": "Nenhum dado fornecido."}), 400
+            db_instance.close()
+            return jsonify({"error": "Corpo da requisição não pode ser vazio."}), 400
 
         nome_lista = data.get("nomeLista")
-        id_scan_tenable = data.get("idScan")
-        nome_scan_tenable = data.get("nomeScan")
-        criado_por_tenable = data.get("criadoPor")
-        history_id_tenable = str(data.get("idNmr"))
+        id_scan_vm = data.get("idScan")
+        nome_scan_vm = data.get("nomeScan")
+        criado_por_vm = data.get("criadoPor")
+        history_id = data.get("idNmr")
 
-        if not all([nome_lista, id_scan_tenable, nome_scan_tenable, criado_por_tenable, history_id_tenable]):
-            logging.error("Dados de VM scan incompletos para adicionar à lista.")
-            return jsonify({"error": "Dados de VM scan incompletos."}), 400
-
-        db_instance = Database()
-
-        documento = db_instance.find_one("listas", {"nomeLista": nome_lista})
-
-        if not documento:
+        if not all([nome_lista, id_scan_vm, nome_scan_vm, criado_por_vm, history_id]):
             db_instance.close()
-            logging.warning(f"Lista '{nome_lista}' não encontrada ao tentar adicionar VM scan.")
-            return jsonify({"error": "Lista não encontrada"}), 404
-        
-        pasta_destino_scans_vm = documento.get("pastas_scans_vm")
-        if not pasta_destino_scans_vm:
-            db_instance.close()
-            logging.error(f"Caminho da pasta de scans VM para a lista '{nome_lista}' não configurado.")
-            return jsonify({"error": "Caminho da pasta de scans VM para a lista não configurado."}), 500
-        
-        os.makedirs(pasta_destino_scans_vm, exist_ok=True)
-        logging.info(f"Diretório de destino '{pasta_destino_scans_vm}' garantido para VM scans da lista '{nome_lista}'.")
+            return jsonify({"error": "Campos 'nomeLista', 'idScan', 'nomeScan', 'criadoPor' e 'idNmr' são obrigatórios."}), 400
 
-        # CORREÇÃO AQUI: Remover o "$set" ao passar os campos para update_one
-        db_instance.update_one(
-            "listas",
-            {"_id": ObjectId(documento["_id"])},
-            { # Passar apenas o dicionário de campos e valores
-                "id_scan": id_scan_tenable,
-                "historyid_scanservidor": history_id_tenable,
-                "nomeScanStoryId": nome_scan_tenable,
-                "scanStoryIdCriadoPor": criado_por_tenable
-                # Adicione aqui outros campos que deseja atualizar, como "filePath"
-            }
-        )
-
+        # --- CORREÇÃO PRINCIPAL AQUI ---
+        # Usar o método .update_one() do seu objeto db_instance, assim como em 'criarLista'
+        query = {"nomeLista": nome_lista}
+        update_data = {
+            "id_scanservidor": id_scan_vm,
+            "nome_scanservidor": nome_scan_vm,
+            "criado_por_scanservidor": criado_por_vm,
+            "historyid_scanservidor": history_id
+        }
+        resultado = db_instance.update_one('listas', query, update_data)
+        
+        # Sempre feche a conexão após o uso
         db_instance.close()
-        logging.info(f"Informações do VM scan {id_scan_tenable} atualizadas na lista '{nome_lista}'.")
 
-        # Inicia o download do CSV.
-        tenable_api.download_vmscans_csv(
-            target_dir=pasta_destino_scans_vm,
-            id_scan=id_scan_tenable,
-            history_id=history_id_tenable
-        )
-        
-        logging.info(f"Solicitação de download para VM scan ID {id_scan_tenable} processada.")
-        return jsonify({"message": "Scan VM adicionado à lista e download iniciado com sucesso!"}), 200
+        if resultado.matched_count == 0:
+            return jsonify({"error": "Lista não encontrada."}), 404
+
+        logging.info(f"Scan VM {nome_scan_vm} (ID: {id_scan_vm}) adicionado à lista '{nome_lista}' com sucesso.")
+        return jsonify({"message": f"Scan VM adicionado à lista '{nome_lista}' com sucesso!"}), 200
 
     except Exception as e:
-        logging.exception(f"Erro ao adicionar scan VM à lista: {e}")
+        logging.exception(f"Erro inesperado ao adicionar scan de VM à lista: {e}")
+        # Garante que a conexão seja fechada em caso de erro
         if 'db_instance' in locals() and db_instance.client:
             db_instance.close()
-        return jsonify({"error": f"Erro interno: {str(e)}"}), 500
+        return jsonify({"error": f"Ocorreu um erro inesperado no servidor: {str(e)}"}), 500
     
 @lists_bp.route('/getTodasAsListas/', methods=['GET'])
 #@cross_origin(origins=["http://localhost:5173", "127.0.0.1"])

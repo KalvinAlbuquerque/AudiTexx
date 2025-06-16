@@ -117,48 +117,33 @@ def get_vm_scan_by_name_route():
         return jsonify({"error": f"Ocorreu um erro inesperado: {str(e)}"}), 500
 
 @scans_bp.route('/vm/downloadscans/', methods=['POST'])
-#@cross_origin(origins=["http://localhost:5173", "127.0.0.1"]) # Descomente se precisar
 def vm_downloadscans():
     """
-    Baixa o resultado de um scan de VM em formato CSV.
+    Baixa o resultado de um scan de VM em formato CSV para a pasta correta ('vm').
     """
     try:
         data = request.get_json()
-        if not data:
-            logging.error("Corpo da requisição vazio em /vm/downloadscans/.")
-            return jsonify({"error": "Corpo da requisição não pode ser vazio."}), 400
-
-        # Assumindo que 'nomeListaId' é o ID da lista para construir o caminho
-        # Se 'nomeListaId' for o nome da lista, você precisará buscar a pasta do DB.
-        # Por simplicidade, vou usar 'nomeListaId' como parte do caminho base.
-        nome_lista_id = data.get("nomeListaId") 
+        nome_lista_id = data.get("nomeListaId")
         scan_id = data.get("idScan")
         history_id = data.get("historyId")
 
         if not nome_lista_id or not scan_id:
-            logging.error("Campos 'nomeListaId' ou 'idScan' ausentes na requisição para /vm/downloadscans/.")
             return jsonify({"error": "Campos 'nomeListaId' e 'idScan' são obrigatórios."}), 400
 
-        # Define o caminho de destino
-        # Use o caminho configurado para VM scans, não o genérico de jsons
+        # --- CORREÇÃO DO CAMINHO APLICADA AQUI ---
+        # O diretório de destino agora é a pasta 'vm'
         target_dir = os.path.join(config.caminho_shared_jsons, str(nome_lista_id), "vm")
+        output_filename = "servidores_scan.csv" # Nome de arquivo padrão
+
         os.makedirs(target_dir, exist_ok=True)
-        logging.info(f"Diretório de destino para VM scan: {target_dir}")
         
-        # CHAME download_vmscans_csv com target_dir, id_scan e history_id
         tenable_api.download_vmscans_csv(
             target_dir=target_dir,
             id_scan=scan_id,
+            output_filename=output_filename,
             history_id=history_id
         )
         
-        # A função download_vmscans_csv agora gerencia o salvamento e o logging interno.
-        # Se ela falhar, ela logará o erro e retornará None.
-        # Se você precisa saber se o download foi bem-sucedido aqui, você pode ajustar
-        # download_vmscans_csv para retornar True/False ou o path do arquivo se quiser.
-        # Por enquanto, assumimos que se não houver exceção, a operação foi tentada.
-        
-        logging.info(f"Solicitação de download para VM Scan ID {scan_id} processada com sucesso.")
         return jsonify({"message": "Download do scan VM solicitado e iniciado com sucesso!"}), 200
 
     except Exception as e:
