@@ -78,7 +78,7 @@ def compilar_latex(caminho_main_tex: str, diretorio_saida: str):
         # Exemplo: `! LaTeX Error: File `assets/images-was/missing-image.png' not found.`
         # Exemplo: `! Package pdftex.def Error: File `assets/images-was/another.png' not found: using draft setting.`
         image_error_pattern = re.compile(
-            r"!(?: LaTeX)? Error: (?:File `(?P<filename>[^']+)' not found|Package .+\.def Error: File `(?P<filename>[^']+)' not found)",
+            r"!(?: LaTeX)? Error: (?:File `|Package .*?\.def Error: File `)(?P<filename>[^']+)` not found",
             re.IGNORECASE
         )
         
