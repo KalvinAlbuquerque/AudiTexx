@@ -23,12 +23,7 @@ function Header() {
 
     return (
         <header
-            className="text-white p-4 shadow-md relative"
-            style={{
-                backgroundImage: "url('/assets/fundo.png')",
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-            }}
+            className="text-white p-4  relative"
         >
             <div className="container mx-auto flex items-center justify-between">
                 <div className="flex items-center space-x-4">
@@ -101,7 +96,7 @@ function Header() {
                                 <span className="text-gray-300">Olá, {user?.username}</span>
                             </li>
                             <li>
-                                <button onClick={handleLogout} className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                                <button onClick={handleLogout} className="bg-[#007BB4] hover:bg-[#005f87] text-white font-bold py-2 px-4 rounded transition duration-300">
                                     Logout
                                 </button>
                             </li>
