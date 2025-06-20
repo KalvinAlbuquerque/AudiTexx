@@ -30,38 +30,58 @@ def carregar_vulnerabilidades_do_relatorio(caminho_arquivo: str) -> List[Dict[st
     - list: Uma lista de dicionários, onde cada dicionário contém os dados de uma vulnerabilidade.
     """
     vulnerabilities = []
-    with open(caminho_arquivo, 'r', encoding="utf-8") as file:
-        vulnerability = None
-        total_affected_uris = None
-        affected_uris = []
-        for line in file:
-            line = line.strip()
-            match_vulnerability = re.match(r"^Vulnerabilidade:(.*)", line)
-            if match_vulnerability:
-                if vulnerability:
-                    vulnerabilities.append({
-                        "Vulnerabilidade": vulnerability,
-                        "Total de URI Afetadas": total_affected_uris,
-                        "URI Afetadas": affected_uris
-                    })
-                vulnerability = match_vulnerability.group(1).strip()
-                affected_uris = []
-                continue
-            match_total_uris = re.match(r"^Total de URI Afetadas:(\d+)", line)
-            if match_total_uris:
-                total_affected_uris = int(match_total_uris.group(1))
-                continue
-            match_uris = re.match(r"^http(s)?://.*", line)
-            if match_uris:
-                affected_uris.append(line)
-        if vulnerability:
-            vulnerabilities.append({
-                "Vulnerabilidade": vulnerability,
-                "Severidade": "unknown", # Valor padrão para 'severity' para webapp, já que não é extraído do TXT
-                "Total de URI Afetadas": total_affected_uris,
-                "URI Afetadas": affected_uris
-            })
+    try:
+        with open(caminho_arquivo, 'r', encoding="utf-8") as file:
+            vulnerability = None
+            total_affected_uris = None
+            affected_uris = []
+            
+            for line in file:
+                line = line.strip()
+                
+                # Match da linha de Vulnerabilidade (com espaço opcional)
+                match_vulnerability = re.match(r"^Vulnerabilidade:\s*(.*)", line)
+                if match_vulnerability:
+                    if vulnerability:
+                        vulnerabilities.append({
+                            "Vulnerabilidade": vulnerability,
+                            "Total de URI Afetadas": total_affected_uris,
+                            "URI Afetadas": affected_uris
+                        })
+                    vulnerability = match_vulnerability.group(1).strip()
+                    affected_uris = []
+                    total_affected_uris = None # Reseta para a nova vulnerabilidade
+                    continue
+                
+                # Match da linha de Total de URIs (com espaço opcional após o ':')
+                match_total_uris = re.match(r"^Total de URI Afetadas:\s*(\d+)", line)
+                if match_total_uris:
+                    total_affected_uris = int(match_total_uris.group(1))
+                    continue
+                
+                # Match das linhas de URI
+                match_uris = re.match(r"^http(s)?://.*", line)
+                if match_uris:
+                    affected_uris.append(line)
+
+    except FileNotFoundError:
+        print(f"ERRO: Arquivo de relatório TXT não encontrado em {caminho_arquivo}")
+        return []
+    except Exception as e:
+        print(f"ERRO inesperado ao ler o arquivo de relatório TXT: {e}")
+        return []
+
+    # Adiciona a última vulnerabilidade do arquivo
+    if vulnerability:
+        vulnerabilities.append({
+            "Vulnerabilidade": vulnerability,
+            "Severidade": "unknown", 
+            "Total de URI Afetadas": total_affected_uris,
+            "URI Afetadas": affected_uris
+        })
+            
     return vulnerabilities
+
 
 def carregar_vulnerabilidades_do_relatorio_csv(caminho_arquivo: str) -> List[Dict[str, Any]]:
     """
@@ -315,8 +335,9 @@ def gerar_conteudo_latex_para_vulnerabilidades(
                 "Imagem": imagem,
             }
             if tipo_vulnerabilidade == "webapp":
-                item_para_agrupar["Total de URIs Afetadas"] = v.get("Total de URIs Afetadas", 0)
-                item_para_agrupar["URIs Afetadas"] = v.get("URI Afetadas", [])
+                uri_list = v.get("URI Afetadas", [])
+                item_para_agrupar["URIs Afetadas"] = uri_list
+                item_para_agrupar["Total de URIs Afetadas"] = len(uri_list)
             else:
                 item_para_agrupar["Total de Hosts Afetados"] = v.get("Total de Hosts Afetados", 0)
                 item_para_agrupar["Hosts Afetados"] = v.get("Hosts", [])
@@ -385,7 +406,7 @@ def gerar_conteudo_latex_para_vulnerabilidades(
             vulns_ordenadas = sorted(subcategorias[subcategoria_padronizada], key=lambda x: x['Vulnerabilidade'])
             for v in vulns_ordenadas:
                 conteudo += f"%-------------- INÍCIO DA VULNERABILIDADE {v['Vulnerabilidade']} --------------\n"
-                conteudo += f"\\item \\textbf{{\\texttt{{{escape_latex(v['Vulnerabilidade'])}}}}}\n"
+                conteudo += f"\\item \\textbf{{\\texttt{{{escape_latex(v['Vulnerabilidade'])}}}}}\\\\\n"
                 if v["Imagem"]:
                     caminho_imagem_latex = escape_path_for_latex(v["Imagem"])
                     conteudo += (
