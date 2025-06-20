@@ -288,7 +288,7 @@ def baixarRelatorioPdf():
         traceback.print_exc() # Imprime o traceback completo para depuração
         return jsonify({"error": f"Erro interno ao baixar o PDF: {str(e)}"}), 500
     
-@reports_bp.route('/getRelatorioMissingVulnerabilities/', methods=['GET'])
+@reports_bp.route('/getRelatorioMissingVulnerabilities', methods=['GET'])
 def getRelatorioMissingVulnerabilities():
     try:
         relatorio_id = request.args.get('relatorioId')
