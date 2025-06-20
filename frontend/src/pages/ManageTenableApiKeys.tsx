@@ -49,11 +49,11 @@ function ManageTenableApiKeys() {
 
     return (
         <div
-            className="min-h-screen bg-cover bg-center flex"
+            className="flex-grow bg-cover bg-center flex"
             style={{ backgroundImage: "url('/assets/fundo.png')" }}
         >
             <div
-                className="w-1/5 text-white flex flex-col items-center justify-center p-4 shadow-lg min-h-screen"
+                className="w-1/5 text-white flex flex-col items-center justify-center p-4 shadow-lg "
             >
                 <Link to="/">
                     <img
@@ -64,7 +64,7 @@ function ManageTenableApiKeys() {
                 </Link>
             </div>
 
-            <div className="w-4/5 p-8 bg-white rounded-l-lg shadow-md min-h-screen flex flex-col items-center justify-center">
+            <div className="w-4/5 p-8 bg-white rounded-l-lg shadow-md  flex flex-col items-center justify-center">
                 <div className="bg-gray-100 rounded-lg shadow-md p-10 w-full max-w-2xl">
                     <h1 className="text-2xl font-bold text-gray-800 mb-8 text-center">Gerenciar Chaves da API Tenable</h1>
 
@@ -102,7 +102,7 @@ function ManageTenableApiKeys() {
                         <div className="flex justify-center mt-4">
                             <button
                                 type="submit"
-                                className="bg-[#007BB4] text-white px-6 py-2 rounded hover:bg-[#009BE2] cursor-pointer"
+                                className="bg-[#007BB4] hover:bg-[#005f87] text-white px-6 py-2 rounded  cursor-pointer"
                                 disabled={loading}
                             >
                                 {loading ? <ClipLoader size={20} color={"#fff"} /> : 'Salvar Chaves'}

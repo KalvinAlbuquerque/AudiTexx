@@ -123,11 +123,11 @@ function RelatoriosGerados() {
     return (
         // Container principal: tela cheia, fundo com imagem, e display flex para dividir em colunas.
         <div
-            className="min-h-screen bg-cover bg-center flex" // 'flex' aqui para criar as duas colunas
+            className="flex-grow bg-cover bg-center flex" // 'flex' aqui para criar as duas colunas
             style={{ backgroundImage: "url('/assets/fundo.png')" }} // Fundo azul com imagem
         >
             {/* Sidebar AZUL à esquerda (1/5 da largura da tela) */}
-            <div className="w-1/5 #15688f text-white flex flex-col items-center justify-center p-4 shadow-lg min-h-screen">
+            <div className="w-1/5 #15688f text-white flex flex-col items-center justify-center p-4 shadow-lg">
                 <Link to="/">
                     <img
                         src="/assets/logocogel.jpg" // Caminho da nova logo da COGEL
@@ -139,7 +139,7 @@ function RelatoriosGerados() {
             </div>
 
             {/* Conteúdo central (área BRANCA à direita, 4/5 da largura da tela) */}
-            <div className="w-4/5 bg-white flex flex-col p-8 min-h-screen"> {/* Flex-col para empilhar título, filtros e lista */}
+            <div className="w-4/5 bg-white flex flex-col p-8 "> {/* Flex-col para empilhar título, filtros e lista */}
                 <h2 className="text-2xl font-bold text-gray-800 mb-6">
                     Relatórios Gerados
                 </h2>
@@ -158,14 +158,14 @@ function RelatoriosGerados() {
                     <span className="text-black">dias</span>
                     <button
                         onClick={fetchRelatorios} // Apenas para recarregar a lista, sem filtro de dias no backend atual
-                        className="bg-[#007BB4] hover:bg-blue-600 text-white px-4 py-2 rounded transition cursor-pointer"
+                        className="bg-[#007BB4] hover:bg-[#005f87]  text-white px-4 py-2 rounded transition cursor-pointer"
                         disabled={loading}
                     >
                         {loading ? <ClipLoader size={16} color={"#fff"} /> : 'Atualizar'}
                     </button>
                     <button
                         onClick={handleDeleteAllReports} // Abre o modal para exclusão total
-                        className="bg-[#b95057] hover:bg-red-700 text-white px-4 py-2 rounded transition cursor-pointer ml-auto"
+                        className="bg-[#007BB4] hover:bg-[#005f87] text-white px-4 py-2 rounded transition cursor-pointer ml-auto"
                         disabled={loading || relatorios.length === 0}
                     >
                         Excluir Tudo
@@ -197,7 +197,7 @@ function RelatoriosGerados() {
                                     </button>
                                     <button
                                         onClick={() => handleDeleteClick(relatorio.id, relatorio.nome)}
-                                        className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded text-sm transition duration-300"
+                                        className="bg-[#007BB4] hover:bg-[#005f87] text-white font-bold py-1 px-3 rounded text-sm transition duration-300"
                                     >
                                         Excluir
                                     </button>

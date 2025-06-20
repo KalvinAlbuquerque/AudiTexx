@@ -6,12 +6,12 @@ function Relatorios() {
   return (
     // Container principal: tela cheia, fundo com imagem, e display flex para dividir em colunas.
     <div
-      className="min-h-screen bg-cover bg-center flex" // 'flex' aqui para criar as duas colunas
+      className="flex flex-grow" // 'flex' aqui para criar as duas colunas
       style={{ backgroundImage: "url('/assets/fundo.png')" }} // Fundo azul com imagem
     >
       {/* Sidebar AZUL CLARO à esquerda (1/5 da largura da tela) */}
       {/* Esta div tem uma cor de fundo sólida (bg-blue-600) que fica sobre a imagem de fundo. */}
-      <div className="w-1/5 #15688f text-white flex flex-col items-center justify-center p-4 shadow-lg min-h-screen">
+      <div className="w-1/5 #15688f text-white flex flex-col items-center justify-center p-4 shadow-lg ">
         <Link to="/">
           <img
             src="/assets/logocogel.jpg" // Caminho da nova logo da COGEL
@@ -24,7 +24,7 @@ function Relatorios() {
 
       {/* Conteúdo central (área BRANCA à direita, 4/5 da largura da tela) */}
       {/* Esta div tem um fundo branco sólido (bg-white) que cobre a imagem de fundo. */}
-      <div className="w-4/5 bg-white flex items-center justify-center p-8 min-h-screen">
+      <div className="w-4/5 bg-white flex items-center justify-center p-8 ">
         <div className="grid grid-cols-2 gap-20 text-center">
           {/* Botão Relatórios Gerados */}
           <div

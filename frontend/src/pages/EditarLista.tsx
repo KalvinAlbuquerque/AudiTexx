@@ -145,11 +145,11 @@ function EditarLista() {
 
     return (
         <div
-            className="min-h-screen bg-cover bg-center flex"
+            className="flex-grow bg-cover bg-center flex"
             style={{ backgroundImage: "url('/assets/fundo.png')" }}
         >
             <div
-                className="w-1/5 text-white flex flex-col items-center justify-center p-4 shadow-lg min-h-screen"
+                className="w-1/5 text-white flex flex-col items-center justify-center p-4 shadow-lg "
             >
                 <Link to="/">
                     <img
@@ -160,7 +160,7 @@ function EditarLista() {
                 </Link>
             </div>
 
-            <div className="w-4/5 p-8 bg-[#F9FCFD] rounded-l-lg shadow-md flex flex-col min-h-screen">
+            <div className="w-4/5 p-8 bg-[#F9FCFD] rounded-l-lg shadow-md flex flex-col ">
                 <h1 className="text-2xl font-bold mb-6 text-black">Editar Lista: {nomeLista}</h1>
 
                 <div className="flex items-end mb-6 space-x-4">

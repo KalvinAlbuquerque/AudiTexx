@@ -5,13 +5,13 @@ function Scans() {
   return (
     // Container principal: tela cheia, fundo com imagem, e display flex para dividir em colunas.
     <div
-      className="min-h-screen bg-cover bg-center flex"
+      className="flex flex-grow bg-cover bg-center"
       style={{ backgroundImage: "url('/assets/fundo.png')" }} // Fundo azul com imagem
     >
       {/* Sidebar AZUL à esquerda (1/5 da largura da tela) com a cor #15688f */}
       {/* Usando inline style para a cor hexadecimal exata */}
       <div
-        className="w-1/5 #15688f text-white flex flex-col items-center justify-center p-4 shadow-lg min-h-screen"
+        className="w-1/5 #15688f text-white flex flex-col items-center justify-center p-4 shadow-lg "
       >
         <Link to="/">
           <img
@@ -24,7 +24,7 @@ function Scans() {
       </div>
 
       {/* Conteúdo central (área BRANCA à direita, 4/5 da largura da tela) */}
-      <div className="w-4/5 bg-white flex items-center justify-center p-8 min-h-screen">
+      <div className="w-4/5 bg-white flex items-center justify-center p-8 ">
         <div className="grid grid-cols-3 gap-10 text-center">
           {/* Botão Web Application Scans */}
           <Link to="/pesquisar-scan-was"> {/* Link atualizado para o endpoint correto */}

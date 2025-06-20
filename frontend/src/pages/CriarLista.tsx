@@ -44,12 +44,12 @@ function CriarLista() {
     return (
         // Container principal: tela cheia, fundo com imagem, e display flex para dividir em colunas.
         <div
-            className="min-h-screen bg-cover bg-center flex"
+            className="flex-grow bg-cover bg-center flex"
             style={{ backgroundImage: "url('/assets/fundo.png')" }}
         >
             {/* Sidebar AZUL à esquerda com a cor #15688f */}
             <div
-                className="w-1/5 text-white flex flex-col items-center justify-center p-4 shadow-lg min-h-screen"
+                className="w-1/5 text-white flex flex-col items-center justify-center p-4 shadow-lg"
             >
                 <Link to="/">
                     <img

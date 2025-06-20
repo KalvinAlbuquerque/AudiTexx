@@ -122,14 +122,14 @@ function PesquisarScanWAS() {
 
     return (
         <div
-            className="min-h-screen bg-cover bg-center flex"
+            className="flex-grow bg-cover bg-center flex"
             style={{
                 backgroundImage: "url('/assets/fundo.png')",
                 cursor: isLoading ? "wait" : "default",
             }}
         >
             {/* Sidebar */}
-            <div className="w-1/5 #15688f text-white flex flex-col items-center justify-center p-4 shadow-lg min-h-screen"
+            <div className="w-1/5 #15688f text-white flex flex-col items-center justify-center p-4 shadow-lg "
             >
                 <Link to="/">
                     <img
@@ -173,7 +173,7 @@ function PesquisarScanWAS() {
 
                     <button
                         onClick={handlePesquisa}
-                        className="bg-[#007BB4] text-white px-4 py-2 rounded hover:bg-blue-600 w-fit cursor-pointer"
+                        className="bg-[#007BB4] text-white px-4 py-2 rounded hover:bg-[#005f87]  w-fit cursor-pointer"
                         disabled={isLoading}
                     >
                         {isLoading ? <ClipLoader size={20} color={"#fff"} /> : "Pesquisar"}
@@ -193,7 +193,7 @@ function PesquisarScanWAS() {
                     <div className="flex flex-col items-end space-y-2">
                         <button
                             onClick={openModal}
-                            className="bg-[#007BB4] text-white px-4 py-2 rounded hover:bg-blue-600 text-sm cursor-pointer"
+                            className="bg-[#007BB4] text-white px-4 py-2 rounded hover:bg-[#005f87]  text-sm cursor-pointer"
                             disabled={scansSelecionados.length === 0 || isLoading}
                         >
                             + Adicionar Scans Selecionados à Lista ({scansSelecionados.length})
@@ -269,7 +269,7 @@ function PesquisarScanWAS() {
                             </button>
                             <button
                                 onClick={handleAddToList}
-                                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
+                                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-[#005f87]  cursor-pointer"
                                 disabled={isLoading || !nomeLista.trim()}
                             >
                                 {isLoading ? "Adicionando..." : "Adicionar"}

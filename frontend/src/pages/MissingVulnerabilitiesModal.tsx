@@ -47,14 +47,14 @@ const MissingVulnerabilitiesModal: React.FC<MissingVulnerabilitiesModalProps> = 
           {vulnerabilities.length > 0 && (
             <button
               onClick={handleCopy}
-              className="bg-[#007BB4] hover:bg-[#009BE2] text-white font-bold py-2 px-4 rounded transition duration-300"
+              className="bg-[#007BB4] hover:bg-[#005f87] text-white font-bold py-2 px-4 rounded transition duration-300"
             >
               Copiar Todas
             </button>
           )}
           <button
             onClick={onClose}
-            className="bg-[#007BB4] hover:bg-[#009BE2] text-white font-bold py-2 px-4 rounded transition duration-300"
+            className="bg-[#007BB4] hover:bg-[#005f87] text-white font-bold py-2 px-4 rounded transition duration-300"
           >
             Fechar
           </button>

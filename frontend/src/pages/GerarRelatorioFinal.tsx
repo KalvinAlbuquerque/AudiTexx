@@ -73,7 +73,7 @@ function GerarRelatorioFinal() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center justify-center">
+        <div className="flex-grow bg-gray-100 p-6 flex flex-col items-center justify-center">
             <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Status do Relatório</h1>
 
             {loading ? (
@@ -90,7 +90,7 @@ function GerarRelatorioFinal() {
                     <div className="text-center mb-6">
                         <button
                             onClick={handleDownloadPdf}
-                            className="bg-[#007BB4] hover:bg-[#009BE2] text-white font-bold py-2 px-4 rounded transition"
+                            className="bg-[#007BB4] hover:bg-[#005f87] text-white font-bold py-2 px-4 rounded transition"
                             disabled={loading}
                         >
                             Baixar Relatório PDF
@@ -101,10 +101,10 @@ function GerarRelatorioFinal() {
                         <>
                             {missingVulnerabilities.sites.length > 0 && (
                                 <div className="mb-4 flex justify-between items-center bg-red-100 p-3 rounded">
-                                    <h2 className="text-xl font-semibold text-red-600">Vulnerabilidades WebApp Ausentes:</h2>
+                                    <h2 className="text-xl font-semibold text-red-600">Vulnerabilidades WebApp Não Cadastradas:</h2>
                                     <button
                                         onClick={() => setIsSitesModalOpen(true)}
-                                        className="bg-[#007BB4] hover:bg-[#009BE2] text-white font-bold py-1 px-3 rounded text-sm transition" // Corrigido
+                                        className="bg-[#007BB4] hover:bg-[#005f87] text-white font-bold py-1 px-3 rounded text-sm transition" // Corrigido
                                     >
                                         Visualizar ({missingVulnerabilities.sites.length})
                                     </button>
@@ -113,10 +113,10 @@ function GerarRelatorioFinal() {
 
                             {missingVulnerabilities.servers.length > 0 && (
                                 <div className="mb-4 flex justify-between items-center bg-red-100 p-3 rounded">
-                                    <h2 className="text-xl font-semibold text-red-600">Vulnerabilidades Servidor Ausentes:</h2>
+                                    <h2 className="text-xl font-semibold text-red-600">Vulnerabilidades Servidor Não Cadastradas:</h2>
                                     <button
                                         onClick={() => setIsServersModalOpen(true)}
-                                        className="bg-[#007BB4] hover:bg-[#009BE2] text-white font-bold py-1 px-3 rounded text-sm transition" // Corrigido
+                                        className="bg-[#007BB4] hover:bg-[#005f87] text-white font-bold py-1 px-3 rounded text-sm transition" // Corrigido
                                     >
                                         Visualizar ({missingVulnerabilities.servers.length})
                                     </button>
@@ -135,7 +135,7 @@ function GerarRelatorioFinal() {
                     <div className="text-center mt-6">
                         <button
                             onClick={handleBackToHome}
-                            className="bg-[#007BB4] hover:bg-[#009BE2] text-white font-bold py-2 px-4 rounded transition" // Corrigido
+                            className="bg-[#007BB4] hover:bg-[#005f87] text-white font-bold py-2 px-4 rounded transition" // Corrigido
                         >
                             Voltar para o Início
                         </button>

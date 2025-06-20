@@ -79,7 +79,7 @@ function GerarRelatorio() {
 
     return (
         <div
-            className="min-h-screen bg-cover bg-center flex"
+            className="flex-grow bg-cover bg-center flex"
             style={{ backgroundImage: "url('/assets/fundo.png')" }}
         >
             {/* Sidebar AZUL à esquerda (1/5 da largura da tela) */}
@@ -192,7 +192,7 @@ function GerarRelatorio() {
                     <div className="col-span-2 flex justify-end mt-4">
                         <button
                             type="submit"
-                            className="bg-[#007BB4] text-white px-6 py-2 rounded hover:bg-[#009BE2] cursor-pointer"
+                            className="bg-[#007BB4] hover:bg-[#005f87] text-white px-6 py-2 rounded cursor-pointer"
                             disabled={loading}
                         >
                             {loading ? <ClipLoader size={20} color={"#fff"} /> : 'Concluir'}

@@ -118,12 +118,12 @@ function ListaDeScans() {
 
     return (
         <div
-            className="min-h-screen bg-cover bg-center flex"
+            className="flex-grow bg-cover bg-center flex"
             style={{ backgroundImage: "url('/assets/fundo.png')" }}
         >
             {/* Sidebar AZUL à esquerda com a cor #15688f */}
             <div
-                className="w-1/5 text-white flex flex-col items-center justify-center p-4 shadow-lg min-h-screen"
+                className="w-1/5 text-white flex flex-col items-center justify-center p-4 shadow-lg "
             >
                 <Link to="/">
                     <img
@@ -135,7 +135,7 @@ function ListaDeScans() {
             </div>
 
             {/* Conteúdo central (área BRANCA à direita, 4/5 da largura da tela) */}
-            <div className="w-4/5 p-8 bg-[#F9FCFD] rounded-l-lg shadow-md flex flex-col min-h-screen">
+            <div className="w-4/5 p-8 bg-[#F9FCFD] rounded-l-lg shadow-md flex flex-col">
                 {/* Título */}
                 <h1 className="text-2xl font-bold text-black mb-4">Listas de Scans</h1>
 
@@ -166,7 +166,7 @@ function ListaDeScans() {
                         onClick={handleDeleteClick}
                         className={`px-4 py-2 rounded transition ${
                             listaSelecionada
-                                ? "bg-red-500 text-white hover:bg-red-600 cursor-pointer"
+                                ? "bg-[#007BB4] text-white hover:bg-[#005f87] cursor-pointer"
                                 : "bg-gray-400 text-white cursor-not-allowed"
                         }`}
                     >
@@ -179,7 +179,7 @@ function ListaDeScans() {
                         onClick={handleGenerateReport}
                         className={`px-4 py-2 rounded transition ${
                             listaSelecionada
-                                ? "bg-green-500 text-white hover:bg-green-600 cursor-pointer"
+                              ? "bg-[#007BB4] text-white hover:bg-[#005f87] cursor-pointer"
                                 : "bg-gray-400 text-white cursor-not-allowed"
                         }`}
                     >

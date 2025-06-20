@@ -217,11 +217,11 @@ function GerenciarVulnerabilidades() {
 
     return (
         <div
-            className="min-h-screen bg-cover bg-center flex"
+            className="flex-grow bg-cover bg-center flex"
             style={{ backgroundImage: "url('/assets/fundo.png')" }}
         >
             <div
-                className="w-1/5 text-white flex flex-col items-center justify-center p-4 shadow-lg min-h-screen"
+                className="w-1/5 text-white flex flex-col items-center justify-center p-4 shadow-lg "
             >
                 <Link to="/">
                     <img
@@ -232,7 +232,7 @@ function GerenciarVulnerabilidades() {
                 </Link>
             </div>
 
-            <div className="w-4/5 p-8 bg-white rounded-l-lg shadow-md min-h-screen flex flex-col">
+            <div className="w-4/5 p-8 bg-white rounded-l-lg shadow-md flex flex-col">
                 <h1 className="text-xl font-bold text-gray-800 mb-4">Gerenciar Vulnerabilidades</h1>
 
                 <div className="mb-4 flex space-x-4">
@@ -300,7 +300,7 @@ function GerenciarVulnerabilidades() {
 
                 <div className="flex justify-end space-x-4 mt-auto">
                     <button
-                        className="px-6 py-2 rounded text-white font-medium bg-green-600 hover:bg-green-700"
+                        className="px-6 py-2 rounded text-white font-medium bg-[#007BB4] hover:bg-[#005f87]"
                         onClick={handleAddClick}
                         disabled={loading}
                     >
@@ -308,8 +308,9 @@ function GerenciarVulnerabilidades() {
                     </button>
                     <button
                         className={`px-6 py-2 rounded text-white font-medium ${
-                            vulnSelecionada ? "bg-yellow-600 hover:bg-yellow-700" : "bg-gray-400 cursor-not-allowed"
-                        }`}
+                            vulnSelecionada 
+                                ? "bg-[#007BB4] text-white hover:bg-[#005f87] cursor-pointer"
+                                : "bg-gray-400 text-white cursor-not-allowed"                        }`}
                         disabled={!vulnSelecionada || loading}
                         onClick={handleEditClick}
                     >
@@ -317,7 +318,9 @@ function GerenciarVulnerabilidades() {
                     </button>
                     <button
                         className={`px-6 py-2 rounded text-white font-medium ${
-                            vulnSelecionada ? "bg-red-600 hover:bg-red-700" : "bg-gray-400 cursor-not-allowed"
+                            vulnSelecionada 
+                                ? "bg-[#007BB4] text-white hover:bg-[#005f87] cursor-pointer"
+                                : "bg-gray-400 text-white cursor-not-allowed"
                         }`}
                         disabled={!vulnSelecionada || loading}
                         onClick={handleDeleteClick}

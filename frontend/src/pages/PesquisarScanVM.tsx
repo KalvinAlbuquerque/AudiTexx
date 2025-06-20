@@ -177,11 +177,11 @@ function PesquisarScanVM() {
 
     return (
         <div
-            className="min-h-screen bg-cover bg-center flex"
+            className="flex-grow bg-cover bg-center flex"
             style={{ backgroundImage: "url('/assets/fundo.png')" }}
         >
             <div
-                className="w-1/5 #15688f text-white flex flex-col items-center justify-center p-4 shadow-lg min-h-screen"
+                className="w-1/5 #15688f text-white flex flex-col items-center justify-center p-4 shadow-lg "
             >
                 <Link to="/">
                     <img
@@ -192,7 +192,7 @@ function PesquisarScanVM() {
                 </Link>
             </div>
 
-            <div className="w-4/5 p-8 bg-white rounded-l-lg shadow-md min-h-screen flex flex-col">
+            <div className="w-4/5 p-8 bg-white rounded-l-lg shadow-md  flex flex-col">
                 <h1 className="text-2xl font-bold mb-6 text-gray-800">
                     Pesquisar Scans - Vulnerability Management
                 </h1>
@@ -209,7 +209,7 @@ function PesquisarScanVM() {
                     <div className="flex justify-center">
                         <button
                             onClick={handleSearchScan}
-                            className="bg-[#007BB4] text-white px-6 py-2 rounded hover:bg-blue-600 cursor-pointer"
+                            className="bg-[#007BB4] text-white px-6 py-2 rounded hover:bg-[#005f87] cursor-pointer"
                             disabled={loading}
                         >
                             {loading ? <ClipLoader size={20} color={"#fff"} /> : "Pesquisar"}
@@ -250,7 +250,7 @@ function PesquisarScanVM() {
                             <div className="text-center mt-6">
                                 <button
                                     onClick={handleDownloadScan}
-                                    className="bg-[#007BB4] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                    className="bg-[#007BB4] hover:bg-[#005f87] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                     disabled={loading || !listaSelecionada}
                                 >
                                     {loading ? <ClipLoader size={20} color={"#fff"} /> : 'Baixar e Associar Scan'}
