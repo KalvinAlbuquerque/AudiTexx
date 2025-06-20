@@ -25,7 +25,7 @@ from ..data_processing.vulnerability_analyzer import processar_relatorio_csv, pr
 from ..report_generation.report_builder import terminar_relatorio_preprocessado, carregar_vulnerabilidades_do_relatorio, carregar_vulnerabilidades_do_relatorio_csv # Adicionado carregadores TXT
 from ..report_generation.latex_compiler import compilar_latex
 from ..report_generation.plot_generator import gerar_Grafico_Quantitativo_Vulnerabilidades_Por_Site # CORREÇÃO: Importar a função de plotagem
-
+from ..auth.decorators import token_required
 # Inicializa a configuração e a API Tenable
 config = Config("config.json")
 

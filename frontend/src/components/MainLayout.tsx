@@ -9,7 +9,6 @@ const MainLayout: React.FC = () => {
         <div className="min-h-screen flex flex-col">
             <Header />
             <main className="flex-grow">
-                {/* O <Outlet /> renderiza o componente da rota filha (ex: Scans, Relatorios, etc.) */}
                 <Outlet />
             </main>
         </div>

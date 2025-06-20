@@ -16,6 +16,19 @@ const api = axios.create({
     // timeout: 30000, // Exemplo: 30 segundos
 });
 
+api.interceptors.request.use(
+    config => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+        return config;
+    },
+    error => {
+        return Promise.reject(error);
+    }
+);
+
 export interface Lista {
     idLista: string;
     nomeLista: string;
