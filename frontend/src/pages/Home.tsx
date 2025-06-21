@@ -4,12 +4,10 @@ function Home() {
   const navigate = useNavigate();
 
   return (
-    // Container principal da Home:
-    // - 'flex-grow': Faz este container crescer para preencher o espaço disponível no <main>
-    // - 'flex', 'flex-col', 'justify-center', 'items-center': Centraliza o conteúdo (botões) vertical e horizontalmente
-    <div className="flex-grow flex flex-col justify-center items-center text-white">
+
+    <div className="relative flex-grow flex flex-col justify-center items-center text-white">
       {/* Logotipo COGEL (opcional, pode ser mantido se o design exigir) */}
-      <div className="absolute top-20 left-4 mt-4">
+      <div className="absolute top-1/2 left-12 -translate-y-1/2">
         <img
           src="/assets/logocogel.jpg"
           alt="COGEL Logo"
