@@ -280,4 +280,12 @@ export const usersApi = {
         const { data } = await api.put(`/users/${publicId}`, { password });
         return data;
     },
+    
+    changeOwnPassword: async (currentPassword: string, newPassword: string): Promise<any> => {
+        const { data } = await api.post('/auth/change-password', {
+            current_password: currentPassword,
+            new_password: newPassword,
+        });
+        return data;
+    },
 };

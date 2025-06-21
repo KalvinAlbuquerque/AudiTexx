@@ -5,6 +5,8 @@ import datetime
 from flask import Blueprint, request, jsonify, current_app
 from flask_bcrypt import Bcrypt
 from ..core.database import Database
+from ..auth.decorators import token_required
+
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -47,3 +49,28 @@ def login():
         })
 
     return jsonify({"error": "Usuário ou senha inválidos"}), 401
+
+@auth_bp.route('/change-password', methods=['POST'])
+@token_required
+def change_password(current_user):
+    data = request.get_json()
+    if not data or not data.get('current_password') or not data.get('new_password'):
+        return jsonify({'error': 'Senha atual e nova senha são obrigatórias'}), 400
+
+    # Verificar se a senha atual está correta
+    if not bcrypt.check_password_hash(current_user['password'], data['current_password']):
+        return jsonify({'error': 'Senha atual incorreta'}), 401
+
+    # Criptografar a nova senha
+    hashed_password = bcrypt.generate_password_hash(data['new_password']).decode('utf-8')
+
+    # Atualizar no banco de dados
+    db = Database()
+    db.update_one(
+        'users',
+        {'_id': current_user['_id']},
+        {'password': hashed_password}
+    )
+    db.close()
+
+    return jsonify({'message': 'Senha alterada com sucesso!'}), 200
