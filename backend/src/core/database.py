@@ -21,8 +21,11 @@ class Database:
     def find_one(self, collection_name: str, query: Dict[str, Any]):
         return self.db[collection_name].find_one(query)
 
-    def find(self, collection_name: str, query: Dict[str, Any] = {}):
-        return list(self.db[collection_name].find(query))
+    def find(self, collection_name: str, query: Dict[str, Any] = {}, projection: Dict[str, Any] = None):
+        """
+        Busca documentos com base em uma consulta e projeção.
+        """
+        return list(self.db[collection_name].find(query, projection))
 
     def update_one(self, collection_name: str, query: Dict[str, Any], update: Dict[str, Any]):
         return self.db[collection_name].update_one(query, {"$set": update})

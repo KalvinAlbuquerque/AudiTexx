@@ -290,18 +290,14 @@ export const usersApi = {
     },
 };
 
-// Função para buscar a lista de usuários para os filtros
-export const getAllUsers = async (token: string): Promise<string[]> => {
-  const response = await api.get('/users/all', {
-    headers: { 'x-access-token': token },
-  });
+export const getAllUsers = async (): Promise<string[]> => {
+  const response = await api.get('/users/all');
   return response.data;
 };
 
 // Função para buscar os logs com filtros
-export const getLogs = async (token: string, params: { page?: number; limit?: number; username?: string; action?: string; date?: string; }) => {
+export const getLogs = async (params: { page?: number; limit?: number; username?: string; action?: string; date?: string; }) => {
   const response = await api.get('/logs', {
-    headers: { 'x-access-token': token },
     params, // Passa os filtros e paginação como query params
   });
   return response.data;

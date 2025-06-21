@@ -56,7 +56,7 @@ const LogsPage: React.FC = () => {
       date: filters.date || undefined,
     };
 
-    getLogs(token, params)
+    getLogs(params)
       .then(data => {
         setLogs(data.logs);
         setPagination(prev => ({ ...prev, totalPages: data.total_pages }));
@@ -72,7 +72,7 @@ const LogsPage: React.FC = () => {
   useEffect(() => {
     // Busca a lista de usuários para o dropdown de filtro
     if (!token) return;
-    getAllUsers(token)
+    getAllUsers()
       .then(setUsers)
       .catch(err => console.error("Falha ao buscar usuários:", err));
   }, [token]);
