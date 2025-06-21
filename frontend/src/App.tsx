@@ -21,6 +21,7 @@ import ManageTenableApiKeys from './pages/ManageTenableApiKeys';
 import Login from './pages/Login'; // Nova página de login
 import ManageUsers from './pages/ManageUsers'; // Nova página de admin
 import ProtectedRoute from './components/ProtectedRoute'; // Novo componente
+import LogsPage from './pages/LogsPage'; 
 
 function App() {
     return (
@@ -56,6 +57,7 @@ function App() {
                         {/* Rota Protegida somente para Admin */}
                         <Route element={<ProtectedRoute adminOnly={true} />}>
                             <Route path="/manage-users" element={<ManageUsers />} />
+                            <Route path="/logs" element={<LogsPage />} />  
                         </Route>
                     </Routes>
                 </main>

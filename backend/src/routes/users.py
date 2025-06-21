@@ -4,6 +4,7 @@ from flask import Blueprint, request, jsonify
 from ..core.database import Database
 from ..auth.decorators import admin_required
 from flask_bcrypt import Bcrypt
+from ..core.logger import log_action
 
 users_bp = Blueprint('users', __name__, url_prefix='/users')
 bcrypt = Bcrypt()
@@ -40,6 +41,12 @@ def create_user(current_user):
     }
     
     db.insert_one('users', new_user)
+    
+    log_details = {
+        "created_username": data['username'],
+        "created_user_role": data['role']
+    }
+    log_action(current_user, "create_user", log_details)
     db.close()
     
     return jsonify({'message': 'Novo usuário criado com sucesso!'}), 201
@@ -120,3 +127,38 @@ def update_user(current_user, public_id):
     db.close()
 
     return jsonify({'message': 'Senha do usuário atualizada com sucesso!'})
+
+# Rota para buscar todos os usuários (para filtros, etc.)
+@users_bp.route('/usernames', methods=['GET'])
+@admin_required
+def get_all_usernames(current_user):
+    db = Database()
+    try:
+        # Usamos uma projeção para pegar apenas o campo 'username' e não o '_id'
+        users_cursor = db.find('users', {}, {'username': 1, '_id': 0}) 
+        # Criamos uma lista simples de strings com os nomes de usuário
+        usernames = [user['username'] for user in users_cursor]
+        db.close()
+        return jsonify(usernames), 200
+    except Exception as e:
+        if db.client:
+            db.close()
+        return jsonify({"error": str(e)}), 500
+    
+@users_bp.route('/all', methods=['GET'])
+@admin_required
+def get_all_user_names_for_filter(current_user):
+    """
+    Esta rota é específica para popular filtros no frontend.
+    Retorna apenas uma lista de nomes de usuário.
+    """
+    db = Database()
+    try:
+        users_cursor = db.find('users', {}, {'username': 1, '_id': 0}) 
+        usernames = [user['username'] for user in users_cursor]
+        db.close()
+        return jsonify(usernames), 200
+    except Exception as e:
+        if db.client:
+            db.close()
+        return jsonify({"error": str(e)}), 500

@@ -43,3 +43,12 @@ class Database:
         """Converte uma string de ID em um ObjectId do MongoDB."""
         return ObjectId(id_string)
     
+    def find_with_pagination(self, collection_name: str, query: Dict[str, Any] = {}, skip: int = 0, limit: int = 20, sort_by: List = None):
+        """
+        Busca documentos com opções de paginação e ordenação.
+        """
+        cursor = self.db[collection_name].find(query)
+        if sort_by:
+            cursor = cursor.sort(sort_by)
+        
+        return cursor.skip(skip).limit(limit)

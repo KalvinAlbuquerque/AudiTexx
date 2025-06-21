@@ -19,7 +19,8 @@ from ..data_processing.vulnerability_analyzer import processar_relatorio_csv, pr
 from ..report_generation.report_builder import terminar_relatorio_preprocessado
 from ..report_generation.latex_compiler import compilar_latex
 from ..report_generation.plot_generator import gerar_Grafico_Quantitativo_Vulnerabilidades_Por_Site, gerar_grafico_donut, gerar_grafico_donut_webapp 
-
+from ..auth.decorators import token_required 
+from ..core.logger import log_action 
 # Inicializa a configuração e o banco de dados
 config = Config("config.json") 
 db = Database() 
@@ -27,6 +28,7 @@ db = Database()
 reports_bp = Blueprint('reports', __name__, url_prefix='/reports')
 
 @reports_bp.route('/getRelatoriosGerados/', methods=['GET'])
+@token_required
 def getRelatoriosGerados():
     try:
         db_instance = Database()
@@ -45,6 +47,7 @@ def getRelatoriosGerados():
         return jsonify({"error": str(e)}), 500
 
 @reports_bp.route('/deleteRelatorio/<string:relatorio_id>', methods=['DELETE'])
+@token_required
 def deleteRelatorio(relatorio_id):
     try:
         db_instance = Database()
@@ -72,6 +75,7 @@ def deleteRelatorio(relatorio_id):
         return jsonify({"error": f"Erro interno ao excluir relatório: {str(e)}"}), 500
 
 @reports_bp.route('/deleteAllRelatorios/', methods=['DELETE'])
+@token_required
 def deleteAllRelatorios():
     try:
         db_instance = Database()
@@ -106,7 +110,8 @@ def deleteAllRelatorios():
         return jsonify({"error": f"Erro interno ao excluir todos os relatórios: {str(e)}"}), 500
 
 @reports_bp.route('/gerarRelatorioDeLista/', methods=['POST'])
-def gerarRelatorioDeLista():
+@token_required
+def gerarRelatorioDeLista(current_user):
     try:
         data = request.get_json()
 
@@ -244,6 +249,14 @@ def gerarRelatorioDeLista():
             db_instance.close()
             return jsonify({"error": f"Falha na geração do PDF: {message}"}), 500
 
+        if success:
+            log_details = {
+                "report_id": str(novo_relatorio_id),
+                "report_name": nome_secretaria,
+                "list_id": id_lista
+            }
+            log_action(current_user, "generate_report", log_details)
+            
         db_instance.update_one("listas", {"_id": objeto_id}, {"relatorioGerado": True})
         db_instance.close()
         return jsonify(str(novo_relatorio_id)), 200
@@ -257,7 +270,8 @@ def gerarRelatorioDeLista():
     
     
 @reports_bp.route('/baixarRelatorioPdf/', methods=['POST'])
-def baixarRelatorioPdf():
+@token_required
+def baixarRelatorioPdf(current_user):
     try:
         data = request.get_json()
         if not data:
@@ -274,6 +288,10 @@ def baixarRelatorioPdf():
         if not pdf_path.exists():
             print(f"Erro: PDF não encontrado no caminho: {pdf_path}")
             return jsonify({"error": "PDF do relatório não encontrado."}), 404
+        
+        
+        log_details = {"report_id": relatorio_id}
+        log_action(current_user, "download_report", log_details)
         
         # Usa send_file para enviar o PDF
         return send_file(

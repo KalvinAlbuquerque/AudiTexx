@@ -18,6 +18,7 @@ from .routes.vulnerabilities_manager import vulnerabilities_manager_bp
 from .routes.api_key_manager import api_keys_bp 
 from .routes.auth import auth_bp
 from .routes.users import users_bp
+from .routes.logs import logs_bp 
 # Inicializa a aplicação Flask
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'uma-chave-secreta-muito-dificil-de-adivinhar'
@@ -35,6 +36,7 @@ app.register_blueprint(vulnerabilities_manager_bp)
 app.register_blueprint(api_keys_bp) 
 app.register_blueprint(auth_bp) 
 app.register_blueprint(users_bp)
+app.register_blueprint(logs_bp)
 
 # Define o caminho para a pasta de imagens estáticas para os relatórios
 images_folder_path = os.path.join(

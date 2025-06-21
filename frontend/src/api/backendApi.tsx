@@ -280,7 +280,7 @@ export const usersApi = {
         const { data } = await api.put(`/users/${publicId}`, { password });
         return data;
     },
-    
+
     changeOwnPassword: async (currentPassword: string, newPassword: string): Promise<any> => {
         const { data } = await api.post('/auth/change-password', {
             current_password: currentPassword,
@@ -288,4 +288,21 @@ export const usersApi = {
         });
         return data;
     },
+};
+
+// Função para buscar a lista de usuários para os filtros
+export const getAllUsers = async (token: string): Promise<string[]> => {
+  const response = await api.get('/users/all', {
+    headers: { 'x-access-token': token },
+  });
+  return response.data;
+};
+
+// Função para buscar os logs com filtros
+export const getLogs = async (token: string, params: { page?: number; limit?: number; username?: string; action?: string; date?: string; }) => {
+  const response = await api.get('/logs', {
+    headers: { 'x-access-token': token },
+    params, // Passa os filtros e paginação como query params
+  });
+  return response.data;
 };

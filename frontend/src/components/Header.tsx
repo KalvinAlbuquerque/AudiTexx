@@ -62,12 +62,27 @@ function Header() {
                                                     </Link>
                                                 </li>
                                                 {isAdmin && (
+                                                <>
                                                     <li>
-                                                        <Link to="/manage-users" className="block px-4 py-2 hover:bg-gray-200" onClick={() => setConfigOpen(false)}>
+                                                        <Link 
+                                                            to="/manage-users" 
+                                                            className="block px-4 py-2 hover:bg-gray-200" 
+                                                            onClick={() => setConfigOpen(false)}
+                                                        >
                                                             Gerenciar Usuários
                                                         </Link>
                                                     </li>
-                                                )}
+                                                    <li>
+                                                        <Link 
+                                                            to="/logs" 
+                                                            className="block px-4 py-2 hover:bg-gray-200" 
+                                                            onClick={() => setConfigOpen(false)}
+                                                        >
+                                                            Logs
+                                                        </Link>
+                                                    </li>
+                                                </>
+                                            )}
                                             </ul>
                                         )}
                                     </li>
