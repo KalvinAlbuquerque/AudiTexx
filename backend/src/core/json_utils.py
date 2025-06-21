@@ -192,3 +192,5 @@ def delete_vulnerability(file_path, vuln_name): # Corrigido o nome da função a
         return True, f"Vulnerabilidade '{vuln_name}' deletada com sucesso'."
     else:
         return False, f"Vulnerabilidade '{vuln_name}' não encontrada'."
+    
+    

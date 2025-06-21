@@ -104,7 +104,7 @@ const LogsPage: React.FC = () => {
       // Força a atualização após limpar
       if (pagination.currentPage === 1) {
         if (!token) return;
-        getLogs(token, { page: 1, limit: 20 }).then(data => {
+        getLogs({ page: 1, limit: 20 }).then(data => {
           setLogs(data.logs);
           setPagination(prev => ({ ...prev, totalPages: data.total_pages }));
         });
