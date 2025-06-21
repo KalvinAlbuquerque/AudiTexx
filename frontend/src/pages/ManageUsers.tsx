@@ -13,7 +13,7 @@ function ManageUsers() {
     
     // Estados para o modal de criação
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [newUser, setNewUser] = useState({ username: '', password: '', role: 'user' });
+    const [newUser, setNewUser] = useState({ username: '', password: '', role: 'user', email: ''});
 
     // Estados para o modal de exclusão
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -38,8 +38,10 @@ function ManageUsers() {
 
     const handleCreateUser = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!newUser.username.trim() || !newUser.password.trim()) {
-            toast.warn('Nome de usuário e senha são obrigatórios.');
+        // CORREÇÃO: A lógica de validação do email foi ajustada.
+        // O correto é verificar se o campo está VAZIO com "!newUser.email.trim()".
+        if (!newUser.username.trim() || !newUser.password.trim() || !newUser.email.trim()) {
+            toast.warn('Nome de usuário, e-mail e senha são obrigatórios.');
             return;
         }
         setLoading(true);
@@ -47,7 +49,7 @@ function ManageUsers() {
             await usersApi.createUser(newUser);
             toast.success('Usuário criado com sucesso!');
             setIsModalOpen(false);
-            setNewUser({ username: '', password: '', role: 'user' });
+            setNewUser({ username: '', password: '', role: 'user', email: '' });
             fetchUsers(); // Atualiza a lista de usuários
         } catch (error: any) {
             console.error('Erro ao criar usuário:', error);
@@ -110,6 +112,8 @@ function ManageUsers() {
                             <thead className="bg-gray-200">
                                 <tr>
                                     <th className="px-4 py-2">Username</th>
+                                    {/* CORREÇÃO: Adicionada a coluna de Email no cabeçalho da tabela. */}
+                                    <th className="px-4 py-2">Email</th>
                                     <th className="px-4 py-2">Role</th>
                                     <th className="px-4 py-2 text-right">Ações</th>
                                 </tr>
@@ -118,6 +122,8 @@ function ManageUsers() {
                                 {users.map((user) => (
                                     <tr key={user.public_id} className="border-b hover:bg-gray-50">
                                         <td className="px-4 py-2 text-black">{user.username}</td>
+                                        {/* CORREÇÃO: Adicionada a célula para exibir o email do usuário. */}
+                                        <td className="px-4 py-2 text-black">{user.email}</td>
                                         <td className="px-4 py-2 text-black">{user.role}</td>
                                         <td className="px-4 py-2 text-right">
                                             <button
@@ -136,7 +142,7 @@ function ManageUsers() {
                 </div>
             </div>
 
-            {/* Modal de Criação de Usuário */}
+            {/* Modal de Criação de Usuário (Esta parte já estava correta) */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
@@ -151,6 +157,19 @@ function ManageUsers() {
                                     id="username"
                                     value={newUser.username}
                                     onChange={(e) => setNewUser({ ...newUser, username: e.target.value })}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+                                    required
+                                />
+                            </div>
+                                 <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                                    Email
+                                </label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    value={newUser.email}
+                                    onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
                                     required
                                 />

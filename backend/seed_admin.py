@@ -22,12 +22,13 @@ def seed_admin():
 
     # Crie o usuário admin se ele não existir
     # Lembre-se de usar uma senha forte em um ambiente real
-    password = 'admin_password_123' 
+    password = '123456' 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     
     db.insert_one('users', {
         'username': 'admin',
         'password': hashed_password,
+        'email': 'admin@example.com',
         'role': 'admin'
     })
     

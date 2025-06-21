@@ -13,24 +13,28 @@ bcrypt = Bcrypt()
 @admin_required
 def create_user(current_user):
     data = request.get_json()
-    if not data or not data.get('username') or not data.get('password') or not data.get('role'):
-        return jsonify({'error': 'Dados incompletos: username, password e role são obrigatórios'}), 400
+    if not data or not data.get('username') or not data.get('password') or not data.get('role') or not data.get('email'):
+        return jsonify({'error': 'Dados incompletos: username, password, email e role são obrigatórios'}), 400
 
     if data['role'] not in ['admin', 'user']:
         return jsonify({'error': 'Role inválido. Use "admin" ou "user"'}), 400
         
     db = Database()
 
-    # Verifica se o usuário já existe
-    existing_user = db.find_one('users', {'username': data['username']})
-    if existing_user:
+    # Verifica se o usuário ou email já existe
+    if db.find_one('users', {'username': data['username']}):
         db.close()
         return jsonify({'error': 'Nome de usuário já existe'}), 409
+    
+    if db.find_one('users', {'email': data['email']}):
+        db.close()
+        return jsonify({'error': 'Email já cadastrado'}), 409
 
     hashed_password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
     
     new_user = {
         'username': data['username'],
+        'email': data['email'],
         'password': hashed_password,
         'role': data['role']
     }
@@ -53,6 +57,7 @@ def get_all_users(current_user):
         user_data = {
             'public_id': str(user['_id']),
             'username': user['username'],
+            'email': user.get('email', 'N/A'),
             'role': user['role']
         }
         output.append(user_data)

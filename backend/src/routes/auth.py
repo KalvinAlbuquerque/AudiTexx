@@ -40,7 +40,9 @@ def login():
             'token': token,
             'user': {
                 'username': user['username'],
-                'role': user['role']
+                'role': user['role'],
+                'email': user.get('email')
+
             }
         })
 
