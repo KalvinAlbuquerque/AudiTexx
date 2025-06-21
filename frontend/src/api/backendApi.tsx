@@ -275,4 +275,9 @@ export const usersApi = {
         const response = await api.delete(`/users/${public_id}`);
         return response.data;
     },
+
+    updateUserPassword: async (publicId: string, password: string): Promise<any> => {
+        const { data } = await api.put(`/users/${publicId}`, { password });
+        return data;
+    },
 };

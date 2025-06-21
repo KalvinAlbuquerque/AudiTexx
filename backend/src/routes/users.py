@@ -84,3 +84,39 @@ def delete_user(current_user, public_id):
     db.close()
     
     return jsonify({'message': 'Usuário foi deletado com sucesso!'})
+
+
+# Rota para atualizar a senha de um usuário (somente admin)
+@users_bp.route('/<public_id>', methods=['PUT'])
+@admin_required
+def update_user(current_user, public_id):
+    data = request.get_json()
+    if not data or not data.get('password'):
+        return jsonify({'error': 'A nova senha é obrigatória'}), 400
+
+    db = Database()
+    
+    user_to_update = db.find_one('users', {'_id': db.get_object_id(public_id)})
+    if not user_to_update:
+        db.close()
+        return jsonify({'error': 'Usuário não encontrado'}), 404
+
+    if str(current_user['_id']) == public_id:
+        db.close()
+        return jsonify({'error': 'Ação não permitida.'}), 403
+
+    hashed_password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
+
+    # CORREÇÃO: Removido o operador '$set'.
+    # A função db.update_one já adiciona o '$set' internamente.
+    # Apenas o dicionário com os campos a serem atualizados deve ser passado.
+    update_data = {'password': hashed_password}
+    
+    db.update_one(
+        'users',
+        {'_id': db.get_object_id(public_id)},
+        update_data
+    )
+    db.close()
+
+    return jsonify({'message': 'Senha do usuário atualizada com sucesso!'})
