@@ -16,6 +16,7 @@ const api = axios.create({
     // timeout: 30000, // Exemplo: 30 segundos
 });
 
+
 api.interceptors.request.use(
     config => {
         const token = localStorage.getItem('token');
@@ -28,6 +29,13 @@ api.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+export interface User {
+    public_id: string;
+    username: string;
+    role: 'admin' | 'user';
+}
+
 
 export interface Lista {
     idLista: string;
@@ -247,6 +255,23 @@ export const tenableApiKeysApi = {
             access_key: accessKey,
             secret_key: secretKey,
         });
+        return response.data;
+    },
+};
+
+export const usersApi = {
+    getAllUsers: async (): Promise<User[]> => {
+        const response = await api.get('/users/');
+        return response.data.users;
+    },
+
+    createUser: async (userData: any): Promise<{ message: string }> => {
+        const response = await api.post('/users/', userData);
+        return response.data;
+    },
+
+    deleteUser: async (public_id: string): Promise<{ message: string }> => {
+        const response = await api.delete(`/users/${public_id}`);
         return response.data;
     },
 };

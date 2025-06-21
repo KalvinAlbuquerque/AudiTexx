@@ -42,5 +42,5 @@ if __name__ == '__main__':
 COMO USAR
 Após iniciar seus contêineres com docker compose up -d, execute este script dentro do contêiner do backend:
 
-docker compose exec auditex_backend python seed_admin.py
+docker compose exec backend python seed_admin.py
 """
