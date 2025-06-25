@@ -4,7 +4,7 @@ from datetime import datetime, time
 # Importações corrigidas para usar as instâncias e funções compartilhadas do projeto
 from src.core.database import Database
 from src.core.json_utils import dumps
-from src.core.logger import logger
+from src.core.logger import log_action
 from src.auth.decorators import admin_required
 
 logs_bp = Blueprint('logs', __name__, url_prefix='/logs')
