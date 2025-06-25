@@ -1,6 +1,6 @@
 import json
 import os
-
+from json import dumps
 def carregar_json(caminho_arquivo_json: str) -> str:
     """
     Função para carregar o conteúdo de um arquivo JSON.
