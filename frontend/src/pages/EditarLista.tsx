@@ -22,9 +22,7 @@ function EditarLista() {
     const [vmScanCriadoPor, setVmScanCriadoPor] = useState('');
     const [loading, setLoading] = useState(false);
 
-    // Hardcode a URL base da API para este teste temporário
-    const API_BASE_URL = 'http://localhost:5000';
-
+    const API_BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
     useEffect(() => {
         if (idLista) {
             fetchListaDetalhes();

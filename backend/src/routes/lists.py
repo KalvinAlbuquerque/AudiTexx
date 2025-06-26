@@ -31,7 +31,7 @@ config = Config("config.json")
 
 # CORREÇÃO: Renomear listas_bp para lists_bp para corresponder à importação em main.py
 lists_bp = Blueprint('listas', __name__, url_prefix='/lists') 
-CORS(lists_bp, origins=["http://localhost:3000", "http://127.0.0.1:3000"]) # Adicione CORS para este blueprint AQUI
+#CORS(lists_bp, origins=["http://localhost:3000", "http://127.0.0.1:3000"]) # Adicione CORS para este blueprint AQUI
 
 @lists_bp.route('/criarLista/', methods=['POST'])
 def criarLista():
@@ -99,7 +99,6 @@ def criarLista():
             db_instance.close()
         return jsonify({"error": f"Erro interno: {str(e)}"}), 500
 @lists_bp.route('/getScansDeLista/', methods=['POST'])
-#@cross_origin(origins=["http://localhost:5173", "127.0.0.1"])
 def getScansDeLista():
     try:
         data = request.get_json()
@@ -188,7 +187,6 @@ def getVMScansDeLista():
         return jsonify({"error": f"Erro interno: {str(e)}"}), 500
 
 @lists_bp.route('/limparScansDeLista/', methods=['POST'])
-#@cross_origin(origins=["http://localhost:5173", "127.0.0.1"])
 def limparScansDeLista():
     try:
         data = request.get_json()
@@ -229,7 +227,6 @@ def limparScansDeLista():
         return jsonify({"error": f"Erro interno: {str(e)}"}), 500
     
 @lists_bp.route('/limparVMScansDeLista/', methods=['POST'])
-#@cross_origin(origins=["http://localhost:5173", "127.0.0.1"])
 def limparVMScansDeLista():
     try:
         data = request.get_json()
@@ -278,7 +275,6 @@ def limparVMScansDeLista():
         return jsonify({"error": f"Erro interno: {str(e)}"}), 500
 
 @lists_bp.route('/editarNomeLista/', methods=['POST'])
-#@cross_origin(origins=["http://localhost:5173", "127.0.0.1"])
 def editar_nome_lista():
     try:
         data = request.get_json()
@@ -319,7 +315,6 @@ def editar_nome_lista():
         return jsonify({"error": f"Erro interno: {str(e)}"}), 500
     
 @lists_bp.route('/adicionarWAPPScanALista/', methods=['POST'])
-#@cross_origin(origins=["http://localhost:5173", "127.0.0.1"]) # Descomente se precisar
 def adicionarWAPPScanALista():  
     try:
         data = request.get_json()
@@ -439,7 +434,6 @@ def adicionarVMScanALista():
         return jsonify({"error": f"Ocorreu um erro inesperado no servidor: {str(e)}"}), 500
     
 @lists_bp.route('/getTodasAsListas/', methods=['GET'])
-#@cross_origin(origins=["http://localhost:5173", "127.0.0.1"])
 def getTodasAsListas():
 
     try:
@@ -466,171 +460,7 @@ def getTodasAsListas():
             db_instance.close()
         return jsonify({"error": f"Erro interno: {str(e)}"}), 500
     
-""" @lists_bp.route('/gerarRelatorioDeLista/', methods=['POST'])
-#@cross_origin(origins=["http://localhost:5173", "127.0.0.1"])
-def gerarRelatorioDeLista():
-
-    try:
-
-        data = request.get_json()
-
-        if not data:
-            return jsonify({"error": "Dados não fornecidos"}), 400
-        
-        id_lista = data.get("idLista")
-        nome_secretaria = data.get("nomeSecretaria")
-        sigla_secretaria = data.get("siglaSecretaria")
-        data_inicio = data.get("dataInicio")
-        data_fim = data.get("dataFim")
-        ano = data.get("ano")
-        mes = data.get("mes")
-        google_drive_link = data.get("linkGoogleDrive")
-
-        db_instance = Database()
-
-        try:
-            objeto_id = ObjectId(id_lista)
-        except Exception:
-            db_instance.close()
-            return jsonify({"error": "ID de lista inválido"}), 400
-        
-        lista_doc = db_instance.find_one("listas", {"_id": objeto_id})
-
-        if not lista_doc:
-            db_instance.close()
-            return jsonify({"error": "Lista não encontrada"}), 404
-
-        novo_relatorio_id = db_instance.insert_one("relatorios", {"nome": nome_secretaria, "id_lista": id_lista, "destino_relatorio_preprocessado" : None}).inserted_id
-
-        pasta_destino_relatorio_temp = Path(config.caminho_shared_relatorios) / str(novo_relatorio_id) / "relatorio_preprocessado"
-        pasta_destino_relatorio_temp.mkdir(parents=True, exist_ok=True)
-        
-        pasta_scans_da_lista = lista_doc.get("pastas_scans_webapp")
-
-        db_instance.update_one(
-            "relatorios",
-            {"_id": novo_relatorio_id},
-            {"destino_relatorio_preprocessado": str(pasta_destino_relatorio_temp)}
-        )
-
-        # Processamento de Scans WebApp (JSON)
-        webapp_report_txt_path = pasta_destino_relatorio_temp / "Sites_agrupados_por_vulnerabilidades.txt"
-        webapp_csv_path = pasta_destino_relatorio_temp / "vulnerabilidades_agrupadas_por_site.csv"
-        
-        if pasta_scans_da_lista and os.path.exists(pasta_scans_da_lista) and len([f for f in os.listdir(pasta_scans_da_lista) if f.endswith('.json')]) > 0:
-            processar_relatorio_json(pasta_scans_da_lista, str(pasta_destino_relatorio_temp))
-            extrair_quantidades_vulnerabilidades_por_site(str(webapp_csv_path), pasta_scans_da_lista)
-        else:
-            print(f"Aviso: Não há scans WebApp na pasta {pasta_scans_da_lista} ou a pasta está vazia. Pulando processamento WebApp.")
-            pd.DataFrame(columns=['Site', 'Critical', 'High', 'Medium', 'Low', 'Total']).to_csv(webapp_csv_path, index=False)
-            Path(webapp_report_txt_path).touch()
-            Path(pasta_destino_relatorio_temp / "(LATEX)Sites_agrupados_por_vulnerabilidades.txt").touch()
-
-        # Processamento de Scans Servidores (CSV)
-        servers_report_txt_path = pasta_destino_relatorio_temp / "Servidores_agrupados_por_vulnerabilidades.txt"
-        
-        if lista_doc.get("historyid_scanservidor") and lista_doc.get("id_scan") and \
-           pasta_scans_da_lista and os.path.exists(os.path.join(pasta_scans_da_lista, "servidores_scan.csv")):
-            processar_relatorio_csv(pasta_scans_da_lista, str(pasta_destino_relatorio_temp))
-        else:
-            print("Aviso: Não há scans de Servidores associados a esta lista ou o arquivo CSV não foi encontrado. Pulando processamento de Servidores.")
-            Path(servers_report_txt_path).touch()
-            Path(pasta_destino_relatorio_temp / "(LATEX)Servidores_agrupados_por_vulnerabilidades.txt").touch()
-
-        # Leitura dos totais para o relatório final
-        webapp_risk_counts = {'Critical': '0', 'High': '0', 'Medium': '0', 'Low': '0'}
-        total_sites = '0'
-        total_vulnerabilidades_web = '0'
-        if webapp_report_txt_path.exists():
-            with open(webapp_report_txt_path, 'r', encoding='utf-8') as f:
-                content = f.read()
-                total_sites_match = re.search(r'Total de sites:\s*(\d+)', content)
-                total_vulnerabilidades_web_match = re.search(r'Total de Vulnerabilidades:\s*(\d+)', content)
-                critical_match = re.search(r'Critical:\s*(\d+)', content)
-                high_match = re.search(r'High:\s*(\d+)', content)
-                medium_match = re.search(r'Medium:\s*(\d+)', content)
-                low_match = re.search(r'Low:\s*(\d+)', content)
-
-                if total_sites_match: total_sites = total_sites_match.group(1)
-                if total_vulnerabilidades_web_match: total_vulnerabilidades_web = total_vulnerabilidades_web_match.group(1)
-                if critical_match: webapp_risk_counts['Critical'] = critical_match.group(1)
-                if high_match: webapp_risk_counts['High'] = high_match.group(1)
-                if medium_match: webapp_risk_counts['Medium'] = medium_match.group(1)
-                if low_match: webapp_risk_counts['Low'] = low_match.group(1)
-
-        servers_risk_counts = {'critical': '0', 'high': '0', 'medium': '0', 'low': '0'}
-        total_vulnerabilidade_vm = '0'
-        if servers_report_txt_path.exists():
-            with open(servers_report_txt_path, 'r', encoding='utf-8') as f:
-                content = f.read()
-                total_vulnerabilidade_vm_match = re.search(r'Total de Vulnerabilidades:\s*(\d+)', content)
-                critical_match = re.search(r'Critical:\s*(\d+)', content)
-                high_match = re.search(r'High:\s*(\d+)', content)
-                medium_match = re.search(r'Medium:\s*(\d+)', content)
-                low_match = re.search(r'Low:\s*(\d+)', content)
-
-                if total_vulnerabilidade_vm_match: total_vulnerabilidade_vm = total_vulnerabilidade_vm_match.group(1)
-                if critical_match: servers_risk_counts['critical'] = critical_match.group(1)
-                if high_match: servers_risk_counts['high'] = high_match.group(1)
-                if medium_match: servers_risk_counts['medium'] = medium_match.group(1)
-                if low_match: servers_risk_counts['low'] = low_match.group(1)
-
-        caminho_final_main_tex = str(pasta_destino_relatorio_temp / "RelatorioPronto" / "main.tex")
-
-        terminar_relatorio_preprocessado(
-            nome_secretaria,
-            sigla_secretaria,
-            data_inicio,
-            data_fim,
-            ano,
-            mes,
-            str(pasta_destino_relatorio_temp),
-            caminho_final_main_tex,
-            google_drive_link,
-            total_vulnerabilidades_web,
-            total_vulnerabilidade_vm,
-            webapp_risk_counts['Critical'],
-            webapp_risk_counts['High'],
-            webapp_risk_counts['Medium'],
-            webapp_risk_counts['Low'],
-            servers_risk_counts['critical'],
-            servers_risk_counts['high'],
-            servers_risk_counts['medium'],
-            servers_risk_counts['low'],
-            total_sites
-        )
-
-        graph_output_webapp = str(pasta_destino_relatorio_temp / "RelatorioPronto" / "assets" / "images-was" / "Vulnerabilidades_x_site.png")
-        gerar_Grafico_Quantitativo_Vulnerabilidades_Por_Site(
-            str(webapp_csv_path),
-            graph_output_webapp,
-            "descendente"
-        )
-        
-        pasta_final_latex = str(pasta_destino_relatorio_temp / "RelatorioPronto")
-        compilar_latex(os.path.join(pasta_final_latex, "main.tex"), pasta_final_latex)
-
-        pasta_front_downloads = Path("../frontend/downloads") / str(novo_relatorio_id)
-        pasta_front_downloads.mkdir(parents=True, exist_ok=True)
-        
-        shutil.copy(
-            Path(pasta_final_latex) / "main.pdf",
-            pasta_front_downloads / "main.pdf"
-        )
-
-        db_instance.update_one("listas", {"_id": objeto_id}, {"relatorioGerado": True})
-        db_instance.close()
-
-        return str(novo_relatorio_id), 200
-
-    except Exception as e:
-        print(f"Erro ao gerar relatório de lista: {str(e)}")
-        if 'db_instance' in locals() and db_instance.client:
-            db_instance.close()
-        return jsonify({"error": f"Erro interno ao gerar relatório: {str(e)}"}), 500 """
-
 @lists_bp.route('/excluirLista/', methods=['POST'])
-#@cross_origin(origins=["http://localhost:5173", "127.0.0.1"])
 def excluirLista():
 
     try:

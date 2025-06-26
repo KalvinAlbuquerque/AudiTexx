@@ -7,8 +7,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ClipLoader } from 'react-spinners';
 
-const API_BASE_URL = 'http://localhost:5000';
-
+const API_BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

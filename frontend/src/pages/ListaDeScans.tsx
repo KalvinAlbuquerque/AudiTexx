@@ -5,7 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import ConfirmDeleteModal from '../pages/ConfirmDeleteModal'; 
-
+import { listsApi } from '../api/backendApi';
 interface Lista {
     idLista: string;
     nomeLista: string;
@@ -29,22 +29,17 @@ function ListaDeScans() {
     const fetchListas = async () => {
         setLoading(true);
         try {
-            const response = await fetch("http://localhost:5000/lists/getTodasAsListas/");
-            
-            if (!response.ok) {
-                throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
-            }
-
-            const data = await response.json();
+            // Usando a função centralizada do serviço de API
+            const data = await listsApi.getAllLists();
             setListas(data);
         } catch (error: any) {
             console.error("Erro ao buscar listas:", error);
-            toast.error(error.message || "Erro ao buscar listas. Verifique o console.");
+            const errorMessage = error.response?.data?.error || "Erro ao buscar listas.";
+            toast.error(errorMessage);
         } finally {
             setLoading(false);
         }
     };
-
     const handleSelecionar = (lista: Lista) => {
         setListaSelecionada(lista);
     };
@@ -72,26 +67,16 @@ function ListaDeScans() {
 
         setLoading(true);
         try {
-            const response = await fetch("http://localhost:5000/lists/excluirLista/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ idLista: listToDeleteId }),
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || `Erro HTTP: ${response.status}`);
-            }
-            const responseData = await response.json();
+            // Usando a função centralizada do serviço de API
+            const responseData = await listsApi.deleteList(listToDeleteId);
             toast.success(responseData.message || 'Lista excluída com sucesso!');
             
             setListaSelecionada(null);
-            fetchListas();
+            fetchListas(); // Recarrega a lista após a exclusão
         } catch (error: any) {
             console.error('Erro ao remover lista:', error);
-            toast.error(error.message || 'Ocorreu um erro ao remover a lista.');
+            const errorMessage = error.response?.data?.error || 'Ocorreu um erro ao remover a lista.';
+            toast.error(errorMessage);
         } finally {
             setLoading(false);
             setShowDeleteModal(false);
@@ -99,6 +84,7 @@ function ListaDeScans() {
             setListToDeleteName('');
         }
     };
+
 
     const handleCancelDelete = () => {
         setShowDeleteModal(false);

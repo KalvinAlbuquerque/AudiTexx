@@ -5,9 +5,8 @@ from bson.objectid import ObjectId
 
 class Database:
     def __init__(self, db_name: str = "mydatabase"):
-        # ATENÇÃO: Alterado de "mongodb://localhost:27017/" para "mongodb://mongodb:27017/"
         # 'mongodb' é o nome do serviço MongoDB no docker-compose.yml
-        MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/mydatabase")
+        MONGO_URI = os.getenv("MONGO_URI", "mongodb://mongodb/mydatabase")
 
         self.client = MongoClient(MONGO_URI) 
         self.db = self.client[db_name]

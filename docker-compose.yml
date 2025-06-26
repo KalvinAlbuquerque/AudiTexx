@@ -2,8 +2,6 @@ services:
   mongodb:
     image: mongo:latest
     container_name: auditex_mongodb
-    ports:
-      - "27017:27017"
     volumes:
       # Volume nomeado para persistir os dados do MongoDB
       - mongodb_data:/data/db
@@ -30,9 +28,11 @@ services:
     environment:
       # URI de conexão com o MongoDB, usando o nome do serviço 'mongodb' e as credenciais.
       # AGORA CORRIGIDO: Removido '?authSource=admin' para que a autenticação ocorra no 'mydatabase'.
-      MONGO_URI: mongodb://admin:admin@mongodb:27017/mydatabase
+      MONGO_URI: mongodb://admin:admin@mongodb/mydatabase
       FLASK_DEBUG: 1 # Ativa o modo debug do Flask (bom para desenvolvimento)
       FLASK_RUN_RELOAD: 'false' # Desativa o recarregamento automático do Flask (evita problemas com o Docker Compose)
+      ALLOWED_ORIGINS: "http://localhost:3000,http://127.0.0.1:3000,http://192.168.100.39:3000"
+
     depends_on:
       - mongodb # Garante que o MongoDB inicie antes do backend
     volumes:
@@ -52,7 +52,9 @@ services:
     ports:
       - "3000:3000"
     environment:
-      VITE_REACT_APP_API_URL: http://localhost:5000 
+      VITE_REACT_APP_API_URL: http://192.168.100.39:5000 
+      #VITE_REACT_APP_API_URL: /api
+      
     depends_on:
       - backend # Garante que o backend inicie antes do frontend
     volumes:

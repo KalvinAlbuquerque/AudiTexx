@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_REACT_APP_API_URL;
-const API_BASE_URL = 'http://localhost:5000'; 
 
 if (!API_URL) {
     console.error('VITE_REACT_APP_API_URL não está definido nas variáveis de ambiente.');
@@ -246,13 +245,12 @@ export const vulnerabilitiesApi = {
 // Nova exportação para Tenable API Keys
 export const tenableApiKeysApi = {
     getTenableApiKeys: async (): Promise<TenableApiKeys> => {
-        const response = await axios.get(`${API_BASE_URL}/api-keys/tenable`);
+        const response = await api.get('/api-keys/tenable');
         return response.data;
     },
 
     updateTenableApiKeys: async (accessKey: string, secretKey: string) => {
-        // CORREÇÃO: Enviando as chaves como snake_case ('access_key', 'secret_key')
-        const response = await axios.post(`${API_BASE_URL}/api-keys/tenable`, {
+        const response = await api.post('/api-keys/tenable', {
             access_key: accessKey,
             secret_key: secretKey,
         });

@@ -25,8 +25,10 @@ app.config['SECRET_KEY'] = 'uma-chave-secreta-muito-dificil-de-adivinhar'
 # Inicializa o Bcrypt
 bcrypt = Bcrypt(app)
 # Configura o CORS para permitir requisições do seu frontend
-CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:3000"], supports_credentials=True)
-
+#CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:3000"], supports_credentials=True)
+allowed_origins = os.environ.get('ALLOWED_ORIGINS', 'http://localhost:3000,http://127.0.0.1:3000').split(',')
+print(f"CORS habilitado para as seguintes origens: {allowed_origins}") # Linha de log para ajudar a depurar
+CORS(app, origins=allowed_origins, supports_credentials=True)
 # Registro dos blueprints
 app.register_blueprint(scans_bp)
 app.register_blueprint(lists_bp)
