@@ -10,10 +10,13 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 3000,
-    // Adicione a seção 'watch' abaixo para habilitar o polling
     watch: {
       usePolling: true,
     },
+    allowedHosts: [
+      'auditex.salvador.ba.gov.br'
+    ],
+    // -------------------------
   },
   build: {
     outDir: 'dist',

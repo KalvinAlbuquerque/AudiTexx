@@ -31,8 +31,8 @@ services:
       MONGO_URI: mongodb://admin:admin@mongodb/mydatabase
       FLASK_DEBUG: 1 # Ativa o modo debug do Flask (bom para desenvolvimento)
       FLASK_RUN_RELOAD: 'false' # Desativa o recarregamento automático do Flask (evita problemas com o Docker Compose)
-      ALLOWED_ORIGINS: "http://localhost:3000,http://127.0.0.1:3000,http://192.168.100.39:3000"
-
+      #ALLOWED_ORIGINS: "http://localhost:3000,http://127.0.0.1:3000,http://192.168.100.39:3000"
+      ALLOWED_ORIGINS: http://auditex.salvador.ba.gov.br:3000
     depends_on:
       - mongodb # Garante que o MongoDB inicie antes do backend
     volumes:
@@ -52,8 +52,8 @@ services:
     ports:
       - "3000:3000"
     environment:
-      VITE_REACT_APP_API_URL: http://192.168.100.39:5000 
-      #VITE_REACT_APP_API_URL: /api
+      #VITE_REACT_APP_API_URL: http://192.168.100.39:5000 
+      VITE_REACT_APP_API_URL: http://auditex.salvador.ba.gov.br:5000
       
     depends_on:
       - backend # Garante que o backend inicie antes do frontend
