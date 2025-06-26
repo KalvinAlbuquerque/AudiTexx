@@ -23,16 +23,15 @@ services:
       context: ./backend # O contexto de construção é a pasta 'backend'
       dockerfile: Dockerfile.backend # Usa o Dockerfile específico para o backend
     container_name: auditex_backend
-    ports:
-      - "5000:5000"
+    #ports:
+    #  - "5000:5000"
     environment:
       # URI de conexão com o MongoDB, usando o nome do serviço 'mongodb' e as credenciais.
-      # AGORA CORRIGIDO: Removido '?authSource=admin' para que a autenticação ocorra no 'mydatabase'.
       MONGO_URI: mongodb://admin:admin@mongodb/mydatabase
-      FLASK_DEBUG: 1 # Ativa o modo debug do Flask (bom para desenvolvimento)
+      FLASK_DEBUG: 0 # Ativa o modo debug do Flask (bom para desenvolvimento)
       FLASK_RUN_RELOAD: 'false' # Desativa o recarregamento automático do Flask (evita problemas com o Docker Compose)
       #ALLOWED_ORIGINS: "http://localhost:3000,http://127.0.0.1:3000,http://192.168.100.39:3000"
-      ALLOWED_ORIGINS: http://auditex.salvador.ba.gov.br:3000
+      ALLOWED_ORIGINS: "http://auditex.salvador.ba.gov.br, https://auditex.salvador.ba.gov.br"
     depends_on:
       - mongodb # Garante que o MongoDB inicie antes do backend
     volumes:
@@ -49,11 +48,11 @@ services:
       context: ./frontend # O contexto de construção é a pasta 'frontend'
       dockerfile: Dockerfile.frontend # Usa o Dockerfile específico para o frontend
     container_name: auditex_frontend
-    ports:
-      - "3000:3000"
+    #ports:
+    #  - "3000:3000"
     environment:
       #VITE_REACT_APP_API_URL: http://192.168.100.39:5000 
-      VITE_REACT_APP_API_URL: http://auditex.salvador.ba.gov.br:5000
+      VITE_REACT_APP_API_URL:  /api
       
     depends_on:
       - backend # Garante que o backend inicie antes do frontend
